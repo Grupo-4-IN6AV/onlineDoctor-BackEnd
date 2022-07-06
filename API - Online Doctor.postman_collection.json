@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e0fccf8e-d634-42b6-96c1-712fc0e16893",
+		"_postman_id": "19acdae1-b748-4a1a-8555-d3a13d5312f9",
 		"name": "API - Online Doctor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19701717"
+		"_exporter_id": "19459805"
 	},
 	"item": [
 		{
@@ -150,6 +150,158 @@
 								"typeLaboratory",
 								"updateTypeLaboratory",
 								"62c4f59db90afb9e000364bd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Speciality",
+			"item": [
+				{
+					"name": "getSpecialities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/speciality/getSpecialities",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"speciality",
+								"getSpecialities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSpeciality",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/speciality/getSpeciality/62c500bfc213477dae9f9651",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"speciality",
+								"getSpeciality",
+								"62c500bfc213477dae9f9651"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "testSpeciality",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/speciality/testSpeciality",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"speciality",
+								"testSpeciality"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveSpeciality",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Cardiogolo",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Experto en el área del corazón",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/speciality/saveSpeciality",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"speciality",
+								"saveSpeciality"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSpeciality",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/speciality/deleteSpeciality/62c500bfc213477dae9f9651",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"speciality",
+								"deleteSpeciality",
+								"62c500bfc213477dae9f9651"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSpeciality",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Neurologo",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Experto en el área del cerebro",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/speciality/updateSpeciality/62c50162344742b68ed799fa",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"speciality",
+								"updateSpeciality",
+								"62c50162344742b68ed799fa"
 							]
 						}
 					},

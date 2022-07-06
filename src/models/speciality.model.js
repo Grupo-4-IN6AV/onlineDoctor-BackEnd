@@ -6,4 +6,4 @@ const specialtySchema = mongoose.Schema({
     description: String
 });
 
-module.exports = mongoose.model('Specialty', specialtySchema);
+module.exports = mongoose.model('Speciality', specialtySchema);

@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "e0fccf8e-d634-42b6-96c1-712fc0e16893",
+		"name": "API - Online Doctor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19701717"
+	},
+	"item": [
+		{
+			"name": "Type Laboratory",
+			"item": [
+				{
+					"name": "Function Delete Type Laboratory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3200/typeLaboratory/deleteTypeLaboratory/62c4f563b90afb9e000364b7",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"typeLaboratory",
+								"deleteTypeLaboratory",
+								"62c4f563b90afb9e000364b7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Save Type Laboratory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Hemograma",
+									"type": "text"
+								},
+								{
+									"key": "descripcion",
+									"value": "Exámenes de Sangre",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/typeLaboratory/saveTypeLaboratory",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"typeLaboratory",
+								"saveTypeLaboratory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Get Types Laboratory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/typeLaboratory/getTypesLaboratory",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"typeLaboratory",
+								"getTypesLaboratory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Get Type Laboratory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/typeLaboratory/getTypeLaboratory/62c4f563b90afb9e000364b7",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"typeLaboratory",
+								"getTypeLaboratory",
+								"62c4f563b90afb9e000364b7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/typeLaboratory/testTypeLaboratory",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"typeLaboratory",
+								"testTypeLaboratory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Update Type Laboratory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Hemograma",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/typeLaboratory/updateTypeLaboratory/62c4f59db90afb9e000364bd",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"typeLaboratory",
+								"updateTypeLaboratory",
+								"62c4f59db90afb9e000364bd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

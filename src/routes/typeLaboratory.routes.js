@@ -13,5 +13,6 @@ api.post('/saveTypeLaboratory', typeLaboratoryController.saveTypeLaboratory);
 api.get('/getTypesLaboratory', typeLaboratoryController.getTypesLaboratory);
 api.delete('/deleteTypeLaboratory/:id', typeLaboratoryController.deleteTypeLaboratory);
 api.get('/getTypeLaboratory/:id', typeLaboratoryController.getTypeLaboratory);
+api.put('/updateTypeLaboratory/:id', typeLaboratoryController.updateTypeLaboratory);
 
 module.exports = api;

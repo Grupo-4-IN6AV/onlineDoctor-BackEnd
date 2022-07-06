@@ -45,6 +45,31 @@ exports.saveTypeLaboratory = async (req, res)=>
 }
 
 
+//Actualizar Tipo de Laboratorio//
+exports.updateTypeLaboratory = async (req, res)=>
+{
+    try
+    {
+        const params = req.body;
+        const typeLaboratory = req.params.id; 
+
+        const typeLaboratoryExist =  await TypeLaboratory.findOne({_id: typeLaboratory}); 
+        const nameTypeLaboratory = await TypeLaboratory.findOne({name: params.name});
+        
+        if(nameTypeLaboratory && typeLaboratoryExist.name != params.name) 
+            return res.status(400).send({message: 'El Tipo de Laboratorio ya Existe.'});
+        const updateTypeLaboratory = await TypeLaboratory.findOneAndUpdate({_id: typeLaboratory}, params, {new: true});
+
+        return res.send({message: 'Tipo de Laboratorio Actualizado', updateTypeLaboratory});
+    }
+    catch(err)
+    {
+        console.log(err);
+        return err; 
+    }
+}
+
+
 //Eliminar Tipo de Laboratorio//
 exports.deleteTypeLaboratory = async (req, res)=>{
     try

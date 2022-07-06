@@ -3,5 +3,5 @@
 const mongoConfig = require('./configs/mongoConfig');
 const app = require('./configs/app');
 
-mongoConfig.init();
 app.initServer();
+mongoConfig.init();

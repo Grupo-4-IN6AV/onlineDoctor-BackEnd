@@ -68,7 +68,13 @@ const userSchema = mongoose.Schema({
             description: String 
         }
     ],
-    appointment:[{type: mongoose.Schema.ObjectId, ref : 'Appointment'}]
+    appointment:
+    [
+        {
+            type: mongoose.Schema.ObjectId, ref : 'Appointment',
+            done: Boolean
+        }     
+    ]
 });
 
 module.exports = mongoose.model('User', userSchema);

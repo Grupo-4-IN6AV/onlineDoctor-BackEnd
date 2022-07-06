@@ -8,7 +8,7 @@ const port = 3200 || process.env.PORT;
 
 //Importación de las Rutas//
 const typeLaboratoryRoutes = require('../src/routes/typeLaboratory.routes');
-
+const specialityRoutes = require('../src/routes/speciality.routes');
 
 const app = express();
 
@@ -18,6 +18,7 @@ app.use(helmet({}));
 app.use(cors());
 
 app.use('/typeLaboratory', typeLaboratoryRoutes);
+app.use('/speciality', specialityRoutes);
 
 
 exports.initServer = ()=> app.listen(port, async ()=>

@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "19acdae1-b748-4a1a-8555-d3a13d5312f9",
+		"_postman_id": "5f493233-21b3-4b19-b17e-fbd75f4cc9ef",
 		"name": "API - Online Doctor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19459805"
+		"_exporter_id": "19701717"
 	},
 	"item": [
 		{
@@ -107,25 +107,6 @@
 					"response": []
 				},
 				{
-					"name": "Function Test",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3200/typeLaboratory/testTypeLaboratory",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"typeLaboratory",
-								"testTypeLaboratory"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Function Update Type Laboratory",
 					"request": {
 						"method": "PUT",
@@ -154,6 +135,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Function Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/typeLaboratory/testTypeLaboratory",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"typeLaboratory",
+								"testTypeLaboratory"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -161,7 +161,7 @@
 			"name": "Speciality",
 			"item": [
 				{
-					"name": "getSpecialities",
+					"name": "Function Get Specialities",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -180,7 +180,7 @@
 					"response": []
 				},
 				{
-					"name": "getSpeciality",
+					"name": "Function Get Speciality",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -200,26 +200,7 @@
 					"response": []
 				},
 				{
-					"name": "testSpeciality",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3200/speciality/testSpeciality",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"speciality",
-								"testSpeciality"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "saveSpeciality",
+					"name": "Function Save Speciality",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -253,7 +234,7 @@
 					"response": []
 				},
 				{
-					"name": "deleteSpeciality",
+					"name": "Function Delete Speciality",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -273,7 +254,7 @@
 					"response": []
 				},
 				{
-					"name": "updateSpeciality",
+					"name": "Function Update Speciality",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -302,6 +283,264 @@
 								"speciality",
 								"updateSpeciality",
 								"62c50162344742b68ed799fa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/speciality/testSpeciality",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"speciality",
+								"testSpeciality"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Function Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rcardenas",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rodrigo",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Cárdenas",
+									"type": "text"
+								},
+								{
+									"key": "DPI",
+									"value": "3020597680101",
+									"type": "text"
+								},
+								{
+									"key": "NIT",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rcardenas@kinal",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "5579-8278",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "MASCULINO",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/user/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rcardenas",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Delete Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM1ZWU2N2JhYTVmNjM0MjQ0MWRlMjEiLCJuYW1lIjoiUm9kcmlnbyIsInN1cm5hbWUiOiJDw6FyZGVuYXMiLCJ1c2VybmFtZSI6InJjYXJkZW5hcyIsInJvbGUiOiJQQUNJRU5URSIsImlhdCI6MTY1NzEzODgxNiwiZXhwIjoxNjU3MTc0ODE2fQ.4h_pXjxyyGlNXJlbBovxTPZg0sfZP39p_OskpBdpEHE\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/user/deleteAccount/62c5ee67baa5f6342441de21",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user",
+								"deleteAccount",
+								"62c5ee67baa5f6342441de21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Update Account",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM1ZWU5YWJhYTVmNjM0MjQ0MWRlMmMiLCJuYW1lIjoiUm9kcmlnbyIsInN1cm5hbWUiOiJDw6FyZGVuYXMiLCJ1c2VybmFtZSI6InJjYXJkZW5hcyIsInJvbGUiOiJQQUNJRU5URSIsImlhdCI6MTY1NzEzOTk4NSwiZXhwIjoxNjU3MTc1OTg1fQ.ZUBowQL7eSOMz1VpJDcgTQ5dG2bGPXhUnt5OJ5Ja894\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rcardenas",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rodrigo",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Cárdenas",
+									"type": "text"
+								},
+								{
+									"key": "DPI",
+									"value": "3020597680101",
+									"type": "text"
+								},
+								{
+									"key": "NIT",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rcardenas@kinal",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "5579-8278",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "MASCULINO",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3200/user/updateAccount/62c5ee9abaa5f6342441de2c",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user",
+								"updateAccount",
+								"62c5ee9abaa5f6342441de2c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Function Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/user/testUser",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"user",
+								"testUser"
 							]
 						}
 					},

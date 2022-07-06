@@ -31,11 +31,11 @@ const userSchema = mongoose.Schema({
                     drugs:
                     [
                         {
-                            name:string
+                            name:String
                         }
                     ],
-                    alimentation: string,
-                    sleep: string,
+                    alimentation: String,
+                    sleep: String,
                 }
             ]
         } 
@@ -46,15 +46,15 @@ const userSchema = mongoose.Schema({
             diseasesMother:
             [
                 {
-                    name: string,
-                    description: string,
+                    name: String,
+                    description: String,
                 }
             ],
             diseasesFather:
             [
                 {
-                    name: string,
-                    description: string,
+                    name: String,
+                    description: String,
                 }
             ]
         }

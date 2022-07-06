@@ -6,7 +6,7 @@ const {validateData} = require('../utils/validate');
 
 // Funcion  De Testeo //
 exports.testSpeciality = (req,res)=>{
-	return res.send({message: 'Función de testeo SPECIALITY funciona correctamente'});
+	return res.send({message: 'Función de testeo -ESPECIALIDAD- funciona correctamente'});
 }
 
 // Funcion Para Agregar Nueva Especialidad //

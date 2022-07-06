@@ -22,3 +22,36 @@ exports.encrypt = async (password) =>
         return err;
     }
 }
+
+exports.checkPassword = async (password, hash) => 
+{
+    try 
+    {
+        return bcrypt.compareSync(password, hash);
+    } 
+    catch (err) 
+    {
+        console.log(err);
+        return err;
+    }
+}
+
+exports.checkPermission = async (userId, sub) => 
+{
+    try 
+    {
+        if (userId != sub) 
+        {
+            return false;
+        } 
+        else 
+        {
+            return true;
+        }
+    } 
+    catch (err) 
+    {
+        console.log(err);
+        return err;
+    }
+}

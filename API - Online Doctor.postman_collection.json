@@ -313,6 +313,238 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "Administrator",
+					"item": [
+						{
+							"name": "Function Save User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "rmonroy",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Rosa",
+											"type": "text"
+										},
+										{
+											"key": "surname",
+											"value": "Monroy",
+											"type": "text"
+										},
+										{
+											"key": "DPI",
+											"value": "2464385680101",
+											"type": "text"
+										},
+										{
+											"key": "NIT",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "rcardenas@kinal",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "5579-8278",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "MASCULINO",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3200/user/saveUser",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"user",
+										"saveUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Function Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "rcardenas",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Rodrigo",
+											"type": "text"
+										},
+										{
+											"key": "surname",
+											"value": "Cárdenas",
+											"type": "text"
+										},
+										{
+											"key": "DPI",
+											"value": "3020597680101",
+											"type": "text"
+										},
+										{
+											"key": "NIT",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "rcardenas@kinal",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "5579-8278",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "MASCULINO",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3200/user/updateUser/62c5ee9abaa5f6342441de2c",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"user",
+										"updateUser",
+										"62c5ee9abaa5f6342441de2c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Function Delete User",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "localhost:3200/user/deleteUser/62c67a9cd99540171585ad77",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"user",
+										"deleteUser",
+										"62c67a9cd99540171585ad77"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Function Get Users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3200/user/getUsers",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"user",
+										"getUsers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Function Get User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:3200/user/getUser/62c5ee9abaa5f6342441de2c",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"user",
+										"getUser",
+										"62c5ee9abaa5f6342441de2c"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Function Register",
 					"request": {
 						"method": "POST",
@@ -391,12 +623,12 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "rcardenas",
+									"value": "SuperAdmin",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "123",
+									"value": "OnlineDoctor",
 									"type": "text"
 								}
 							]

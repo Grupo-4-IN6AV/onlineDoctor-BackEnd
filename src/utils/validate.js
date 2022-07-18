@@ -36,6 +36,38 @@ exports.checkPassword = async (password, hash) =>
     }
 }
 
+exports.checkUpdateAdmin = async (user)=>{
+    if(user.password || Object.entries(user).length === 0){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+exports.checkUpdate = async (user)=>{
+    if(user.password || Object.entries(user).length === 0 || user.role){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+exports.checkUpdateDoctor = async (doctor)=>{
+    if(doctor.password || Object.entries(doctor).length === 0 || doctor.role){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+exports.checkUpdateDoctorAdmin = async (doctor)=>{
+    if(doctor.password || Object.entries(doctor).length === 0){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 exports.checkPermission = async (userId, sub) => 
 {
     try 

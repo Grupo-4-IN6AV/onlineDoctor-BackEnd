@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "5f493233-21b3-4b19-b17e-fbd75f4cc9ef",
+		"_postman_id": "55b68798-687f-42cd-83c9-cea95a2f7bc7",
 		"name": "API - Online Doctor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19701717"
+		"_exporter_id": "19460123"
 	},
 	"item": [
 		{
@@ -322,7 +322,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQxZjlkNjAwZDY5YzVlMTQyZjRhYTQiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTgwNTA2ODksImV4cCI6MTY1ODA4NjY4OX0.B0z5sy0fZMmTiSMN6DONlACT6_YxPAGSTgSn4vql23U",
 										"type": "text"
 									}
 								],
@@ -331,7 +331,7 @@
 									"urlencoded": [
 										{
 											"key": "username",
-											"value": "rmonroy",
+											"value": "JosueNoj",
 											"type": "text"
 										},
 										{
@@ -341,17 +341,17 @@
 										},
 										{
 											"key": "name",
-											"value": "Rosa",
+											"value": "Josue",
 											"type": "text"
 										},
 										{
 											"key": "surname",
-											"value": "Monroy",
+											"value": "Noj",
 											"type": "text"
 										},
 										{
 											"key": "DPI",
-											"value": "2464385680101",
+											"value": "123456782",
 											"type": "text"
 										},
 										{
@@ -361,17 +361,22 @@
 										},
 										{
 											"key": "email",
-											"value": "rcardenas@kinal",
+											"value": "jnoj@gmail.com2",
 											"type": "text"
 										},
 										{
 											"key": "phone",
-											"value": "5579-8278",
+											"value": "55791245",
 											"type": "text"
 										},
 										{
 											"key": "gender",
-											"value": "MASCULINO",
+											"value": "MALE",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "ADMIN",
 											"type": "text"
 										}
 									]
@@ -397,7 +402,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQxZjlkNjAwZDY5YzVlMTQyZjRhYTQiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTgwNTA2ODksImV4cCI6MTY1ODA4NjY4OX0.B0z5sy0fZMmTiSMN6DONlACT6_YxPAGSTgSn4vql23U",
 										"type": "text"
 									}
 								],
@@ -406,48 +411,65 @@
 									"urlencoded": [
 										{
 											"key": "username",
-											"value": "rcardenas",
-											"type": "text"
+											"value": "Luis Vargas",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "name",
-											"value": "Rodrigo",
-											"type": "text"
+											"value": "Luis",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "surname",
-											"value": "Cárdenas",
-											"type": "text"
+											"value": "Vargas",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "DPI",
-											"value": "3020597680101",
-											"type": "text"
+											"value": "123456782",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "NIT",
-											"value": "",
-											"type": "text"
+											"value": "234234234",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "email",
-											"value": "rcardenas@kinal",
-											"type": "text"
+											"value": "lVargas@gmail.com",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "phone",
-											"value": "5579-8278",
+											"value": "78451265",
 											"type": "text"
 										},
 										{
 											"key": "gender",
-											"value": "MASCULINO",
+											"value": "FEMALE",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "ADMIN",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "localhost:3200/user/updateUser/62c5ee9abaa5f6342441de2c",
+									"raw": "localhost:3200/user/updateUser/62d3d9ae287d9fe018d28059",
 									"host": [
 										"localhost"
 									],
@@ -455,7 +477,7 @@
 									"path": [
 										"user",
 										"updateUser",
-										"62c5ee9abaa5f6342441de2c"
+										"62d3d9ae287d9fe018d28059"
 									]
 								}
 							},
@@ -468,16 +490,22 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQxZjlkNjAwZDY5YzVlMTQyZjRhYTQiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjU4MTE5MTUxLCJleHAiOjE2NTgxNTUxNTF9.FhioKSoYJQNdr9KSejadgx3qzE0Ap3CMpz7zZFtOono\"",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "urlencoded",
-									"urlencoded": []
+									"urlencoded": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
 								},
 								"url": {
-									"raw": "localhost:3200/user/deleteUser/62c67a9cd99540171585ad77",
+									"raw": "localhost:3200/user/deleteUser/62d4e47efd31e4e7ead0cd98",
 									"host": [
 										"localhost"
 									],
@@ -485,7 +513,7 @@
 									"path": [
 										"user",
 										"deleteUser",
-										"62c67a9cd99540171585ad77"
+										"62d4e47efd31e4e7ead0cd98"
 									]
 								}
 							},
@@ -498,7 +526,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQxZjlkNjAwZDY5YzVlMTQyZjRhYTQiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjU4MDUzNjQwLCJleHAiOjE2NTgwODk2NDB9.6WQ3jCfv912bukcth2D7PPKksYgzWqTQYqQhiPc25-c\"",
 										"type": "text"
 									}
 								],
@@ -523,12 +551,12 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM2N2E2ZWQ5OTU0MDE3MTU4NWFkNmYiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOSVNUUkFET1IiLCJpYXQiOjE2NTcxNzQ2NDQsImV4cCI6MTY1NzIxMDY0NH0.OXXgO6IR-lu72b4w-3RkXqq1JlMNoAeKu3pfUUiCqVU\"",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQzZDlhZTI4N2Q5ZmUwMThkMjgwNTkiLCJuYW1lIjoibUFOVVdFRiIsInN1cm5hbWUiOiJBU0RGIiwidXNlcm5hbWUiOiJyY2FyZGVuYXMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NTgwNTI2NjYsImV4cCI6MTY1ODA4ODY2Nn0.82oEyUfNXe8aBCNSLpWX9KZ_4u_XdCX7hbFcJhT8Azc\"",
 										"type": "text"
 									}
 								],
 								"url": {
-									"raw": "localhost:3200/user/getUser/62c5ee9abaa5f6342441de2c",
+									"raw": "localhost:3200/user/getUser/62d3da92285951d96df2bf84",
 									"host": [
 										"localhost"
 									],
@@ -536,7 +564,524 @@
 									"path": [
 										"user",
 										"getUser",
-										"62c5ee9abaa5f6342441de2c"
+										"62d3da92285951d96df2bf84"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Doctor",
+					"item": [
+						{
+							"name": "ADMIN",
+							"item": [
+								{
+									"name": "Save Doctor",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQxZjlkNjAwZDY5YzVlMTQyZjRhYTQiLCJuYW1lIjoiU3VwZXJBZG1pbiIsInN1cm5hbWUiOiJTdXBlckFkbWluIiwidXNlcm5hbWUiOiJTdXBlckFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjU4MTI1MTM3LCJleHAiOjE2NTgxNjExMzd9.V9vmzzj1O_C-UumfPM4EC8-7Aldl-EHJG1uhzkkA_v0\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "name",
+													"value": "Manuel",
+													"type": "text"
+												},
+												{
+													"key": "surname",
+													"value": "Suereña",
+													"type": "text"
+												},
+												{
+													"key": "username",
+													"value": "msureña",
+													"type": "text"
+												},
+												{
+													"key": "DPI",
+													"value": "3122312322",
+													"type": "text"
+												},
+												{
+													"key": "email",
+													"value": "sureña@gmail.com",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "234234234",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "123",
+													"type": "text"
+												},
+												{
+													"key": "age",
+													"value": "23",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "MalE",
+													"type": "text"
+												},
+												{
+													"key": "collegiateNumber",
+													"value": "324234234234",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/saveDoctorAdmin",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"saveDoctorAdmin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Doctor",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQzZGE5MjI4NTk1MWQ5NmRmMmJmODQiLCJuYW1lIjoiUGVkcm8iLCJzdXJuYW1lIjoiQXJtYXMiLCJ1c2VybmFtZSI6IlBlZHJvMiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1ODEzNDMyOSwiZXhwIjoxNjU4MTcwMzI5fQ.nHpDgmUbweC123YBlrXIJ-25AloiSMQN0u-mYFVxSNQ\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "name",
+													"value": "José",
+													"type": "text"
+												},
+												{
+													"key": "surname",
+													"value": "Manuel",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "FeMaLe",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/updateDoctorAdmin/62d3a75fa9754e571523ac28",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"updateDoctorAdmin",
+												"62d3a75fa9754e571523ac28"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Doctor",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQzZGE5MjI4NTk1MWQ5NmRmMmJmODQiLCJuYW1lIjoiUGVkcm8iLCJzdXJuYW1lIjoiQXJtYXMiLCJ1c2VybmFtZSI6IlBlZHJvMiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1ODEzNTA2NywiZXhwIjoxNjU4MTcxMDY3fQ.Ih34mH0LW9JGxqtw5q7poV3io6VSzaot3CWGPrGii-w\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "password",
+													"value": "123",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/deleteDoctorAdmin/62d3af7bdfed341814d04542",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"deleteDoctorAdmin",
+												"62d3af7bdfed341814d04542"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Search Doctor by Username",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQzZGE5MjI4NTk1MWQ5NmRmMmJmODQiLCJuYW1lIjoiUGVkcm8iLCJzdXJuYW1lIjoiQXJtYXMiLCJ1c2VybmFtZSI6IlBlZHJvMiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1ODEzNDMyOSwiZXhwIjoxNjU4MTcwMzI5fQ.nHpDgmUbweC123YBlrXIJ-25AloiSMQN0u-mYFVxSNQ\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "Jos",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/searchDoctor",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"searchDoctor"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Obtener Doctores",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQzZGE5MjI4NTk1MWQ5NmRmMmJmODQiLCJuYW1lIjoiUGVkcm8iLCJzdXJuYW1lIjoiQXJtYXMiLCJ1c2VybmFtZSI6IlBlZHJvMiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1ODEzNDMyOSwiZXhwIjoxNjU4MTcwMzI5fQ.nHpDgmUbweC123YBlrXIJ-25AloiSMQN0u-mYFVxSNQ\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": []
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/getDoctors",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"getDoctors"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DOCTOR",
+							"item": [
+								{
+									"name": "Update Doctor",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQ0ZmJhOWFlZmZhNDAxY2Y1ZjQyNTIiLCJuYW1lIjoiU2ltaSIsInN1cm5hbWUiOiJNYW5nZWxhIiwidXNlcm5hbWUiOiJzaW1pTWFuZ2VsYSIsInJvbGUiOiJET0NUT1IiLCJpYXQiOjE2NTgxMjUzNjgsImV4cCI6MTY1ODE2MTM2OH0.iT7gehDJjMacKBUgOEzj6e4CZbJgZwjvqZgC_ITocJg\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "name",
+													"value": "Josue",
+													"type": "text"
+												},
+												{
+													"key": "surname",
+													"value": "Velasquez",
+													"type": "text"
+												},
+												{
+													"key": "age",
+													"value": "23",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "MalE",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/updateDoctor/62d4e4d3fd31e4e7ead0cdac",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"updateDoctor",
+												"62d4e4d3fd31e4e7ead0cdac"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Doctor",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQ0ZmJlYWFlZmZhNDAxY2Y1ZjQyNWQiLCJuYW1lIjoiU2ltaTIiLCJzdXJuYW1lIjoiTWFuZ2VsYTIiLCJ1c2VybmFtZSI6InNpbWlNYW5nZWxhMiIsInJvbGUiOiJET0NUT1IiLCJpYXQiOjE2NTgxMzQxMTQsImV4cCI6MTY1ODE3MDExNH0.uuD8yyxwGpqpuXsHdBIZ0mT4THLxOVCHvYFJIXWMOEw\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "password",
+													"value": "123",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/deleteDoctor/62d4fbeaaeffa401cf5f425d",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"deleteDoctor",
+												"62d4fbeaaeffa401cf5f425d"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Obtener Doctor",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQ0ZTRkM2ZkMzFlNGU3ZWFkMGNkYWMiLCJuYW1lIjoiUGVkcm8yIiwic3VybmFtZSI6IkJlbml0bzIiLCJ1c2VybmFtZSI6IlBlZHJvIEJlbml0b3MyMjIyMzMzIiwicm9sZSI6IkRPQ1RPUiIsImlhdCI6MTY1ODEzNDIyMCwiZXhwIjoxNjU4MTcwMjIwfQ.KwyhzbgT8qkr_GK4tJGCzT6-4n_elXd_Y-1WdT6nybo\"",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": []
+										},
+										"url": {
+											"raw": "localhost:3200/doctor/getDoctor/62d4e4d3fd31e4e7ead0cdac",
+											"host": [
+												"localhost"
+											],
+											"port": "3200",
+											"path": [
+												"doctor",
+												"getDoctor",
+												"62d4e4d3fd31e4e7ead0cdac"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Test Doctor",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3200/doctor/testDoctor",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"doctor",
+										"testDoctor"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Paciente",
+					"item": [
+						{
+							"name": "Function Delete Account",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQzY2EyMWFmNWYyYWRlNjg0YmMxYzciLCJuYW1lIjoiUGVkcm8iLCJzdXJuYW1lIjoiSnVhcmV6IiwidXNlcm5hbWUiOiJQZWRybzEyMyIsInJvbGUiOiJQQUNJRU5URSIsImlhdCI6MTY1ODA0OTU4OSwiZXhwIjoxNjU4MDg1NTg5fQ.yaB8foOkT7hQ79HkTSLqAhg_-4FNygLNn8J7zwR25hE",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3200/user/deleteAccount/62d3ca21af5f2ade684bc1c7",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"user",
+										"deleteAccount",
+										"62d3ca21af5f2ade684bc1c7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Function Update Account",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmQzZDlhZTI4N2Q5ZmUwMThkMjgwNTkiLCJuYW1lIjoibUFOVVdFRiIsInN1cm5hbWUiOiJBU0RGIiwidXNlcm5hbWUiOiJyY2FyZGVuYXMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NTgwNTI2NjYsImV4cCI6MTY1ODA4ODY2Nn0.82oEyUfNXe8aBCNSLpWX9KZ_4u_XdCX7hbFcJhT8Azc\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "Ricardo",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "Ricardo",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "surname",
+											"value": "Salinas",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "DPI",
+											"value": "30205976801014",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "NIT",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "salinas@kinal",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "phone",
+											"value": "5579-8278",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "gender",
+											"value": "FEmale",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "ADMIN",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3200/user/updateAccount/62d3d9ae287d9fe018d28059",
+									"host": [
+										"localhost"
+									],
+									"port": "3200",
+									"path": [
+										"user",
+										"updateAccount",
+										"62d3d9ae287d9fe018d28059"
 									]
 								}
 							},
@@ -554,7 +1099,12 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "rcardenas",
+									"value": "Pedro",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Armas",
 									"type": "text"
 								},
 								{
@@ -563,38 +1113,33 @@
 									"type": "text"
 								},
 								{
-									"key": "name",
-									"value": "Rodrigo",
-									"type": "text"
-								},
-								{
 									"key": "surname",
-									"value": "Cárdenas",
+									"value": "Armas",
 									"type": "text"
 								},
 								{
 									"key": "DPI",
-									"value": "3020597680101",
+									"value": "3020597680101222",
 									"type": "text"
 								},
 								{
 									"key": "NIT",
-									"value": "",
+									"value": "512561655",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "rcardenas@kinal",
+									"value": "pedro@kinal",
 									"type": "text"
 								},
 								{
 									"key": "phone",
-									"value": "5579-8278",
+									"value": "55798278",
 									"type": "text"
 								},
 								{
 									"key": "gender",
-									"value": "MASCULINO",
+									"value": "MALE",
 									"type": "text"
 								}
 							]
@@ -622,13 +1167,13 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "username",
-									"value": "SuperAdmin",
+									"key": "identifier",
+									"value": "Pedro",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "OnlineDoctor",
+									"value": "123",
 									"type": "text"
 								}
 							]
@@ -642,118 +1187,6 @@
 							"path": [
 								"user",
 								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Function Delete Account",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM1ZWU2N2JhYTVmNjM0MjQ0MWRlMjEiLCJuYW1lIjoiUm9kcmlnbyIsInN1cm5hbWUiOiJDw6FyZGVuYXMiLCJ1c2VybmFtZSI6InJjYXJkZW5hcyIsInJvbGUiOiJQQUNJRU5URSIsImlhdCI6MTY1NzEzODgxNiwiZXhwIjoxNjU3MTc0ODE2fQ.4h_pXjxyyGlNXJlbBovxTPZg0sfZP39p_OskpBdpEHE\"",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "password",
-									"value": "123",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/user/deleteAccount/62c5ee67baa5f6342441de21",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"user",
-								"deleteAccount",
-								"62c5ee67baa5f6342441de21"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Function Update Account",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmM1ZWU5YWJhYTVmNjM0MjQ0MWRlMmMiLCJuYW1lIjoiUm9kcmlnbyIsInN1cm5hbWUiOiJDw6FyZGVuYXMiLCJ1c2VybmFtZSI6InJjYXJkZW5hcyIsInJvbGUiOiJQQUNJRU5URSIsImlhdCI6MTY1NzEzOTk4NSwiZXhwIjoxNjU3MTc1OTg1fQ.ZUBowQL7eSOMz1VpJDcgTQ5dG2bGPXhUnt5OJ5Ja894\"",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "rcardenas",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "123",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "Rodrigo",
-									"type": "text"
-								},
-								{
-									"key": "surname",
-									"value": "Cárdenas",
-									"type": "text"
-								},
-								{
-									"key": "DPI",
-									"value": "3020597680101",
-									"type": "text"
-								},
-								{
-									"key": "NIT",
-									"value": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "rcardenas@kinal",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "5579-8278",
-									"type": "text"
-								},
-								{
-									"key": "gender",
-									"value": "MASCULINO",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3200/user/updateAccount/62c5ee9abaa5f6342441de2c",
-							"host": [
-								"localhost"
-							],
-							"port": "3200",
-							"path": [
-								"user",
-								"updateAccount",
-								"62c5ee9abaa5f6342441de2c"
 							]
 						}
 					},

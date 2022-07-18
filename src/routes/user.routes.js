@@ -10,15 +10,16 @@ api.get('/testUser', userController.userTest);
 api.post('/register', userController.register);
 api.post('/login', userController.login)
 
-//Rutas Privadas -USUARIO-//
+//Rutas Privadas -PACIENTE-//
 api.post('/deleteAccount/:id', mdAuth.ensureAuth, userController.deleteAccount);
 api.put('/updateAccount/:id', mdAuth.ensureAuth, userController.updateAccount);
+api.get('/getUser/:id', mdAuth.ensureAuth, userController.getUser);
 
-//Rutas Privadas -ADMINISTRADOR-//
+//Rutas Privadas -ADMIN-//
 api.post('/saveUser', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.saveUser);
-api.get('/getUsers', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsers);
-api.get('/getUser/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUser);
 api.put('/updateUser/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.updateUser);
 api.delete('/deleteUser/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.deleteUser);
+api.get('/searchUser', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.searchUser);
+api.get('/getUsers', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsers);
 
 module.exports = api;

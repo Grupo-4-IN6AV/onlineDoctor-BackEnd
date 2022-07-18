@@ -16,6 +16,7 @@ const User = require('../src/models/user.model');
 const typeLaboratoryRoutes = require('../src/routes/typeLaboratory.routes');
 const specialityRoutes = require('../src/routes/speciality.routes');
 const userRoutes = require('../src/routes/user.routes');
+const doctorRoutes = require('../src/routes/doctor.routes');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(cors());
 app.use('/typeLaboratory', typeLaboratoryRoutes);
 app.use('/speciality', specialityRoutes);
 app.use('/user', userRoutes);
+app.use('/doctor', doctorRoutes);
 
 exports.initServer = ()=> app.listen(port, async ()=>
 {
@@ -39,7 +41,7 @@ exports.initServer = ()=> app.listen(port, async ()=>
         phone: 'SuperAdmin',
         email: 'admin@kinal.edu.gt',
         password: await encrypt('OnlineDoctor'),
-        role: 'ADMINISTRADOR'
+        role: 'ADMIN'
     }
 
     const searchUserAdmin = await User.findOne({username:automaticUser.username});

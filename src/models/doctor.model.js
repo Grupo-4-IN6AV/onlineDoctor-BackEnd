@@ -11,9 +11,9 @@ const doctorSchema = mongoose.Schema({
     password: String,
     age: String,
     gender: String,
-    role: 'DOCTOR',
+    role: String,
     collegiateNumber: String,
-    specialty:[{type: mongoose.Schema.ObjectId, ref : 'Specialty'}],
+    specialty:[{type: mongoose.Schema.ObjectId, ref : 'Speciality'}],
     appointment:[{type: mongoose.Schema.ObjectId, ref : 'Appointment'}]
 });
 

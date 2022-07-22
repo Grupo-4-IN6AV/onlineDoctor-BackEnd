@@ -1,8 +1,8 @@
 'use strict'
 
 const TypeMedicament = require('../models/typeMedicament.model');
-
-const {validateData,checkUpdated} = require('../utils/validate');
+const Medicament = require('../models/medicament.model');
+const {validateData,checkUpdate} = require('../utils/validate');
 const jwt = require('../services/jwt');
 
 //Función de Testeo//
@@ -46,11 +46,17 @@ exports.updateTypeMedicamentADMIN = async(req, res)=>{
         const params = req.body;
         const typeMedicamentID = req.params.id;
 
-        const check = await checkUpdated(params);
+        const check = await checkUpdate(params);
         if (check === false) return res.status(400).send({ message: 'Datos no recibidos' });
 
         const msg = validateData(params);
         if (!msg) {
+            
+            const existTypeMedicament =  await TypeMedicament.findOne({_id: typeMedicamentID});
+
+            if(existTypeMedicament.name === 'DEFAULT')
+            return res.status(400).send({message: 'El Tipo de Laboratorio -DEFAULT- no se puede Actualizar.'}); 
+            
             const typeMedicamentExist = await TypeMedicament.findOne({ _id: typeMedicamentID });
             if (!typeMedicamentExist) return res.status.send({ message: 'Type Medicament no encontrada' });
 
@@ -74,6 +80,29 @@ exports.deleteTypeMedicamentADMIN = async (req, res) => {
         const typeMedicamentID = req.params.id;
         const typeMedicamentExist = await TypeMedicament.findOne({ _id: typeMedicamentID });
         if (!typeMedicamentExist) return res.status(400).send({ message: 'Type Medicament no encontrado o eliminado actualmente.' });
+
+        const existTypeMedicament = await TypeMedicament.findOne({_id: typeMedicamentID});
+        if(existTypeMedicament.name === 'DEFAULT')
+            return res.status(400).send({message: 'El Tipo de Laboratorio -DEFAULT- no se puede Eliminar.'});
+
+        const typeMedicamentDefault = await TypeMedicament.findOne({name:'DEFAULT'});
+        
+        if(!typeMedicamentDefault)
+        {
+            const dataDefault = 
+            {
+                name: 'DEFAULT',
+                description: 'Medicamento Por DEFAULT'
+            }
+            var newTypeMedicament = new TypeMedicament(dataDefault);
+            await newTypeMedicament.save();
+            await Medicament.updateMany({typeMedicament: typeMedicamentID},{typeMedicament: newTypeMedicament._id});
+            
+        }
+        else
+        {
+            await Medicament.updateMany({typeMedicament: typeMedicamentID},{typeMedicament: typeMedicamentDefault._id});
+        }
 
         const typeMedicamentDeleted = await TypeMedicament.findOneAndDelete({ _id: typeMedicamentID });
         return res.send({ message: 'Type Medicament eliminado exitosamente.', typeMedicamentDeleted });

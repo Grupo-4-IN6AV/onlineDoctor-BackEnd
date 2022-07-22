@@ -8,14 +8,16 @@ const prescriptionSchema = mongoose.Schema({
     [
         {
             name: String,
-            description: String
+            description: String,
+            medicament: {type: mongoose.Schema.ObjectId, ref : 'Medicament'}
         }
     ],
     laboratory: 
     [
         {
             name: String,
-            description: String
+            description: String,
+            laboratory: {type: mongoose.Schema.ObjectId, ref : 'Laboratory'}
         }
     ],
     dateIssue: Date,

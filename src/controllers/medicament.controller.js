@@ -125,8 +125,95 @@ exports.getMedicaments = async (req, res) => {
     }
 }
 
+//Función para Obtener todos los Medicamentos por el nombre//
+exports.getMedicamentsByName = async (req, res) => {
+    try {
+        const params = req.body;
+        const data = {
+            name: params.name
+        }
+        const msg = validateData(data)
+        if (msg) return res.status(400).send(msg)
+        const medicamentsByName = await Medicament.find({ name: { $regex: params.name, $options: 'i' } }).populate('typeMedicament');
+        if (medicamentsByName.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
+        medicamentsByName.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (b.name > a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Medicamentos encontrados:', medicamentsByName })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+    }
+}
 
-//Mostrar un  Municipio//
+// Obtener medicamento ordenado de A a Z
+exports.getMedicamentsAtoZ = async (req, res) => {
+    try {
+        const medicamentsAtoZ = await Medicament.find().populate('typeMedicament');
+        if (medicamentsAtoZ.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
+        medicamentsAtoZ.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (b.name > a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Medicamentos encontrados:', medicamentsAtoZ })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+    }
+}
+
+// Obtener medicamento ordenado de Z a A
+exports.getMedicamentsZtoA = async (req, res) => {
+    try {
+        const medicamentsZtoA = await Medicament.find().populate('typeMedicament');
+        if (medicamentsZtoA.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
+        medicamentsZtoA.sort((a, b) => {
+            if (a.name > b.name) {
+                return -1;
+            } else if (b.name < a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Medicamentos encontrados:', medicamentsZtoA })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+    }
+}
+
+//Función para Obtener todos los Medicamentos por el ID de type Medicament//
+exports.getMedicamentsByTypeMedicament = async (req, res) => {
+    try {
+        const params = req.body;
+        const data = {
+            typeMedicament: params.typeMedicament //Recibe el ID de type Medicament
+        }
+        const msg = validateData(data)
+        if (msg) return res.status(400).send(msg)
+        const getMedicamentsByTypeMedicament = await Medicament.find({ typeMedicament: params.typeMedicament }).populate('typeMedicament');
+        if (getMedicamentsByTypeMedicament.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
+        return res.send({ message: 'Medicamentos encontrados:', getMedicamentsByTypeMedicament })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+    }
+}
+
+
+//Mostrar un  Meicament//
 exports.getMedicamentADMIN = async (req, res) => {
     try {
         const medicamentID = req.params.id

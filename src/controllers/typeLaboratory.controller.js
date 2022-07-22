@@ -20,8 +20,8 @@ exports.saveTypeLaboratory = async (req, res)=>
         const params = req.body; 
         const data = 
         {
-            name: params.nombre,
-            description: params.descripcion,
+            name: params.name,
+            description: params.description,
         };
 
         const msg = validateData(data);
@@ -29,7 +29,7 @@ exports.saveTypeLaboratory = async (req, res)=>
         if(msg)
         return res.status(400).send(msg);
                 
-        const existTypeLaboratory = await TypeLaboratory.findOne({name: params.nombre});
+        const existTypeLaboratory = await TypeLaboratory.findOne({name: params.name});
         if(existTypeLaboratory)
             return res.status(400).send({message: 'El Tipo de Laboratorio ya existe.'});
         
@@ -53,7 +53,11 @@ exports.updateTypeLaboratory = async (req, res)=>
         const params = req.body;
         const typeLaboratory = req.params.id; 
 
-        const typeLaboratoryExist =  await TypeLaboratory.findOne({_id: typeLaboratory}); 
+        const typeLaboratoryExist =  await TypeLaboratory.findOne({_id: typeLaboratory});
+
+        if(typeLaboratoryExist.name === 'DEFAULT')
+            return res.status(400).send({message: 'El Tipo de Laboratorio -DEFAULT- no se puede Actualizar.'}); 
+        
         const nameTypeLaboratory = await TypeLaboratory.findOne({name: params.name});
         
         if(nameTypeLaboratory && typeLaboratoryExist.name != params.name) 

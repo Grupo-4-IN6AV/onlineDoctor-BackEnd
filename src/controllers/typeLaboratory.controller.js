@@ -97,15 +97,12 @@ exports.deleteTypeLaboratory = async (req, res)=>{
             }
             var newTypeLaboratory = new TypeLaboratory(dataDefault);
             await newTypeLaboratory.save();
+            await Laboratory.updateMany({typeLaboratory: typeLaboratory},{typeLaboratory: newTypeLaboratory._id});
         }
-
-        const laboratoryExist = await Laboratory.find({typeLaboratory: typeLaboratory}); 
-
-
-        for(let laboratory of laboratoryExist)
+        else
         {
-            const newLaboratory = await Laboratory.findOneAndUpdate({_id:laboratory._id},{typeLaboratory:newTypeLaboratory._id},{new:true});
-        } 
+            await Laboratory.updateMany({typeLaboratory: typeLaboratory},{typeLaboratory: typeLaboratoryDefault._id});
+        }
 
         const typeLaboratoryDeleted = await TypeLaboratory.findOneAndDelete({_id: typeLaboratory});
         return res.send({message: 'Tipo de Laboratorio Elimnado Exitosamente.', typeLaboratoryDeleted});

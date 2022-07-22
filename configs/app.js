@@ -17,6 +17,7 @@ const typeLaboratoryRoutes = require('../src/routes/typeLaboratory.routes');
 const specialityRoutes = require('../src/routes/speciality.routes');
 const userRoutes = require('../src/routes/user.routes');
 const doctorRoutes = require('../src/routes/doctor.routes');
+const typeMedicamentRoutes = require('../src/routes/typeMedicament.routes');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(helmet({}));
 app.use(cors());
 
 app.use('/typeLaboratory', typeLaboratoryRoutes);
+app.use('/typeMedicament', typeMedicamentRoutes);
 app.use('/speciality', specialityRoutes);
 app.use('/user', userRoutes);
 app.use('/doctor', doctorRoutes);

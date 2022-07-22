@@ -24,8 +24,7 @@ exports.saveMedicamentADMIN = async (req, res)=>{
             price: params.price,
             sales: 0,
             stock: params.stock,
-            availibility: params.availibility,
-            typeMedicament: req.user.sub,
+            availibility: false
         };
         const msg = validateData(data);
         if(!msg){
@@ -94,7 +93,7 @@ exports.deleteMedicamentADMIN = async(req, res)=>{
 }
 
 //Función para Obtener todos los Medicamentos//
-exports.getMedicamentsADMIN = async (req, res) => {
+exports.getMedicaments = async (req, res) => {
     try {
         const medicaments = await Medicament.find();
         if(!medicaments) return res.send({ message: 'Medicamentos no encontrados' })

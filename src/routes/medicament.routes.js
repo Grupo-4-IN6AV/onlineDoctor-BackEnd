@@ -12,7 +12,7 @@ api.get('/testMedicament', medicamentController.medicamentTest);
 api.post('/saveMedicament', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.saveMedicamentADMIN);
 api.put('/updateMedicament/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.updateMedicamentADMIN);
 api.delete('/deleteMedicament/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.deleteMedicamentADMIN);
-api.get('/getMedicaments', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentsADMIN);
+api.get('/getMedicaments', medicamentController.getMedicaments);
 api.get('/getMedicament/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentADMIN);
 
 

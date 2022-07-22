@@ -24,9 +24,7 @@ exports.register = async (req, res) => {
         {
             name: params.name,
             username: params.username,
-            DPI: params.DPI,
             email: params.email,
-            phone: params.phone,
             gender: params.gender,
             password: params.password,
             role: 'PACIENTE'
@@ -40,9 +38,6 @@ exports.register = async (req, res) => {
 
         let alreadyEmail = await User.findOne({ email: data.email });
         if (alreadyEmail) return res.status(400).send({ message: 'El correo electronico ya tiene una cuenta' });
-
-        let alreadyDPI = await User.findOne({ DPI: data.DPI });
-        if (alreadyDPI) return res.status(400).send({ message: 'El DPI ya fué registrado' });
 
         if (params.NIT == '' || params.NIT == undefined || params.NIT == null) {
             data.NIT = 'C/F'
@@ -60,6 +55,8 @@ exports.register = async (req, res) => {
             return res.status(400).send({ message: 'Genero Invalido' })
         }
 
+        data.DPI = params.DPI;
+        data.phone = params.phone;
         data.surname = params.surname;
         data.password = await encrypt(params.password);
 
@@ -266,6 +263,7 @@ exports.saveUser = async (req, res) => {
             DPI: params.DPI,
             email: params.email,
             phone: params.phone,
+            age: params.age,
             password: params.password,
             gender: params.gender,
             role: params.role

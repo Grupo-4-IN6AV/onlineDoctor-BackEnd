@@ -273,28 +273,11 @@ exports.deleteDoctor = async (req, res) => {
 //Funcion obtener Doctor//
 exports.getDoctor = async (req, res) => {
     try {
-        const idLoggued = req.user.sub;
-        const roleADMIN = await User.findOne({ _id: idLoggued });
-        const roleDoctor = await Doctor.findOne({ _id: idLoggued });
-        let user;
+        const doctorId = req.params.id;
+        const doctor = await Doctor.findOne({ _id: doctorId });
+        if (doctor) return res.send({ message: 'Doctor Encontrado:', doctor });
+        else res.status(400).send({ message: 'Doctor no Encontrado' })
 
-        if (roleADMIN) user = roleADMIN
-        else if (roleDoctor) user = roleDoctor
-        else return res.send({ message: 'Usuario no encontrado' })
-
-        if (user.role === 'DOCTOR') {
-            const doctor = await Doctor.find({ _id: idLoggued });
-            if (doctor) return res.send({ message: 'Doctor Encontrado:', doctor });
-            else res.status(400).send({ message: 'Doctor no Encontrado' })
-        }
-        if (user.role === 'ADMIN') {
-            const doctorID = req.params.id
-            const doctor = await Doctor.find({ _id: doctorID });
-            if (doctor) return res.send({ message: 'Doctor Encontrado:', doctor });
-            else res.status(400).send({ message: 'Doctor no Encontrado' })
-        } else {
-            return res.status(400).send({ message: 'Doctor no Encontrado' })
-        }
     } catch (err) {
         console.log(err);
         return res.status(400).send({ message: 'Error obteniendo doctor', err })

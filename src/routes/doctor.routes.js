@@ -16,7 +16,7 @@ api.get('/getDoctor/:id', mdAuth.ensureAuth, doctorController.getDoctor);
 //Rutas Privadas -ADMIN-//
 api.post('/saveDoctorAdmin',[mdAuth.ensureAuth, mdAuth.isAdmin],doctorController.saveDoctor);
 api.put('/updateDoctorAdmin/:id',[mdAuth.ensureAuth, mdAuth.isAdmin],doctorController.updateDoctorByAdmin);
-api.delete('/deleteDoctorAdmin/:id',[mdAuth.ensureAuth, mdAuth.isAdmin],doctorController.deleteDoctorByAdmin);
+api.post('/deleteDoctorAdmin/:id',[mdAuth.ensureAuth, mdAuth.isAdmin],doctorController.deleteDoctorByAdmin);
 api.get('/searchDoctor', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.searchDoctor);
 api.get('/getDoctors', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctors);
 

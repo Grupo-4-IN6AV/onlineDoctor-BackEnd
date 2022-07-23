@@ -18,7 +18,8 @@ const specialityRoutes = require('../src/routes/speciality.routes');
 const userRoutes = require('../src/routes/user.routes');
 const doctorRoutes = require('../src/routes/doctor.routes');
 const typeMedicamentRoutes = require('../src/routes/typeMedicament.routes');
-const medicamentRoutes = require('../src/routes/medicament.routes')
+const medicamentRoutes = require('../src/routes/medicament.routes');
+const appointmentRoutes = require('../src/routes/appointment.routes');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/speciality', specialityRoutes);
 app.use('/user', userRoutes);
 app.use('/doctor', doctorRoutes);
 app.use('/medicament', medicamentRoutes);
+app.use('/appointment', appointmentRoutes);
 
 exports.initServer = ()=> app.listen(port, async ()=>
 {

@@ -14,7 +14,13 @@ const doctorSchema = mongoose.Schema({
     role: String,
     collegiateNumber: String,
     specialty:[{type: mongoose.Schema.ObjectId, ref : 'Speciality'}],
-    appointment:[{type: mongoose.Schema.ObjectId, ref : 'Appointment'}]
+    appointment:
+    [
+        {
+            appointment: {type: mongoose.Schema.ObjectId, ref : 'Appointment'},
+            done: Boolean
+        }     
+    ]
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);

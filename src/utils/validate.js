@@ -91,11 +91,12 @@ exports.checkPermission = async (userId, sub) =>
 
 exports.deleteSensitiveData = async(data)=>{
     try{
-        delete data.pacient.password;
-        delete data.pacient.role;
-        delete data.doctor.password;
-        delete data.doctor.role;
+        data.pacient.password = undefined;
+        data.pacient.role = undefined;
+        data.doctor.password = undefined;
+        data.doctor.role = undefined;
         return data;
+        
     }catch(err){
         console.log(err);
         return err;

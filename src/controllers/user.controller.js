@@ -227,16 +227,23 @@ exports.getUser = async (req, res) => {
     try {
         const idLoggued = req.user.sub;
         const role = await User.findOne({ _id: idLoggued });
+        const doctorRole = await Doctor.findOne({ _id: idLoggued });
 
-        if (role.role === 'PACIENTE') {
-            const user = await User.find({ _id: idLoggued });
+        if (role && role.role === 'PACIENTE') {
+            const user = await User.findOne({ _id: idLoggued });
             if (!user)
                 return res.status(400).send({ message: 'Usuario no Encontrado' })
             return res.send({ message: 'Usuario Encontrado:', user });
         }
-        if (role.role === 'ADMIN') {
+        if (doctorRole && doctorRole.role === 'DOCTOR') {
+            const user = await Doctor.findOne({ _id: idLoggued });
+            if (!user)
+                return res.status(400).send({ message: 'Doctor no Encontrado' })
+            return res.send({ message: 'Doctor Encontrado:', user });
+        }
+        if (role && role.role === 'ADMIN') {
             const userID = req.params.id
-            const user = await User.find({ _id: userID });
+            const user = await User.findOne({ _id: userID });
             if (!user)
                 return res.status(400).send({ message: 'Usuario no Encontrado' })
             return res.send({ message: 'Usuario Encontrado:', user });
@@ -266,7 +273,7 @@ exports.saveUser = async (req, res) => {
             age: params.age,
             password: params.password,
             gender: params.gender,
-            role: params.role
+            role: 'PACIENTE'
         };
 
         let msg = validateData(data);
@@ -296,8 +303,6 @@ exports.saveUser = async (req, res) => {
         } else {
             return res.status(400).send({ message: 'Genero Invalido' })
         }
-
-        if (params.role != 'ADMIN' && params.role != 'PACIENTE') return res.status(400).send({ message: 'Invalid role' });
 
         data.surname = params.surname;
         data.password = await encrypt(params.password);
@@ -357,9 +362,6 @@ exports.updateUser = async (req, res) => {
                 return res.status(400).send({ message: 'Genero invalido' })
             }
         }
-        if (params.role) {
-            if (params.role != 'ADMIN' && params.role != 'PACIENTE') return res.status(400).send({ message: 'Invalid role' });
-        }
 
         const userUpdate = await User.findOneAndUpdate({ _id: userID }, params, { new: true });
         if (userUpdate)
@@ -390,7 +392,7 @@ exports.deleteUser = async (req, res) => {
         const userExist = await User.findOne({ _id: userID });
         if (!userExist) return res.status(400).send({ message: 'Usuario no Encontrado o ya Eliminado' })
 
-        const admin = User.findOne({ _id: adminId });
+        const admin = await User.findOne({ _id: adminId });
 
         if (userExist && await checkPassword(data.password, admin.password)) {
 
@@ -398,6 +400,7 @@ exports.deleteUser = async (req, res) => {
                 return res.send({ message: 'No se puede Eliminar al Administrador' });
 
             const appointmentsExist = await Appointment.find({ pacient: userID });
+
             for (let appointmentDeleted of appointmentsExist) {
                 const appointmentDeleted = await Appointment.findOneAndDelete({ pacient: userID });
             }
@@ -411,7 +414,7 @@ exports.deleteUser = async (req, res) => {
             if (userDeleted) return res.send({ message: 'Usuario Eliminado Exitosamente', userDeleted });
             return res.send({ message: 'Usuario no Encontrado o ya Eliminado' });
         }
-        return res.send({ message: 'Usuario no Encontrado o ya Eliminado' });
+        return res.status(400).send({ message: 'Contraseña Incorrecta' });
 
     }
     catch (err) {

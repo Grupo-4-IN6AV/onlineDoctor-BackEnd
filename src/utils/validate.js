@@ -1,6 +1,7 @@
 'use strict'
 
 const bcrypt = require('bcrypt-nodejs');
+const User = require('../models/user.model');
 
 
 exports.validateData = (data) => {
@@ -83,6 +84,19 @@ exports.checkPermission = async (userId, sub) =>
     } 
     catch (err) 
     {
+        console.log(err);
+        return err;
+    }
+}
+
+exports.deleteSensitiveData = async(data)=>{
+    try{
+        delete data.pacient.password;
+        delete data.pacient.role;
+        delete data.doctor.password;
+        delete data.doctor.role;
+        return data;
+    }catch(err){
         console.log(err);
         return err;
     }

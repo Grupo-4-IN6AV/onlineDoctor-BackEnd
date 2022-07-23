@@ -63,7 +63,7 @@ const userSchema = mongoose.Schema({
     laboratory: 
     [
         {
-            type: mongoose.Schema.ObjectId, ref : 'Laboratory',
+            laboratory: {type: mongoose.Schema.ObjectId, ref : 'Laboratory'},
             done: Boolean,
             description: String 
         }
@@ -71,7 +71,7 @@ const userSchema = mongoose.Schema({
     appointment:
     [
         {
-            type: mongoose.Schema.ObjectId, ref : 'Appointment',
+            appointment: {type: mongoose.Schema.ObjectId, ref : 'Appointment'},
             done: Boolean
         }     
     ]

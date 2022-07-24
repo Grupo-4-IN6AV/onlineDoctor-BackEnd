@@ -20,6 +20,7 @@ const doctorRoutes = require('../src/routes/doctor.routes');
 const typeMedicamentRoutes = require('../src/routes/typeMedicament.routes');
 const medicamentRoutes = require('../src/routes/medicament.routes');
 const appointmentRoutes = require('../src/routes/appointment.routes');
+const laboratoryRoutes = require('../src/routes/laboratory.routes')
 
 const app = express();
 
@@ -35,6 +36,8 @@ app.use('/user', userRoutes);
 app.use('/doctor', doctorRoutes);
 app.use('/medicament', medicamentRoutes);
 app.use('/appointment', appointmentRoutes);
+app.use('/laboratory', laboratoryRoutes);
+
 
 exports.initServer = ()=> app.listen(port, async ()=>
 {

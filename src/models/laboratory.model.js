@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const laboratorySchema = mongoose.Schema({
-    typeLaboratoy: {type: mongoose.Schema.ObjectId, ref : 'TypeLaboratory'},
+    typeLaboratory: {type: mongoose.Schema.ObjectId, ref : 'TypeLaboratory'},
     date: Date,
     specifications: String
 });

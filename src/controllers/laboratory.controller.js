@@ -1,7 +1,7 @@
 'use strict'
 
 const Laboratory = require('../models/laboratory.model');
-const TypeLaboratoy = require('../models/typeLaboratory.model');
+const TypeLaboratory = require('../models/typeLaboratory.model');
 const User = require('../models/user.model');
 
 
@@ -19,7 +19,7 @@ exports.saveLaboratoryADMIN = async (req, res) => {
         const finishDateEntry = new Date(params.date);
 
         let data = {
-            typeLaboratoy: params.typeLaboratoy,
+            typeLaboratory: params.typeLaboratory,
             date: params.date,
             specifications: params.specifications,
             pacient: params.pacient,
@@ -28,7 +28,7 @@ exports.saveLaboratoryADMIN = async (req, res) => {
         let msg = validateData(data);
         if (!msg) {
 
-            const typeLaboratoryExist = await TypeLaboratoy.findOne({ _id: data.typeLaboratoy });
+            const typeLaboratoryExist = await TypeLaboratory.findOne({ _id: data.typeLaboratory });
             if (!typeLaboratoryExist) return res.status(400).send({ message: 'Tipo de Laboratorio no encontrado' });
 
             const pacientExist = await User.findOne({ _id: params.pacient });
@@ -73,7 +73,7 @@ exports.updateLaboratoryADMIN = async (req, res) => {
 
         if (!msg) {
 
-            const typeLaboratoryExist = await TypeLaboratoy.findOne({ _id: params.typeLaboratoy });
+            const typeLaboratoryExist = await TypeLaboratory.findOne({ _id: params.typeLaboratory });
             if (!typeLaboratoryExist) return res.status(400).send({ message: 'Tipo de Laboratorio no encontrado' });
 
             const pacientExist = await User.findOne({ _id: params.pacient });
@@ -88,7 +88,7 @@ exports.updateLaboratoryADMIN = async (req, res) => {
 
             if (dateAlready) return res.status(400).send({ message: 'Laboratorio ya creado en esta fecha.' });
 
-            const updateLaboratory = await Laboratory.findOneAndUpdate({ _id: laboratoryID }, params, { new: true }).populate('typeLaboratory')
+            const updateLaboratory = await Laboratory.findOneAndUpdate({ _id: laboratoryID }, params, { new: true }).populate('typeLaboratory pacient')
             if (!updateLaboratory) return res.status(400).send({ message: 'Laboratorio no encontrado' });
 
             const updateUser = await User.findOneAndUpdate(
@@ -130,7 +130,7 @@ exports.deleteLaboratoryADMIN = async (req, res) => {
 
 exports.getLaboratoriesADMIN = async (req, res) => {
     try {
-        const laboratories = await Laboratory.find().populate('typeLaboratory');
+        const laboratories = await Laboratory.find().populate('typeLaboratory pacient')
         if (!laboratories) return res.status(400).send({ message: 'Laboratorios no encontrados' });
         return res.send({ message: 'Laboratorios encontrados: ', laboratories });
     } catch (err) {
@@ -142,7 +142,7 @@ exports.getLaboratoriesADMIN = async (req, res) => {
 exports.getLaboratoryADMIN = async (req, res) => {
     try {
         const laboratoryID = req.params.id;
-        const laboratory = await Laboratory.findOne({ _id: laboratoryID }).populate('typeLaboratory');
+        const laboratory = await Laboratory.findOne({ _id: laboratoryID }).populate('typeLaboratory pacient')
         if (!laboratory) return res.status(400).send({ message: 'Laboratorio no encontrados' });
         return res.send({ message: 'Laboratorio encontrado: ', laboratory });
     } catch (err) {

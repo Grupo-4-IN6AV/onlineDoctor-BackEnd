@@ -22,4 +22,10 @@ api.post('/deleteUser/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.
 api.get('/searchUser', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.searchUser);
 api.get('/getUsers', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsers);
 
+
+//RUTAS Privadas -PIPES-//
+api.get('/getUsersByName', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosByName);
+api.get('/getUsersAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosAtoZ);
+api.get('/getUsersZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosZtoA);
+
 module.exports = api;

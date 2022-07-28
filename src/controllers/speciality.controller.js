@@ -101,3 +101,60 @@ exports.getEspeciality = async (req,res)=>{
         	return res.status(500).send({ message: 'Error obteniendo la especialidad.' });
 	}
 }
+
+//Obtener Speciality por el nombre
+exports.getSpecialityByName = async (req, res)=>{
+    try{
+        const params = req.body;
+        const data ={
+            name: params.name
+        }
+        const doctors = await Speciality.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Speciality encontrada: ', doctors});
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({message: 'Error encontrando Speciality.', err});
+    }
+}
+
+// Obtener Speciality ordenado de A a Z
+exports.getSpecialityAtoZ = async (req, res) => {
+    try {
+        const SpecialityAtoZ = await Speciality.find();
+        if (SpecialityAtoZ.length === 0) return res.send({ message: 'Speciality no encontrados' })
+        SpecialityAtoZ.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (b.name > a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Speciality encontrados:', SpecialityAtoZ })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener las Speciality.' });
+    }
+}
+
+// Obtener Speciality ordenado de Z a A
+exports.getSpecialityZtoA = async (req, res) => {
+    try {
+        const SpecialityZtoA = await Speciality.find();
+        if (SpecialityZtoA.length === 0) return res.send({ message: 'Speciality no encontrados' })
+        SpecialityZtoA.sort((a, b) => {
+            if (a.name > b.name) {
+                return -1;
+            } else if (b.name < a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Speciality encontrados:', SpecialityZtoA })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener las Speciality.' });
+    }
+}

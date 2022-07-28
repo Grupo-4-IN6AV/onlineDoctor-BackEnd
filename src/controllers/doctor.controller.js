@@ -283,3 +283,60 @@ exports.getDoctor = async (req, res) => {
         return res.status(400).send({ message: 'Error obteniendo doctor', err })
     }
 }
+
+//Obtener Doctor por el nombre
+exports.getDoctorByName = async (req, res)=>{
+    try{
+        const params = req.body;
+        const data ={
+            name: params.name
+        }
+        const doctors = await Doctor.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Doctor encontrados: ', doctors});
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({message: 'Error encontrando medicamento.', err});
+    }
+}
+
+// Obtener Doctor ordenado de A a Z
+exports.getDoctorAtoZ = async (req, res) => {
+    try {
+        const DoctorAtoZ = await Doctor.find();
+        if (DoctorAtoZ.length === 0) return res.send({ message: 'Doctores no encontrados' })
+        DoctorAtoZ.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (b.name > a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Doctor encontrados:', DoctorAtoZ })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Doctores.' });
+    }
+}
+
+// Obtener doctor ordenado de Z a A
+exports.getDoctorZtoA = async (req, res) => {
+    try {
+        const doctorZtoA = await Doctor.find();
+        if (doctorZtoA.length === 0) return res.send({ message: 'Doctor no encontrados' })
+        doctorZtoA.sort((a, b) => {
+            if (a.name > b.name) {
+                return -1;
+            } else if (b.name < a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Doctor encontrados:', doctorZtoA })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Doctor.' });
+    }
+}

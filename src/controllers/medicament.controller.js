@@ -125,32 +125,6 @@ exports.getMedicaments = async (req, res) => {
     }
 }
 
-//Función para Obtener todos los Medicamentos por el nombre//
-exports.getMedicamentsByName = async (req, res) => {
-    try {
-        const params = req.body;
-        const data = {
-            name: params.name
-        }
-        const msg = validateData(data)
-        if (msg) return res.status(400).send(msg)
-        const medicamentsByName = await Medicament.find({ name: { $regex: params.name, $options: 'i' } }).populate('typeMedicament');
-        if (medicamentsByName.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
-        medicamentsByName.sort((a, b) => {
-            if (a.name < b.name) {
-                return -1;
-            } else if (b.name > a.name) {
-                return 1;
-            } else {
-                return 0;
-            }
-        })
-        return res.send({ message: 'Medicamentos encontrados:', medicamentsByName })
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
-    }
-}
 
 // Obtener medicamento ordenado de A a Z
 exports.getMedicamentsAtoZ = async (req, res) => {
@@ -252,5 +226,22 @@ exports.addImgMedicament = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).send({ err, message: 'Error añadiendo una imagen al Medicamento.' });
+    }
+}
+
+//Obtener medicamento por el nombre
+exports.getMedicamentsByName = async (req, res)=>{
+    try{
+        const params = req.body;
+        const data ={
+            name: params.name
+        }
+
+        const medicaments = await Medicament.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Medicaments Founds', medicaments});
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({message: 'Erro encontrando medicamento.', err});
     }
 }

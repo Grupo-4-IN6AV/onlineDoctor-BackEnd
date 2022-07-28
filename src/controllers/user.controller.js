@@ -456,3 +456,60 @@ exports.getUsers = async (req, res) => {
         return res.status(500).send({ message: 'Error obteniendo usuarios', err });
     }
 }
+
+//Obtener Usuarios por el nombre
+exports.getUsuariosByName = async (req, res)=>{
+    try{
+        const params = req.body;
+        const data ={
+            name: params.name
+        }
+        const doctors = await User.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Usuarios encontrados: ', doctors});
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({message: 'Error encontrando Usuarios.', err});
+    }
+}
+
+// Obtener Usuarios ordenado de A a Z
+exports.getUsuariosAtoZ = async (req, res) => {
+    try {
+        const UsuariosAtoZ = await User.find();
+        if (UsuariosAtoZ.length === 0) return res.send({ message: 'Usuarios no encontrados' })
+        UsuariosAtoZ.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (b.name > a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Usuarios encontrados:', UsuariosAtoZ })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener las Usuarios.' });
+    }
+}
+
+// Obtener Usuarios ordenado de Z a A
+exports.getUsuariosZtoA = async (req, res) => {
+    try {
+        const UsuariosZtoA = await User.find();
+        if (UsuariosZtoA.length === 0) return res.send({ message: 'Usuarios no encontrados' })
+        UsuariosZtoA.sort((a, b) => {
+            if (a.name > b.name) {
+                return -1;
+            } else if (b.name < a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Usuarios encontrados: ', UsuariosZtoA })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener las Usuarios.' });
+    }
+}

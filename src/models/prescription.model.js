@@ -20,7 +20,9 @@ const prescriptionSchema = mongoose.Schema({
             laboratory: {type: mongoose.Schema.ObjectId, ref : 'Laboratory'}
         }
     ],
+    description: String,
     dateIssue: Date,
+    status: String,
 });
 
 module.exports = mongoose.model('Prescription', prescriptionSchema);

@@ -15,4 +15,9 @@ api.delete('/deleteTypeLaboratory/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], typ
 api.get('/getTypeLaboratory/:id',  [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratory);
 api.put('/updateTypeLaboratory/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.updateTypeLaboratory);
 
+//RUTAS Privadas -PIPES-//
+api.get('/getTypeLaboratoryByName', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryByName);
+api.get('/getTypeLaboratoryAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryAtoZ);
+api.get('/getTypeLaboratoryZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryZtoA);
+
 module.exports = api;

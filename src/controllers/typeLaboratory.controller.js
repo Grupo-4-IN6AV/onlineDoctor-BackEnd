@@ -146,3 +146,60 @@ exports.getTypeLaboratory = async (req, res)=>{
         return res.status(500).send({message:'Error al obtener el Tipo de Laboratorio.'});
     }
 }
+
+//Obtener Type Laboratory por el nombre
+exports.getTypeLaboratoryByName = async (req, res)=>{
+    try{
+        const params = req.body;
+        const data ={
+            name: params.name
+        }
+        const typeLaboratory = await TypeLaboratory.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Type Laboratory encontrados: ', typeLaboratory});
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({message: 'Error encontrando Type Laboratory.', err});
+    }
+}
+
+// Obtener Type Laboratory ordenado de A a Z
+exports.getTypeLaboratoryAtoZ = async (req, res) => {
+    try {
+        const TypeLaboratoryAtoZ = await TypeLaboratory.find();
+        if (TypeLaboratoryAtoZ.length === 0) return res.send({ message: 'Type Laboratory no encontrados' })
+        TypeLaboratoryAtoZ.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (b.name > a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Type Laboratory AtoZ encontrados:', TypeLaboratoryAtoZ })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Type Laboratory.' });
+    }
+}
+
+// Obtener Type Laboratory ordenado de Z a A
+exports.getTypeLaboratoryZtoA = async (req, res) => {
+    try {
+        const typeLaboratoryZtoA = await TypeLaboratory.find();
+        if (typeLaboratoryZtoA.length === 0) return res.send({ message: 'Type Laboratory no encontrados' })
+        typeLaboratoryZtoA.sort((a, b) => {
+            if (a.name > b.name) {
+                return -1;
+            } else if (b.name < a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Type Laboratory encontrados:', typeLaboratoryZtoA })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Types Laboratory.' });
+    }
+}

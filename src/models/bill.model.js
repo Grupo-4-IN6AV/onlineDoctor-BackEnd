@@ -1,4 +1,4 @@
-'use strict'
+    'use strict'
 
 const mongoose = require('mongoose');
 
@@ -9,10 +9,15 @@ const billSchema = mongoose.Schema(
     numberBill: String,
     products: 
     [{
-            medicament: {type:mongoose.Schema.ObjectId, ref: 'Medicament'}, 
-            quantity: Number,
-            price: Number,
-            subTotalProduct: Number
+        medicament: {type:mongoose.Schema.ObjectId, ref: 'Medicament'}, 
+        quantity: Number,
+        price: Number,
+        subTotalProduct: Number
+    }],
+    laboratorys:
+    [{
+        laboratory: {type:mongoose.Schema.ObjectId, ref: 'Laboratory'},
+        subTotalLaboratory: Number
     }],
     IVA: Number,
     subTotal: Number,

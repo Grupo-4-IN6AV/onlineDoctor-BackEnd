@@ -140,3 +140,60 @@ exports.getTypeMedicamentADMIN = async (req, res) => {
         return res.status(500).send({err, message: 'Error al Obtener el Type Medicament.'});
     }
 }
+
+//Obtener Type Medicament por el nombre
+exports.getTypeMedicamentByName = async (req, res)=>{
+    try{
+        const params = req.body;
+        const data ={
+            name: params.name
+        }
+        const typeMedicament = await TypeMedicament.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Type Medicament encontrados: ', typeMedicament});
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({message: 'Error encontrando Type Medicament.', err});
+    }
+}
+
+// Obtener Type Medicament ordenado de A a Z
+exports.getTypeMedicamentAtoZ = async (req, res) => {
+    try {
+        const TypeMedicamentAtoZ = await TypeMedicament.find();
+        if (TypeMedicamentAtoZ.length === 0) return res.send({ message: 'Type Medicament no encontrados' })
+        TypeMedicamentAtoZ.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (b.name > a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Type Medicament encontrados:', TypeMedicamentAtoZ })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Type Medicament.' });
+    }
+}
+
+// Obtener Type Medicament ordenado de Z a A
+exports.getTypeMedicamentZtoA = async (req, res) => {
+    try {
+        const TypeMedicamentZtoA = await TypeMedicament.find();
+        if (TypeMedicamentZtoA.length === 0) return res.send({ message: 'Type Medicament no encontrados' })
+        TypeMedicamentZtoA.sort((a, b) => {
+            if (a.name > b.name) {
+                return -1;
+            } else if (b.name < a.name) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        return res.send({ message: 'Type Medicament encontrados: ', TypeMedicamentZtoA})
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Type Medicament.'});
+    }
+}

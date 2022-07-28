@@ -6,11 +6,8 @@ const Laboratory = require('../models/laboratory.model');
 const User = require('../models/user.model');
 const Doctor = require('../models/doctor.model');
 
-
-
-const { validateData,checkPermission } = require('../utils/validate');
+const { validateData , checkPermission } = require('../utils/validate');
 const jwt = require('../services/jwt');
-const { param } = require('express/lib/request');
 
 //Función de Testeo//
 exports.prescriptionTest = async (req, res) => {

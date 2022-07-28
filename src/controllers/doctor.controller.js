@@ -302,9 +302,9 @@ exports.getDoctorByName = async (req, res)=>{
 // Obtener Doctor ordenado de A a Z
 exports.getDoctorAtoZ = async (req, res) => {
     try {
-        const DoctorAtoZ = await Doctor.find();
-        if (DoctorAtoZ.length === 0) return res.send({ message: 'Doctores no encontrados' })
-        DoctorAtoZ.sort((a, b) => {
+        const doctorAtoZ = await Doctor.find();
+        if (doctorAtoZ.length === 0) return res.send({ message: 'Doctores no encontrados' })
+        doctorAtoZ.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
             } else if (b.name > a.name) {
@@ -313,7 +313,7 @@ exports.getDoctorAtoZ = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Doctor encontrados:', DoctorAtoZ })
+        return res.send({ message: 'Doctor encontrados:', doctorAtoZ })
     } catch (err) {
         console.log(err);
         return res.status(500).send({ err, message: 'Error al Obtener los Doctores.' });

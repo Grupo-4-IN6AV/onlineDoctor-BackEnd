@@ -464,8 +464,8 @@ exports.getUsuariosByName = async (req, res)=>{
         const data ={
             name: params.name
         }
-        const doctors = await User.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Usuarios encontrados: ', doctors});
+        const users = await User.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Usuarios encontrados: ', users});
     }catch(err){
         console.log(err);
         return res.status(500).send({message: 'Error encontrando Usuarios.', err});
@@ -475,7 +475,7 @@ exports.getUsuariosByName = async (req, res)=>{
 // Obtener Usuarios ordenado de A a Z
 exports.getUsuariosAtoZ = async (req, res) => {
     try {
-        const UsuariosAtoZ = await User.find();
+        const UsuariosAtoZ = await User.find({name:{$ne: 'SuperAdmin'}});
         if (UsuariosAtoZ.length === 0) return res.send({ message: 'Usuarios no encontrados' })
         UsuariosAtoZ.sort((a, b) => {
             if (a.name < b.name) {
@@ -496,7 +496,7 @@ exports.getUsuariosAtoZ = async (req, res) => {
 // Obtener Usuarios ordenado de Z a A
 exports.getUsuariosZtoA = async (req, res) => {
     try {
-        const UsuariosZtoA = await User.find();
+        const UsuariosZtoA = await User.find({name:{$ne: 'SuperAdmin'}});
         if (UsuariosZtoA.length === 0) return res.send({ message: 'Usuarios no encontrados' })
         UsuariosZtoA.sort((a, b) => {
             if (a.name > b.name) {

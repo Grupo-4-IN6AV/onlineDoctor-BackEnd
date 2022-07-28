@@ -18,7 +18,7 @@ api.get('/getTypeMedicament/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], typeMedic
 
 
 //RUTAS Privadas -PIPES-//
-api.get('/getTypeMedicamentByName', [mdAuth.ensureAuth, mdAuth.isAdmin], typeMedicamentController.getTypeMedicamentByName);
+api.post('/getTypeMedicamentByName', [mdAuth.ensureAuth, mdAuth.isAdmin], typeMedicamentController.getTypeMedicamentByName);
 api.get('/getTypeMedicamentAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], typeMedicamentController.getTypeMedicamentAtoZ);
 api.get('/getTypeMedicamentZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], typeMedicamentController.getTypeMedicamentZtoA);
 

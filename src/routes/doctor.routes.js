@@ -21,7 +21,7 @@ api.get('/searchDoctor', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.s
 api.get('/getDoctors', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctors);
 
 //RUTAS Privadas -PIPES-//
-api.get('/getDoctorByName', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctorByName);
+api.post('/getDoctorByName', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctorByName);
 api.get('/getDoctorAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctorAtoZ);
 api.get('/getDoctorZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctorZtoA);
 

@@ -16,7 +16,7 @@ api.get('/getTypeLaboratory/:id',  [mdAuth.ensureAuth, mdAuth.isAdmin], typeLabo
 api.put('/updateTypeLaboratory/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.updateTypeLaboratory);
 
 //RUTAS Privadas -PIPES-//
-api.get('/getTypeLaboratoryByName', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryByName);
+api.post('/getTypeLaboratoryByName', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryByName);
 api.get('/getTypeLaboratoryAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryAtoZ);
 api.get('/getTypeLaboratoryZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryZtoA);
 

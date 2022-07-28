@@ -24,7 +24,7 @@ api.get('/getUsers', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUser
 
 
 //RUTAS Privadas -PIPES-//
-api.get('/getUsersByName', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosByName);
+api.post('/getUsersByName', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosByName);
 api.get('/getUsersAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosAtoZ);
 api.get('/getUsersZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosZtoA);
 

@@ -14,8 +14,8 @@ api.put('/updateMedicament/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], medicament
 api.delete('/deleteMedicament/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.deleteMedicamentADMIN);
 api.get('/getMedicaments', medicamentController.getMedicaments);
 api.get('/getMedicament/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentADMIN);
-api.get('/getMedicamentByName', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentsByName);
-api.get('/getMedicamentByTypeMedicament', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentsByTypeMedicament);
+api.post('/getMedicamentByName', medicamentController.getMedicamentsByName);
+
 api.get('/getMedicamentAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentsAtoZ);
 api.get('/getMedicamentZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentsZtoA);
 

@@ -3,6 +3,9 @@
 const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user.model');
 
+//Importación del Modelo -ShoppingCart- //
+const ShoppingCart = require('../models/shoppingCart.model');
+
 
 exports.validateData = (data) => {
     let keys = Object.keys(data), msg = '';
@@ -101,4 +104,19 @@ exports.deleteSensitiveData = async(data)=>{
         console.log(err);
         return err;
     }
+}
+
+//Eliminación de Datos Innecesarios Carrito de Compras//
+exports.detailsShoppingCart = async(shoppingCartId)=>
+{   
+    const searchShoppingCart = await ShoppingCart.findOne({_id:shoppingCartId})
+    .populate('user')
+    .lean();
+
+    for(var key = 0; key < searchShoppingCart.products.length; key++)
+    {
+        delete searchShoppingCart.user.password;
+        delete searchShoppingCart.user.role;
+    }
+    return searchShoppingCart;
 }

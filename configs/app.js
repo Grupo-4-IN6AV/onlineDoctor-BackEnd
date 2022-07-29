@@ -22,7 +22,8 @@ const medicamentRoutes = require('../src/routes/medicament.routes');
 const appointmentRoutes = require('../src/routes/appointment.routes');
 const laboratoryRoutes = require('../src/routes/laboratory.routes')
 const previewPrescriptionRoutes = require('../src/routes/previewPrescription.routes')
-
+const shoppingCartRoutes = require('../src/routes/shoppingCart.routes');
+const billRoutes = require('../src/routes/bill.routes');
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -39,6 +40,8 @@ app.use('/medicament', medicamentRoutes);
 app.use('/appointment', appointmentRoutes);
 app.use('/laboratory', laboratoryRoutes);
 app.use('/previewPrescription', previewPrescriptionRoutes);
+app.use('/bill', billRoutes);
+app.use('/shoppingCart', shoppingCartRoutes);
 
 
 exports.initServer = ()=> app.listen(port, async ()=>

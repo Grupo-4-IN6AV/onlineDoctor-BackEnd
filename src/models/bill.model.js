@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 const billSchema = mongoose.Schema(
 {
     date: Date,
-    client: {type: mongoose.Schema.ObjectId, ref : 'User'},
+    user: {type: mongoose.Schema.ObjectId, ref : 'User'},
     numberBill: String,
+    NIT: String,
     products: 
     [{
         medicament: {type:mongoose.Schema.ObjectId, ref: 'Medicament'}, 
@@ -14,11 +15,7 @@ const billSchema = mongoose.Schema(
         price: Number,
         subTotalProduct: Number
     }],
-    laboratorys:
-    [{
-        laboratory: {type:mongoose.Schema.ObjectId, ref: 'Laboratory'},
-        subTotalLaboratory: Number
-    }],
+    
     IVA: Number,
     subTotal: Number,
     total: Number,

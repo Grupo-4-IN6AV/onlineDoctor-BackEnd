@@ -3,23 +3,22 @@
 const mongoose = require('mongoose');
 
 const shoppingCartSchema = mongoose.Schema(
-{
-    client: {type: mongoose.Schema.ObjectId, ref : 'User'},
-    medicament: 
-    [{
-        medicament: {type:mongoose.Schema.ObjectId, ref: 'Medicament'},
-        quantity: Number,
-        price: Number,
-        subTotalProduct: Number
-    }],
-    laboratorys:
-    [{
-        laboratory: {type:mongoose.Schema.ObjectId, ref: 'Laboratory'},
-        subTotalLaboratory: Number
-    }],
-    IVA: Number,
-    subTotal: Number,
-    total: Number,
-});
+    {
+        user: { type: mongoose.Schema.ObjectId, ref: 'User' },
+        client: String,
+        NIT: String,
+        products:
+            [{
+                medicament: { 
+                    type: mongoose.Schema.ObjectId, ref: 'Medicament' 
+                },
+                quantity: Number,
+                price: Number,
+                subTotalProduct: Number
+            }],
+        IVA: Number,
+        subTotal: Number,
+        total: Number,
+    });
 
-module.exports = mongoose.model('ShoppingCart', shoppingCartSchema);
+module.exports = mongoose.model('ShoppingCart', shoppingCartSchema)

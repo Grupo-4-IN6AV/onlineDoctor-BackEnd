@@ -15,5 +15,11 @@ api.get('/getLaboratory/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], laboratoryCon
 api.put('/updateLaboratory/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], laboratoryController.updateLaboratoryADMIN);
 api.delete('/deleteLaboratory/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], laboratoryController.deleteLaboratoryADMIN);
 
+//Rutas Privadas -DOCTOR-//
+api.post('/saveLaboratoryDoctor', [mdAuth.ensureAuth], laboratoryController.saveLaboratoryADMIN);
+api.get('/getLaboratoriesDoctor/:id', [mdAuth.ensureAuth], laboratoryController.getLaboratoriesUSER);
+api.get('/getLaboratoryDoctor/:id', [mdAuth.ensureAuth], laboratoryController.getLaboratoryADMIN);
+api.put('/updateLaboratoryDoctor/:id', [mdAuth.ensureAuth], laboratoryController.updateLaboratoryADMIN);
+api.delete('/deleteLaboratoryDoctor/:id/:idUser', [mdAuth.ensureAuth], laboratoryController.deleteLaboratoryADMIN);
 
 module.exports = api;

@@ -65,7 +65,6 @@ const userSchema = mongoose.Schema({
         {
             laboratory: {type: mongoose.Schema.ObjectId, ref : 'Laboratory'},
             done: Boolean,
-            description: String 
         }
     ],
     appointment:

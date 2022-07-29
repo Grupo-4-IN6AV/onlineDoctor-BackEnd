@@ -6,6 +6,7 @@ const appointmentSchema = mongoose.Schema({
     doctor: {type: mongoose.Schema.ObjectId, ref : 'Doctor'},
     date: Date,
     modality: String,
+    done: Boolean
 });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);

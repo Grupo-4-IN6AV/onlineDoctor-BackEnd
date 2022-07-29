@@ -20,7 +20,7 @@ api.post('/saveUser', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.saveUs
 api.put('/updateUser/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.updateUser);
 api.post('/deleteUser/:id', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.deleteUser);
 api.get('/searchUser', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.searchUser);
-api.get('/getUsers', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsers);
+api.get('/getUsers', [mdAuth.ensureAuth], userController.getUsers);
 
 
 //RUTAS Privadas -PIPES-//

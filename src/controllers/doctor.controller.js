@@ -3,6 +3,7 @@
 const Doctor = require('../models/doctor.model');
 const User = require('../models/user.model')
 const Appointment = require('../models/appointment.model');
+const Speciality = require('../models/speciality.model');
 
 const { checkPassword, checkPermission, checkUpdateDoctor, validateData, encrypt, checkUpdateDoctorAdmin } = require('../utils/validate');
 
@@ -28,6 +29,7 @@ exports.saveDoctor = async (req, res) => {
             age: params.age,
             gender: params.gender,
             role: 'DOCTOR',
+            speciality: params.speciality,
             collegiateNumber: params.collegiateNumber,
         }
         const msg = validateData(data);
@@ -44,6 +46,11 @@ exports.saveDoctor = async (req, res) => {
 
         const existDoctorCollegiateNumber = await Doctor.findOne({ collegiateNumber: params.collegiateNumber });
         if (existDoctorCollegiateNumber) return res.status(400).send({ message: 'El numero de colegiado ya esta registrado' });
+
+        if (params.speciality) {
+            const specialityExist = await Speciality.findOne({ _id: params.speciality });
+            if (!specialityExist) return res.status(400).send({ message: 'Especialidad no encontrada' });
+        }
 
         const correctionGender = params.gender.toUpperCase();
         if (correctionGender === 'MALE') {
@@ -66,7 +73,7 @@ exports.saveDoctor = async (req, res) => {
         return res.send({ message: 'Doctor registrado exitosamente', doctorExist });
     } catch (err) {
         console.log(err);
-        return res.send({ message: 'Error saving a Doctor', err });
+        return res.send({ message: 'Eror guardando a Doctor', err });
     }
 }
 
@@ -261,7 +268,7 @@ exports.deleteDoctor = async (req, res) => {
             return res.send({ message: 'Doctor no Encontrado o ya Eliminado' });
         }
 
-        return res.status(400).send({ message: 'La contraseña es incorrecta'});
+        return res.status(400).send({ message: 'La contraseña es incorrecta' });
 
 
     } catch (err) {
@@ -285,17 +292,17 @@ exports.getDoctor = async (req, res) => {
 }
 
 //Obtener Doctor por el nombre
-exports.getDoctorByName = async (req, res)=>{
-    try{
+exports.getDoctorByName = async (req, res) => {
+    try {
         const params = req.body;
-        const data ={
+        const data = {
             name: params.name
         }
-        const doctors = await Doctor.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Doctor encontrados: ', doctors});
-    }catch(err){
+        const doctors = await Doctor.find({ name: { $regex: params.name, $options: 'i' } });
+        return res.send({ message: 'Doctor encontrados: ', doctors });
+    } catch (err) {
         console.log(err);
-        return res.status(500).send({message: 'Error encontrando medicamento.', err});
+        return res.status(500).send({ message: 'Error encontrando medicamento.', err });
     }
 }
 

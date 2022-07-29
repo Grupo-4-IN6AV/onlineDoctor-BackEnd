@@ -13,14 +13,14 @@ const doctorSchema = mongoose.Schema({
     gender: String,
     role: String,
     collegiateNumber: String,
-    specialty:[{type: mongoose.Schema.ObjectId, ref : 'Speciality'}],
+    specialty: { type: mongoose.Schema.ObjectId, ref: 'Speciality' },
     appointment:
-    [
-        {
-            appointment: {type: mongoose.Schema.ObjectId, ref : 'Appointment'},
-            done: Boolean
-        }     
-    ]
+        [
+            {
+                appointment: { type: mongoose.Schema.ObjectId, ref: 'Appointment' },
+                done: Boolean
+            }
+        ]
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);

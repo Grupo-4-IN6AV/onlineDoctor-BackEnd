@@ -73,7 +73,7 @@ const userSchema = mongoose.Schema({
         {
             appointment: {type: mongoose.Schema.ObjectId, ref : 'Appointment'},
             done: Boolean
-        }     
+        }
     ]
 });
 

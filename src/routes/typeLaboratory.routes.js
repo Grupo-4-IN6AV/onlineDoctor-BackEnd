@@ -20,4 +20,8 @@ api.post('/getTypeLaboratoryByName', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLa
 api.get('/getTypeLaboratoryAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryAtoZ);
 api.get('/getTypeLaboratoryZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], typeLaboratoryController.getTypeLaboratoryZtoA);
 
+//RUTAS privadas -DOCTORES-
+api.get('/getTypesLaboratoryDoctor', [mdAuth.ensureAuth], typeLaboratoryController.getTypesLaboratory);
+api.get('/getTypeLaboratoryDoctor/:id',  [mdAuth.ensureAuth], typeLaboratoryController.getTypeLaboratory);
+
 module.exports = api;

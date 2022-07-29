@@ -28,4 +28,9 @@ api.post('/getUsersByName', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.
 api.get('/getUsersAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosAtoZ);
 api.get('/getUsersZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], userController.getUsuariosZtoA);
 
+//RUTAS privadass -DOCTORES-
+api.get('/getUsersDoctor', [mdAuth.ensureAuth], userController.getUsers);
+api.get('/getUserDoctor/:id', [mdAuth.ensureAuth], userController.getUser);
+
+
 module.exports = api;

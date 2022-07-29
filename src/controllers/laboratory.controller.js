@@ -108,8 +108,8 @@ exports.updateLaboratoryADMIN = async (req, res) => {
 
 exports.deleteLaboratoryADMIN = async (req, res) => {
     try {
-        const params = req.body;
         const laboratoryID = req.params.id;
+        const userID = req.params.idUser;
         const laboratoryExist = await Laboratory.findOne({ _id: laboratoryID });
 
         if (!laboratoryExist) return res.status(400).send({ message: 'Laboratorio no encontrado o eliminado actualmente.' });
@@ -117,7 +117,8 @@ exports.deleteLaboratoryADMIN = async (req, res) => {
         const laboratoryDeleted = await Laboratory.findOneAndDelete({ _id: laboratoryID });
         if (!laboratoryDeleted) return res.status(400).send({ message: 'Laboratorio no eliminado. ' })
 
-        const registerLaboratoryUser = await User.findOneAndUpdate({ _id: params.pacient }, { $pull: { 'laboratory': { 'laboratory': laboratoryID } } }, { new: true });
+        const registerLaboratoryUser = await User.findOneAndUpdate({ _id: userID }, { $pull: { 'laboratory': { 'laboratory': laboratoryID } } }, { new: true });
+        console.log(registerLaboratoryUser);
         if (!registerLaboratoryUser) return res.status(400).send({ message: 'Laboratorio no eliminado del usuario' });
 
         return res.send({ message: 'Laboratorio eliminado exitosamente.', laboratoryDeleted });
@@ -145,6 +146,18 @@ exports.getLaboratoryADMIN = async (req, res) => {
         const laboratory = await Laboratory.findOne({ _id: laboratoryID }).populate('typeLaboratory pacient')
         if (!laboratory) return res.status(400).send({ message: 'Laboratorio no encontrados' });
         return res.send({ message: 'Laboratorio encontrado: ', laboratory });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener Laboratorio.' });
+    }
+}
+
+exports.getLaboratoriesUSER = async (req, res) => {
+    try {
+        const pacientID = req.params.id;
+        const laboratories = await Laboratory.find({ pacient: pacientID }).populate('typeLaboratory pacient')
+        if (laboratories.length === 0) return res.status(400).send({ message: 'Laboratorios no encontrados' });
+        return res.send({ message: 'Laboratorios encontrados: ', laboratories });
     } catch (err) {
         console.log(err);
         return res.status(500).send({ err, message: 'Error al obtener Laboratorio.' });

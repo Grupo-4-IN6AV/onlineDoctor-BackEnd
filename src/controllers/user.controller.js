@@ -226,11 +226,20 @@ exports.updateAccount = async (req, res) => {
 exports.getUser = async (req, res) => {
     try {
         const idLoggued = req.user.sub;
+        const userID = req.params.id;
         const role = await User.findOne({ _id: idLoggued });
         const doctorRole = await Doctor.findOne({ _id: idLoggued });
 
+        const roleUser = await User.findOne({ _id: userID });
+
         if (role && role.role === 'PACIENTE') {
             const user = await User.findOne({ _id: idLoggued });
+            if (!user)
+                return res.status(400).send({ message: 'Usuario no Encontrado' })
+            return res.send({ message: 'Usuario Encontrado:', user });
+        }
+        if (roleUser && doctorRole && doctorRole.role === 'DOCTOR') {
+            const user = await User.findOne({ _id: userID });
             if (!user)
                 return res.status(400).send({ message: 'Usuario no Encontrado' })
             return res.send({ message: 'Usuario Encontrado:', user });
@@ -242,7 +251,6 @@ exports.getUser = async (req, res) => {
             return res.send({ message: 'Doctor Encontrado:', user });
         }
         if (role && role.role === 'ADMIN') {
-            const userID = req.params.id
             const user = await User.findOne({ _id: userID });
             if (!user)
                 return res.status(400).send({ message: 'Usuario no Encontrado' })

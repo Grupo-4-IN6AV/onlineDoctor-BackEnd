@@ -242,3 +242,45 @@ exports.getAppointmentADMIN = async (req, res) => {
         return res.status(500).send({ err, message: 'Error al obtener cita.' });
     }
 }
+
+exports.getAppointmentsUser = async (req, res) => {
+    try {
+        const identity = req.user.sub;
+
+        let appointmentsExist = await Appointment.find({doctor:identity})
+            .populate('pacient doctor')
+
+        if (appointmentsExist.length === 0) return res.status(400).send({ message: 'Appointments no econtradas' });
+
+        appointmentsExist.map( async (apo) => {
+            await deleteSensitiveData(apo);
+        });
+
+        return res.send({message:'Appointmen Encotrada: ', appointmentsExist});
+        
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener citas.' });
+    }
+}
+
+exports.getAppointmentsPaciente = async (req, res) => {
+    try {
+        const identity = req.user.sub;
+        
+        let appointmentsExist = await Appointment.find({pacient:identity})
+            .populate('pacient doctor')
+
+        if (appointmentsExist.length === 0) return res.status(400).send({ message: 'Appointments no econtradas' });
+
+        appointmentsExist.map( async (apo) => {
+            await deleteSensitiveData(apo);
+        })
+
+        return res.send({message:'Appointmen Encotrada: ', appointmentsExist});
+        
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener citas.' });
+    }
+}

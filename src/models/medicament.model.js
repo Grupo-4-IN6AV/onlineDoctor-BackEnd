@@ -9,7 +9,7 @@ const medicamentsSchema = mongoose.Schema({
     stock: Number,
     sales: Number,
     availibility: Boolean,
-    photos: [{image:String}]
+    image: String,
 });
 
 module.exports = mongoose.model('Medicament', medicamentsSchema);

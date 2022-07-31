@@ -5,9 +5,15 @@ const User = require('../models/user.model')
 const Appointment = require('../models/appointment.model');
 const Speciality = require('../models/speciality.model');
 
-const { checkPassword, checkPermission, checkUpdateDoctor, validateData, encrypt, checkUpdateDoctorAdmin } = require('../utils/validate');
+const { checkPassword, checkPermission, 
+    checkUpdateDoctor, validateData, encrypt, 
+    checkUpdateDoctorAdmin, validExtension } = require('../utils/validate');
 
 ////////////////////////////////// FUNCIONES DE DOCTOR PARA (ADMIN) /////////////////////////////////////////
+
+//Connect Multiparty Upload Image//
+const fs = require('fs');
+const path = require('path');
 
 //Función de Testeo//
 exports.doctorTest = (req, res) => {
@@ -345,5 +351,59 @@ exports.getDoctorZtoA = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).send({ err, message: 'Error al Obtener los Doctor.' });
+    }
+}
+
+//IMPLEMENTACIÓN DE IMÁGENES//
+exports.addImageDoctor = async(req,res)=>
+{
+    try
+    {
+        const doctorID = req.params.id;
+
+        const permission = await checkPermission(doctorID, req.user.sub);
+        if(permission === false) return res.status(401).send({message: 'No posees los permisos necesarios'});
+        const alreadyImage = await Doctor.findOne({_id: req.user.sub});
+        let pathFile = './uploads/doctors/';
+        if(alreadyImage.image) fs.unlinkSync(pathFile+alreadyImage.image);
+        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen'});
+        
+        const filePath = req.files.image.path; 
+       
+        const fileSplit = filePath.split('\\'); 
+        const fileName = fileSplit[2]; 
+
+        const extension = fileName.split('\.'); 
+        const fileExt = extension[1]; 
+
+        const validExt = await validExtension(fileExt, filePath);
+        if(validExt === false) return res.status(400).send('Tipo de Archivo no válido');
+        const updateUser = await Doctor.findOneAndUpdate({_id: req.user.sub}, {image: fileName}, {new: true}).lean();        
+        if(!updateUser) return res.status(404).send({message: 'Doctor no existente'});
+        delete updateUser.password;
+        return res.send(updateUser);
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).send({err, message: 'Error al Asignarle una imagen al doctor'});
+    }
+}
+
+exports.getImageDoctor = async(req, res)=>
+{
+    try
+    {
+        const fileName = req.params.fileName;
+        const pathFile = './uploads/doctors/' + fileName;
+
+        const image = fs.existsSync(pathFile);
+        if(!image) return res.status(404).send({message: 'Imagen no existente'});
+        return res.sendFile(path.resolve(pathFile));
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).send({err, message: 'Error al Obtener la Imagen del Doctor'});
     }
 }

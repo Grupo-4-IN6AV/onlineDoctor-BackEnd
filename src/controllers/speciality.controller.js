@@ -6,7 +6,7 @@ const {validateData} = require('../utils/validate');
 
 // Funcion  De Testeo //
 exports.testSpeciality = (req,res)=>{
-	return res.send({message: 'Función de testeo -ESPECIALIDAD- funciona correctamente'});
+	return res.send({message: 'Función de testeo -Especialidad- funciona correctamente.'});
 }
 
 // Funcion Para Agregar Nueva Especialidad //
@@ -26,11 +26,11 @@ exports.saveSpeciality = async (req,res)=>{
 			await speciality.save();
 			return res.send({ message: 'Especialidad creada satisfactoriamente.', speciality });
 		}
-		else return res.status(400).send({ message: 'La especialidad ya existe.'});
+		else return res.status(400).send({ message: 'La Especialidad ya existe.'});
 
 	}catch(err){
 		console.log(err);
-		return res.status(500).send({ message: 'Error creando la especialidad'});
+		return res.status(500).send({ message: 'Error creando la Especialidad.'});
     }
 }
 
@@ -40,15 +40,15 @@ exports. deleteSpeciality = async (req,res)=>{
 		const specialityId = req.params.id;
 		const deletedSpeciality = await Speciality.findOneAndDelete({ _id: specialityId});
 		if(!deletedSpeciality){
-			return res.status(500).send({ message: 'Especialidad no encontrada o ya eliminada.'});
+			return res.status(500).send({ message: 'Especialidad no encontrada o ya esta eliminada.'});
 		}
 		else{
-			return res.send({deletedSpeciality, message: 'Especialidad eliminada satisfactoriamente'});
+			return res.send({deletedSpeciality, message: 'Especialidad eliminada satisfactoriamente.'});
 		}
 
 	}catch(err){
 		console.log(err);
-		return res.status(500).send({message: 'Error eliminando especialidad.'});
+		return res.status(500).send({message: 'Error eliminando la Especialidad.'});
 	}
 }
 
@@ -59,17 +59,17 @@ exports.updateSpeciality = async (req,res) =>{
 		const params = req.body;
 		
 		const specialityExist = await Speciality.findOne({_id: specialityId});
-		if(!specialityExist) return res.status(400).send({message: 'Especialidad no encontrada'});
+		if(!specialityExist) return res.status(400).send({message: 'Especialidad no encontrada.'});
 
 	const alreadyName = await Speciality.findOne({name: params.name});
 	if(alreadyName && specialityExist.name != alreadyName.name)
-		return res.send({message: 'El nombre de la especialidad ya en uso.'});
+		return res.send({message: 'El nombre de la Especialidad ya en uso.'});
 	const specialityEdited = await Speciality.findOneAndUpdate({_id: specialityId}, params, {new: true});
-	if(!specialityEdited) return res.status(400).send({message: 'Especialidad no editada'})
-	return res.send({message: 'Especialidad editada exitosamente'});
+	if(!specialityEdited) return res.status(400).send({message: 'Especialidad no actualizada.'})
+	return res.send({message: 'Especialidad actualizada exitosamente.'});
 	}catch(err){
 		console.log(err);
-        	return res.status(500).send({ message: 'Error al editar la especialidad' });
+        	return res.status(500).send({ message: 'Error al actualizada la Especialidad.' });
 	}
 }
 
@@ -79,11 +79,11 @@ exports.getEspecialities = async (req, res)=>{
 	try{
 		const specialities = await Speciality.find();
 		if(specialities.length == 0)
-			return res.send({message: 'Aún no existen especialidades'});
-		return res.send({message: 'Especialidades encontradas', specialities });
+			return res.send({message: 'Aún no existen Especialidades.'});
+		return res.send({message: 'Especialidades encontradas:', specialities });
 	}catch(err){
         console.log(err); 
-        return res.status(500).send({ message: 'Error obteniendo las especialidades.' });
+        return res.status(500).send({ message: 'Error obteniendo las Especialidades.' });
     }
 }
 
@@ -94,11 +94,11 @@ exports.getEspeciality = async (req,res)=>{
 		const especialityId = req.params.id;
 		const speciality = await Speciality.findOne({_id: especialityId});
 		if(!speciality)
-			return res.status(400).send({message: 'Especialidad no encontrada'});
-		return res.send({message: 'Especialidad encontrada', speciality});
+			return res.status(400).send({message: 'Especialidad no encontrada.'});
+		return res.send({message: 'Especialidad encontrada:', speciality});
 	}catch(err){
 		console.log(err); 
-        	return res.status(500).send({ message: 'Error obteniendo la especialidad.' });
+        	return res.status(500).send({ message: 'Error obteniendo la Especialidad.' });
 	}
 }
 
@@ -110,10 +110,10 @@ exports.getSpecialityByName = async (req, res)=>{
             name: params.name
         }
         const doctors = await Speciality.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Speciality encontrada: ', doctors});
+        return res.send({message:'Especialidad encontrada: ', doctors});
     }catch(err){
         console.log(err);
-        return res.status(500).send({message: 'Error encontrando Speciality.', err});
+        return res.status(500).send({message: 'Error encontrando la Especialidad.', err});
     }
 }
 
@@ -121,7 +121,7 @@ exports.getSpecialityByName = async (req, res)=>{
 exports.getSpecialityAtoZ = async (req, res) => {
     try {
         const SpecialityAtoZ = await Speciality.find();
-        if (SpecialityAtoZ.length === 0) return res.send({ message: 'Speciality no encontrados' })
+        if (SpecialityAtoZ.length === 0) return res.send({ message: 'Especialidades no encontrados.' })
         SpecialityAtoZ.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
@@ -131,10 +131,10 @@ exports.getSpecialityAtoZ = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Speciality encontrados:', SpecialityAtoZ })
+        return res.send({ message: 'Especialidades encontrados:', SpecialityAtoZ })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener las Speciality.' });
+        return res.status(500).send({ err, message: 'Error al Oobtener las Especialidades.' });
     }
 }
 
@@ -142,7 +142,7 @@ exports.getSpecialityAtoZ = async (req, res) => {
 exports.getSpecialityZtoA = async (req, res) => {
     try {
         const SpecialityZtoA = await Speciality.find();
-        if (SpecialityZtoA.length === 0) return res.send({ message: 'Speciality no encontrados' })
+        if (SpecialityZtoA.length === 0) return res.send({ message: 'Especialidades no encontrados.' })
         SpecialityZtoA.sort((a, b) => {
             if (a.name > b.name) {
                 return -1;
@@ -152,9 +152,9 @@ exports.getSpecialityZtoA = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Speciality encontrados:', SpecialityZtoA })
+        return res.send({ message: 'Especialidades encontrados:', SpecialityZtoA })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener las Speciality.' });
+        return res.status(500).send({ err, message: 'Error al obtener las Especialidades.' });
     }
 }

@@ -17,7 +17,7 @@ const path = require('path');
 
 //Función de Testeo//
 exports.doctorTest = (req, res) => {
-    return res.send({ message: 'Función de testeo -DOCTOR- funciona correctamente' })
+    return res.send({ message: 'Función de testeo -DOCTOR- funciona correctamente.' })
 }
 
 //Funcion de guardar Doctor por el ADMIN//
@@ -42,20 +42,20 @@ exports.saveDoctor = async (req, res) => {
         if (msg) return res.status(400).send(msg)
 
         const existDoctorEmail = await Doctor.findOne({ email: params.email });
-        if (existDoctorEmail) return res.status(400).send({ message: 'El correo Electronico ya tiene una cuenta' });
+        if (existDoctorEmail) return res.status(400).send({ message: 'El correo electrónico ya tiene una cuenta.' });
 
         const existDoctorUsername = await Doctor.findOne({ username: params.username });
-        if (existDoctorUsername) return res.status(400).send({ message: 'El nombre de usuario ya tiene una cuenta' });
+        if (existDoctorUsername) return res.status(400).send({ message: 'El nombre de usuario ya tiene una cuenta.' });
 
         const existDoctorDPI = await Doctor.findOne({ DPI: params.DPI });
-        if (existDoctorDPI) return res.status(400).send({ message: 'El numero de DPI ya esta registrado' });
+        if (existDoctorDPI) return res.status(400).send({ message: 'El número de DPI ya esta registrado.' });
 
         const existDoctorCollegiateNumber = await Doctor.findOne({ collegiateNumber: params.collegiateNumber });
-        if (existDoctorCollegiateNumber) return res.status(400).send({ message: 'El numero de colegiado ya esta registrado' });
+        if (existDoctorCollegiateNumber) return res.status(400).send({ message: 'El número de colegiado ya esta registrado.' });
 
         if (params.speciality) {
             const specialityExist = await Speciality.findOne({ _id: params.speciality });
-            if (!specialityExist) return res.status(400).send({ message: 'Especialidad no encontrada' });
+            if (!specialityExist) return res.status(400).send({ message: 'Especialidad no encontrada.' });
         }
 
         const correctionGender = params.gender.toUpperCase();
@@ -64,7 +64,7 @@ exports.saveDoctor = async (req, res) => {
         } else if (correctionGender === 'FEMALE') {
             data.gender = 'FEMALE'
         } else {
-            return res.status(400).send({ message: 'Genero Invalido' })
+            return res.status(400).send({ message: 'Género inválido.' })
         }
 
         data.password = await encrypt(params.password);
@@ -74,12 +74,12 @@ exports.saveDoctor = async (req, res) => {
 
         let doctorExist = await Doctor.findOne({ _id: doctor._id });
         if (!doctorExist) {
-            return res.status(400).send({ message: 'Error guardando al Doctor' })
+            return res.status(400).send({ message: 'Error al guardar  el Doctor.' })
         }
-        return res.send({ message: 'Doctor registrado exitosamente', doctorExist });
+        return res.send({ message: 'Doctor registrado exitosamente.', doctorExist });
     } catch (err) {
         console.log(err);
-        return res.send({ message: 'Eror guardando a Doctor', err });
+        return res.send({ message: 'Error guardando al Doctor.', err });
     }
 }
 
@@ -90,22 +90,22 @@ exports.updateDoctorByAdmin = async (req, res) => {
         const params = req.body;
 
         const doctorExist = await Doctor.findOne({ _id: doctorId });
-        if (!doctorExist) return res.status(400).send({ message: 'Doctor no encontrado' });
+        if (!doctorExist) return res.status(400).send({ message: 'Doctor no encontrado.' });
 
         const emptyParams = await checkUpdateDoctorAdmin(params);
-        if (emptyParams === false) return res.status(400).send({ message: 'No puedes actualizar con estos datos' });
+        if (emptyParams === false) return res.status(400).send({ message: 'No puedes actualizar con estos datos.' });
 
         const existDoctorEmail = await Doctor.findOne({ email: params.email });
-        if (existDoctorEmail && doctorExist.email !== params.email) return res.status(400).send({ message: 'El correo Electronico ya tiene una cuenta' });
+        if (existDoctorEmail && doctorExist.email !== params.email) return res.status(400).send({ message: 'El correo electrónico ya tiene una cuenta' });
 
         const existDoctorUsername = await Doctor.findOne({ username: params.username });
-        if (existDoctorUsername && doctorExist.username !== params.username) return res.status(400).send({ message: 'El nombre de usuario ya tiene una cuenta' });
+        if (existDoctorUsername && doctorExist.username !== params.username) return res.status(400).send({ message: 'El nombre de usuario ya tiene una cuenta.' });
 
         const existDoctorDPI = await Doctor.findOne({ DPI: params.DPI });
-        if (existDoctorDPI && doctorExist.DPI !== params.DPI) return res.status(400).send({ message: 'El numero de DPI ya esta registrado' });
+        if (existDoctorDPI && doctorExist.DPI !== params.DPI) return res.status(400).send({ message: 'El número de DPI ya esta registrado.' });
 
         const existDoctorCollegiateNumber = await Doctor.findOne({ collegiateNumber: params.collegiateNumber });
-        if (existDoctorCollegiateNumber && doctorExist.collegiateNumber !== params.collegiateNumber) return res.status(400).send({ message: 'El numero de colegiado ya esta registrado' });
+        if (existDoctorCollegiateNumber && doctorExist.collegiateNumber !== params.collegiateNumber) return res.status(400).send({ message: 'El número de colegiado ya esta registrado.' });
 
         if (params.gender) {
             const correctionGender = params.gender.toUpperCase();
@@ -114,20 +114,20 @@ exports.updateDoctorByAdmin = async (req, res) => {
             } else if (correctionGender === 'FEMALE') {
                 params.gender = 'FEMALE';
             } else {
-                return res.status(400).send({ message: 'Genero Invalido' });
+                return res.status(400).send({ message: 'Género inválido.' });
             }
         }
 
         if (params.role) {
-            if (params.role != 'DOCTOR') return res.status(400).send({ message: 'Invalid role' });
+            if (params.role != 'DOCTOR') return res.status(400).send({ message: 'Rol inválido.' });
         }
 
         const doctorUpdate = await Doctor.findOneAndUpdate({ _id: doctorId }, params, { new: true });
-        if (doctorUpdate) return res.send({ message: 'Doctor Actualizado Exitosamente', doctorUpdate });
-        return res.status(400).send({ message: 'Doctor no actualizado' });
+        if (doctorUpdate) return res.send({ message: 'Doctor Actualizado Exitosamente.', doctorUpdate });
+        return res.status(400).send({ message: 'Doctor no actualizado.' });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ message: 'Eror actualizando doctor', err });
+        return res.status(500).send({ message: 'Error actualizando al Doctor.', err });
     }
 }
 
@@ -146,7 +146,7 @@ exports.deleteDoctorByAdmin = async (req, res) => {
         if (msg) return res.status(400).send(msg);
 
         const doctorExist = await Doctor.findOne({ _id: doctorId });
-        if (!doctorExist) return res.status(400).send({ message: 'Doctor no Encontrado o ya Eliminado' })
+        if (!doctorExist) return res.status(400).send({ message: 'Doctor no encontrado o ya esta eliminado.' })
 
         const admin = await User.findOne({ _id: adminId });
 
@@ -156,13 +156,13 @@ exports.deleteDoctorByAdmin = async (req, res) => {
                 const appointmentDeleted = await Appointment.deleteMany({ doctor: doctorId })
             }
             const doctorDeleted = await Doctor.findOneAndDelete({ _id: doctorId })
-            if (doctorDeleted) return res.send({ message: 'Su cuenta ha sido Eliminada Exitosamente', doctorDeleted });
-            return res.status(400).send({ message: 'Doctor no Encontrado o ya Eliminado' });
-        } else return res.status(400).send({ message: 'Contraseña Incorrecta' });
+            if (doctorDeleted) return res.send({ message: 'Su cuenta ha sido eliminada exitosamente.', doctorDeleted });
+            return res.status(400).send({ message: 'Doctor no encontrado o ya esta eliminado.' });
+        } else return res.status(400).send({ message: 'Contraseña incorrecta.' });
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ message: 'Error eliminando Doctor', err })
+        return res.status(500).send({ message: 'Error eliminando al Doctor.', err })
     }
 }
 
@@ -180,7 +180,7 @@ exports.searchDoctor = async (req, res) => {
         } else return res.status(400).send(msg);
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ message: 'Error buscando doctor', err });
+        return res.status(500).send({ message: 'Error buscando al Doctor.', err });
     }
 }
 
@@ -188,11 +188,11 @@ exports.searchDoctor = async (req, res) => {
 exports.getDoctors = async (req, res) => {
     try {
         const doctors = await Doctor.find({ role: 'DOCTOR' });
-        if (!doctors) return res.status(400).send({ message: 'No existen doctores' })
+        if (!doctors) return res.status(400).send({ message: 'No existen doctores.' })
         return res.send({ message: 'Doctores: ', doctors });
     } catch (err) {
         console.log(err)
-        return res.status(500).send({ message: 'Error obteniendo doctores', err });
+        return res.status(500).send({ message: 'Error obteniendo a los doctores.', err });
     }
 }
 
@@ -206,25 +206,25 @@ exports.updateDoctor = async (req, res) => {
         const params = req.body;
 
         const permission = await checkPermission(doctorId, req.user.sub);
-        if (permission === false) return res.status(401).send({ message: 'No posees los permisos para actualizar la Cuenta' });
+        if (permission === false) return res.status(401).send({ message: 'No posees los permisos para actualizar la cuenta.' });
 
         const doctorExist = await Doctor.findOne({ _id: doctorId });
-        if (!doctorExist) return res.status(400).send({ message: 'Doctor no encontrado' });
+        if (!doctorExist) return res.status(400).send({ message: 'Doctor no encontrado.' });
 
         const validateUpdateDoctor = await checkUpdateDoctor(params);
-        if (validateUpdateDoctor === false) return res.status(400).send({ message: 'No puedes actualizar con estos datos' });
+        if (validateUpdateDoctor === false) return res.status(400).send({ message: 'No puedes actualizar con estos datos.' });
 
         const existDoctorEmail = await Doctor.findOne({ email: params.email });
-        if (existDoctorEmail && doctorExist.email !== params.email) return res.status(400).send({ message: 'El correo Electronico ya tiene una cuenta' });
+        if (existDoctorEmail && doctorExist.email !== params.email) return res.status(400).send({ message: 'El correo electrónico ya tiene una cuenta.' });
 
         const existDoctorUsername = await Doctor.findOne({ username: params.username });
-        if (existDoctorUsername && doctorExist.username !== params.username) return res.status(400).send({ message: 'El nombre de usuario ya tiene una cuenta' });
+        if (existDoctorUsername && doctorExist.username !== params.username) return res.status(400).send({ message: 'El nombre de usuario ya tiene una cuenta.' });
 
         const existDoctorDPI = await Doctor.findOne({ DPI: params.DPI });
-        if (existDoctorDPI && doctorExist.DPI !== params.DPI) return res.status(400).send({ message: 'El numero de DPI ya esta registrado' });
+        if (existDoctorDPI && doctorExist.DPI !== params.DPI) return res.status(400).send({ message: 'El número de DPI ya esta registrado.' });
 
         const existDoctorCollegiateNumber = await Doctor.findOne({ collegiateNumber: params.collegiateNumber });
-        if (existDoctorCollegiateNumber && doctorExist.collegiateNumber !== params.collegiateNumber) return res.status(400).send({ message: 'El numero de colegiado ya esta registrado' });
+        if (existDoctorCollegiateNumber && doctorExist.collegiateNumber !== params.collegiateNumber) return res.status(400).send({ message: 'El número de colegiado ya esta registrado.' });
 
         if (params.gender) {
             const correctionGender = params.gender.toUpperCase();
@@ -233,17 +233,17 @@ exports.updateDoctor = async (req, res) => {
             } else if (correctionGender === 'FEMALE') {
                 params.gender = 'FEMALE'
             } else {
-                return res.status(400).send({ message: 'Genero Invalido' })
+                return res.status(400).send({ message: 'Género inválido.' })
             }
         }
 
         const doctorUpdate = await Doctor.findOneAndUpdate({ _id: doctorId }, params, { new: true });
         if (doctorUpdate)
-            return res.send({ message: 'Doctor Actualizado Exitosamente.', doctorUpdate });
-        return res.send({ message: 'Cuenta no Actualizada.' });
+            return res.send({ message: 'Doctor actualizado exitosamente.', doctorUpdate });
+        return res.send({ message: 'Cuenta no actualizada.' });
     } catch (err) {
         console.log(err);
-        return res.status(400).send({ message: 'Error Actualizando Doctor' })
+        return res.status(400).send({ message: 'Error actualizando al Doctor.' })
     }
 }
 
@@ -260,7 +260,7 @@ exports.deleteDoctor = async (req, res) => {
         if (msg) return res.status(400).send(msg);
 
         const persmission = await checkPermission(doctorId, req.user.sub);
-        if (persmission === false) return res.status(403).send({ message: 'No posees los permisos para eliminar la Cuenta' });
+        if (persmission === false) return res.status(403).send({ message: 'No posees los permisos para eliminar la Cuenta.' });
 
         const doctorExist = await Doctor.findOne({ _id: doctorId });
 
@@ -270,16 +270,16 @@ exports.deleteDoctor = async (req, res) => {
                 const appointmentDeleted = await Appointment.deleteMany({ doctor: doctorId })
             }
             const doctorDeleted = await Doctor.findOneAndDelete({ _id: doctorId })
-            if (doctorDeleted) return res.send({ message: 'Su cuenta ha sido Eliminada Exitosamente', doctorDeleted });
-            return res.send({ message: 'Doctor no Encontrado o ya Eliminado' });
+            if (doctorDeleted) return res.send({ message: 'Su cuenta ha sido eliminada exitosamente.', doctorDeleted });
+            return res.send({ message: 'Doctor no encontrado o ya esta eliminado.' });
         }
 
-        return res.status(400).send({ message: 'La contraseña es incorrecta' });
+        return res.status(400).send({ message: 'La contraseña es incorrecta.' });
 
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ message: 'Error eliminando doctor' })
+        return res.status(500).send({ message: 'Error eliminando al Doctor.' })
     }
 }
 
@@ -288,12 +288,12 @@ exports.getDoctor = async (req, res) => {
     try {
         const doctorId = req.params.id;
         const doctor = await Doctor.findOne({ _id: doctorId });
-        if (doctor) return res.send({ message: 'Doctor Encontrado:', doctor });
-        else res.status(400).send({ message: 'Doctor no Encontrado' })
+        if (doctor) return res.send({ message: 'Doctor encontrado:', doctor });
+        else res.status(400).send({ message: 'Doctor no encontrado.' })
 
     } catch (err) {
         console.log(err);
-        return res.status(400).send({ message: 'Error obteniendo doctor', err })
+        return res.status(400).send({ message: 'Error obteniendo al Doctor.', err })
     }
 }
 
@@ -305,7 +305,7 @@ exports.getDoctorByName = async (req, res) => {
             name: params.name
         }
         const doctors = await Doctor.find({ name: { $regex: params.name, $options: 'i' } });
-        return res.send({ message: 'Doctor encontrados: ', doctors });
+        return res.send({ message: 'Doctores encontrados: ', doctors });
     } catch (err) {
         console.log(err);
         return res.status(500).send({ message: 'Error encontrando medicamento.', err });
@@ -316,7 +316,7 @@ exports.getDoctorByName = async (req, res) => {
 exports.getDoctorAtoZ = async (req, res) => {
     try {
         const doctorAtoZ = await Doctor.find();
-        if (doctorAtoZ.length === 0) return res.send({ message: 'Doctores no encontrados' })
+        if (doctorAtoZ.length === 0) return res.send({ message: 'Doctores no encontrados.' })
         doctorAtoZ.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
@@ -326,7 +326,7 @@ exports.getDoctorAtoZ = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Doctor encontrados:', doctorAtoZ })
+        return res.send({ message: 'Doctores encontrados:', doctorAtoZ })
     } catch (err) {
         console.log(err);
         return res.status(500).send({ err, message: 'Error al Obtener los Doctores.' });
@@ -337,7 +337,7 @@ exports.getDoctorAtoZ = async (req, res) => {
 exports.getDoctorZtoA = async (req, res) => {
     try {
         const doctorZtoA = await Doctor.find();
-        if (doctorZtoA.length === 0) return res.send({ message: 'Doctor no encontrados' })
+        if (doctorZtoA.length === 0) return res.send({ message: 'Doctores no encontrados.' })
         doctorZtoA.sort((a, b) => {
             if (a.name > b.name) {
                 return -1;
@@ -347,10 +347,10 @@ exports.getDoctorZtoA = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Doctor encontrados:', doctorZtoA })
+        return res.send({ message: 'Doctores encontrados:', doctorZtoA })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Doctor.' });
+        return res.status(500).send({ err, message: 'Error al Obtener los Doctores.' });
     }
 }
 
@@ -362,11 +362,11 @@ exports.addImageDoctor = async(req,res)=>
         const doctorID = req.params.id;
 
         const permission = await checkPermission(doctorID, req.user.sub);
-        if(permission === false) return res.status(401).send({message: 'No posees los permisos necesarios'});
+        if(permission === false) return res.status(401).send({message: 'No posees los permisos necesarios.'});
         const alreadyImage = await Doctor.findOne({_id: req.user.sub});
         let pathFile = './uploads/doctors/';
         if(alreadyImage.image) fs.unlinkSync(pathFile+alreadyImage.image);
-        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen'});
+        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen.'});
         
         const filePath = req.files.image.path; 
        
@@ -377,16 +377,16 @@ exports.addImageDoctor = async(req,res)=>
         const fileExt = extension[1]; 
 
         const validExt = await validExtension(fileExt, filePath);
-        if(validExt === false) return res.status(400).send('Tipo de Archivo no válido');
+        if(validExt === false) return res.status(400).send('Tipo de Archivo no válido.');
         const updateUser = await Doctor.findOneAndUpdate({_id: req.user.sub}, {image: fileName}, {new: true}).lean();        
-        if(!updateUser) return res.status(404).send({message: 'Doctor no existente'});
+        if(!updateUser) return res.status(404).send({message: 'Doctor no existente.'});
         delete updateUser.password;
         return res.send(updateUser);
     }
     catch(err)
     {
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Asignarle una imagen al doctor'});
+        return res.status(500).send({err, message: 'Error al asignarle una imagen al Doctor.'});
     }
 }
 
@@ -398,12 +398,12 @@ exports.getImageDoctor = async(req, res)=>
         const pathFile = './uploads/doctors/' + fileName;
 
         const image = fs.existsSync(pathFile);
-        if(!image) return res.status(404).send({message: 'Imagen no existente'});
+        if(!image) return res.status(404).send({message: 'Imagen no existente.'});
         return res.sendFile(path.resolve(pathFile));
     }
     catch(err)
     {
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Obtener la Imagen del Doctor'});
+        return res.status(500).send({err, message: 'Error al obtener la Imagen del Doctor'});
     }
 }

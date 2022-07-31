@@ -23,7 +23,7 @@ exports.createBill = async (req,res)=>{
         
         //Verificar que el Carrito tenga Productos//
         if(!payShoppingCart)
-            return res.send({message:'Carrito de compras vacío, añadir productos.'})
+            return res.send({message:'Carrito de compras vacío, agregue productos.'})
 
         //Capturar la Fecha Actual.//
         const date = new Date();

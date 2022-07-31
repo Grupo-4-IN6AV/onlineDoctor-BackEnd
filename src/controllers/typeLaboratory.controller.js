@@ -8,7 +8,7 @@ const { validateData } = require('../utils/validate');
 //Función de Testeo//
 exports.testTypeLaboratory = (req, res)=>
 {
-    return res.send({message: 'Función de Testeo -TIPOS DE LABORATORIO- funcionando exitosamente.'}); 
+    return res.send({message: 'Función de Testeo -Tipos de Laboratorio- funcionando exitosamente.'}); 
 }
 
 
@@ -35,7 +35,7 @@ exports.saveTypeLaboratory = async (req, res)=>
         
         const typeLaboratory = new TypeLaboratory(data);
         await typeLaboratory.save();
-        return res.send({message: 'Tipo de Laboratorio creado Exitosamente.', typeLaboratory});
+        return res.send({message: 'Tipo de Laboratorio creado exitosamente.', typeLaboratory});
     }
     catch(err)
     {
@@ -64,7 +64,7 @@ exports.updateTypeLaboratory = async (req, res)=>
             return res.status(400).send({message: 'El Tipo de Laboratorio ya Existe.'});
         const updateTypeLaboratory = await TypeLaboratory.findOneAndUpdate({_id: typeLaboratory}, params, {new: true});
 
-        return res.send({message: 'Tipo de Laboratorio Actualizado', updateTypeLaboratory});
+        return res.send({message: 'Tipo de Laboratorio actualizado.', updateTypeLaboratory});
     }
     catch(err)
     {
@@ -81,10 +81,10 @@ exports.deleteTypeLaboratory = async (req, res)=>{
 
         const typeLaboratory = req.params.id;
         const typeLaboratoryExist = await TypeLaboratory.findOne({_id: typeLaboratory});
-        if(!typeLaboratoryExist) return res.status(500).send({message: 'Tipo de Laboratorio no Existente o ya Eliminado.'});     
+        if(!typeLaboratoryExist) return res.status(500).send({message: 'Tipo de Laboratorio no existe o ya esta eliminado.'});     
 
         if(typeLaboratoryExist.name === 'DEFAULT')
-            return res.status(400).send({message: 'El Tipo de Laboratorio -DEFAULT- no se puede Eliminar.'});
+            return res.status(400).send({message: 'El Tipo de Laboratorio -DEFAULT- no se puede eliminar.'});
 
         const typeLaboratoryDefault = await TypeLaboratory.findOne({name:'DEFAULT'});
         
@@ -105,12 +105,12 @@ exports.deleteTypeLaboratory = async (req, res)=>{
         }
 
         const typeLaboratoryDeleted = await TypeLaboratory.findOneAndDelete({_id: typeLaboratory});
-        return res.send({message: 'Tipo de Laboratorio Elimnado Exitosamente.', typeLaboratoryDeleted});
+        return res.send({message: 'Tipo de Laboratorio elimnado exitosamente.', typeLaboratoryDeleted});
     }
     catch(err)
     {
         console.log(err); 
-        return res.status(500).send({message:'Error al Eliminar el Tipo de Laboratorio.'}); 
+        return res.status(500).send({message:'Error al eliminar el Tipo de Laboratorio.'}); 
     }
 }
 
@@ -121,12 +121,12 @@ exports.getTypesLaboratory = async (req, res)=>
     try
     {
         const typesLaboratory = await TypeLaboratory.find();
-        return res.send({message: 'Tipos de Laboratorio Encontrados:', typesLaboratory})
+        return res.send({message: 'Tipos de Laboratorios encontrados:', typesLaboratory})
     }
     catch(err)
     {
         console.log(err); 
-        return res.status(500).send({message:'Error al obtener los Tipos de Laboratorio.'}); 
+        return res.status(500).send({message:'Error al obtener los Tipos de Laboratorios.'}); 
     }
 }
 
@@ -137,8 +137,8 @@ exports.getTypeLaboratory = async (req, res)=>{
     {
         const typeLaboratory = req.params.id;
         const typeLaboratoryExist = await TypeLaboratory.findOne({_id: typeLaboratory});
-        if (!typeLaboratoryExist) return res.status(400).send({message: 'Tipo de Laboratorio Encontrado.'})
-        return res.send({message: 'Tipo de Laboratorio Encontrado:', typeLaboratoryExist})
+        if (!typeLaboratoryExist) return res.status(400).send({message: 'Tipo de Laboratorio no encontrado.'})
+        return res.send({message: 'Tipo de Laboratorio encontrado:', typeLaboratoryExist})
     }
     catch(err)
     {
@@ -155,10 +155,10 @@ exports.getTypeLaboratoryByName = async (req, res)=>{
             name: params.name
         }
         const typeLaboratory = await TypeLaboratory.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Type Laboratory encontrados: ', typeLaboratory});
+        return res.send({message:'Tipos de Laboratorios encontrados: ', typeLaboratory});
     }catch(err){
         console.log(err);
-        return res.status(500).send({message: 'Error encontrando Type Laboratory.', err});
+        return res.status(500).send({message: 'Error encontrando Tipos de Laboratorios.', err});
     }
 }
 
@@ -166,7 +166,7 @@ exports.getTypeLaboratoryByName = async (req, res)=>{
 exports.getTypeLaboratoryAtoZ = async (req, res) => {
     try {
         const TypeLaboratoryAtoZ = await TypeLaboratory.find();
-        if (TypeLaboratoryAtoZ.length === 0) return res.send({ message: 'Type Laboratory no encontrados' })
+        if (TypeLaboratoryAtoZ.length === 0) return res.send({ message: 'Tipos de Laboratorios no encontrados.' })
         TypeLaboratoryAtoZ.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
@@ -176,10 +176,10 @@ exports.getTypeLaboratoryAtoZ = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Type Laboratory AtoZ encontrados:', TypeLaboratoryAtoZ })
+        return res.send({ message: 'Tipos de Laboratorios encontrados:', TypeLaboratoryAtoZ })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Type Laboratory.' });
+        return res.status(500).send({ err, message: 'Error al Obtener los Tipos de Laboratorios.' });
     }
 }
 
@@ -187,7 +187,7 @@ exports.getTypeLaboratoryAtoZ = async (req, res) => {
 exports.getTypeLaboratoryZtoA = async (req, res) => {
     try {
         const typeLaboratoryZtoA = await TypeLaboratory.find();
-        if (typeLaboratoryZtoA.length === 0) return res.send({ message: 'Type Laboratory no encontrados' })
+        if (typeLaboratoryZtoA.length === 0) return res.send({ message: 'Tipos de Laboratorios no encontrados.' })
         typeLaboratoryZtoA.sort((a, b) => {
             if (a.name > b.name) {
                 return -1;
@@ -197,9 +197,9 @@ exports.getTypeLaboratoryZtoA = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Type Laboratory encontrados:', typeLaboratoryZtoA })
+        return res.send({ message: 'Tipos de Laboratorios encontrados:', typeLaboratoryZtoA })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Types Laboratory.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Tipos de Laboratorios.' });
     }
 }

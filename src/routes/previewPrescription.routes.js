@@ -20,5 +20,7 @@ api.put('/updatePreviewPrescription/:id', [mdAuth.ensureAuth], previewPrescripti
 api.delete('/deletePreviewPrescription/:id/:idUser', [mdAuth.ensureAuth], previewPrescriptionController.deletePrescriptionADMIN);
 api.get('/getPreviewPrescriptionsDoctor/:id', [mdAuth.ensureAuth], previewPrescriptionController.getPrescriptionsUSER);
 api.get('/getPreviewPrescription/:id', [mdAuth.ensureAuth], previewPrescriptionController.getprescriptionADMIN);
+api.get('/getMedicamentsOutPrescription/:idPrescription', previewPrescriptionController.getMedicamentsOutPrescription);
+api.get('/getLaboratorysOutPrescription/:idPrescription', previewPrescriptionController.getLaboratorysOutPrescription);
 
 module.exports = api;

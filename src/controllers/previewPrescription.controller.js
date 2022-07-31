@@ -78,15 +78,10 @@ exports.addMedicamento = async (req,res) => {
         //Verificar que Exista la Prescrición. //
         if (!prescriptionExist)
             return res.status(400).send({ message: 'Receta no encontrada.' });
-
-
-        const setMedicament = {
-            medicaments: data.medicaments,
-        }
-
-        const newPrescription = await PreviewPrescription.findOneAndUpdate({ _id: prescriptionExist._id },
+            
+            const newPrescription = await PreviewPrescription.findOneAndUpdate({ _id: prescriptionExist._id },
             {
-                $push: setMedicament ,
+                $push: {medicaments: data.medicaments},
             },
             { new: true });
             
@@ -127,14 +122,9 @@ exports.addLaboratory = async (req,res) => {
         if (!prescriptionExist)
             return res.status(400).send({ message: 'Receta no encontrada.' });
 
-
-        const setLaboratory = {
-            laboratorys: data.laboratorys,
-        }
-
         const newPrescription = await PreviewPrescription.findOneAndUpdate({ _id: prescriptionExist._id },
             {
-                $push:  setLaboratory ,
+                $push:  {laboratorys: data.laboratorys} ,
             },
             { new: true });
             
@@ -327,3 +317,61 @@ exports.getPrescriptionsUSER = async (req, res) => {
         return res.status(500).send({ err, message: 'Error al obtener Recetas.' });
     }
 }
+
+//Función para Obtener todos los Medicamentos//
+exports.getMedicamentsOutPrescription = async (req, res) => {
+    try {
+        const prescriptionId = req.params.idPrescription;
+
+        const medicaments = await Medicament.find().populate('typeMedicament');
+        if(medicaments.length === 0) return res.status(400).send({message: 'No Existen Medicamentos'})
+
+        const previewPrescription = await PreviewPrescription.findOne({_id: prescriptionId}).populate('medicaments');
+        if(!previewPrescription) return res.send({message: 'No existe la Preview Prescription'});
+
+        const PrescriptionMedicaments = previewPrescription.medicaments;
+        const medicamentsInPrescription = previewPrescription.medicaments;
+
+        var medicamentsOutPrescription = medicaments;
+        for (let medicamentInPrescription of PrescriptionMedicaments){
+            for(let medicament of medicaments){
+                if(medicament._id.valueOf() == medicamentInPrescription._id.valueOf()){
+                    medicamentsOutPrescription.splice(medicaments.indexOf(medicament), 1)
+                }
+            }
+        }
+        return res.send({ message: 'Medicamentos encontrados:', medicamentsOutPrescription, medicamentsInPrescription})
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+    }
+};
+
+//Función para Obtener todos los Medicamentos//
+exports.getLaboratorysOutPrescription = async (req, res) => {
+    try {
+        const prescriptionId = req.params.idPrescription;
+
+        const laboratorys = await Laboratory.find().populate('typeLaboratory');
+        if(laboratorys.length === 0) return res.status(400).send({message: 'No Existen Laboratorios'})
+
+        const previewPrescription = await PreviewPrescription.findOne({_id: prescriptionId}).populate('laboratorys');
+        if(!previewPrescription) return res.send({message: 'No existe la Preview Prescription'});
+
+        const prescriptionLaboratorys = previewPrescription.laboratorys;
+        const laboratorysInPrescription = previewPrescription.laboratorys;
+
+        var laboratorysOutPrescription = laboratorys;
+        for (let laboratoryInPrescription of prescriptionLaboratorys){
+            for(let laboratory of laboratorys){
+                if(laboratory._id.valueOf() == laboratoryInPrescription._id.valueOf()){
+                    laboratorysOutPrescription.splice(laboratorys.indexOf(laboratory), 1)
+                }
+            }
+        }
+        return res.send({ message: 'Laboratorios encontrados:', laboratorysOutPrescription, laboratorysInPrescription})
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener los laboratorios.' });
+    }
+};

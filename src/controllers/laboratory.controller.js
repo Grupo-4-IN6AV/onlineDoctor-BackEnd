@@ -163,3 +163,19 @@ exports.getLaboratoriesUSER = async (req, res) => {
         return res.status(500).send({ err, message: 'Error al obtener Laboratorio.' });
     }
 }
+
+exports.getLaboratorysPacient = async (req, res) => {
+    try {
+        const identity = req.user.sub;
+
+        let laboratoryExist = await Laboratory.find({pacient:identity}).populate('typeLaboratory pacient')
+
+        if (laboratoryExist.length === 0) return res.status(400).send({ message: 'No tiene Laboratorios' });
+
+        return res.send({message:'Laboratorios Encotrados: ', laboratoryExist});
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener citas.' });
+    }
+}

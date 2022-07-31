@@ -22,4 +22,10 @@ api.get('/getLaboratoryDoctor/:id', [mdAuth.ensureAuth], laboratoryController.ge
 api.put('/updateLaboratoryDoctor/:id', [mdAuth.ensureAuth], laboratoryController.updateLaboratoryADMIN);
 api.delete('/deleteLaboratoryDoctor/:id/:idUser', [mdAuth.ensureAuth], laboratoryController.deleteLaboratoryADMIN);
 
+api.get('/getLaboratoriesUser', [mdAuth.ensureAuth], laboratoryController.getLaboratoriesADMIN);
+api.get('/getLaboratoriesPaciente', [mdAuth.ensureAuth], laboratoryController.getLaboratorysPacient);
+
+
+
+
 module.exports = api;

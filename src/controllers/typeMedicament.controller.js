@@ -7,7 +7,7 @@ const jwt = require('../services/jwt');
 
 //Función de Testeo//
 exports.typeMedicamentTest = async (req, res)=>{
-	return res.send({message: 'Función de testeo -Type Medicament- funciona correctamente'});
+	return res.send({message: 'Función de testeo -Type Medicament- funciona correctamente.'});
 }
 
 
@@ -30,8 +30,8 @@ exports.saveTypeMedicamentADMIN = async (req, res)=>{
         if(!existTypeMedicament){
             const typeMedicament = new TypeMedicament(data);
             await typeMedicament.save();
-            return res.send({message: 'Type Medicament guardado exitosamente', typeMedicament});
-        }else return res.status(400).send({message: 'Este Type Medicament ya existe'});
+            return res.send({message: 'Tipo de Medicamento guardado exitosamente.', typeMedicament});
+        }else return res.status(400).send({message: 'Este Tipo de Medicamento ya existe.'});
     
     }catch(err){
         console.log(err); 
@@ -47,7 +47,7 @@ exports.updateTypeMedicamentADMIN = async(req, res)=>{
         const typeMedicamentID = req.params.id;
 
         const check = await checkUpdate(params);
-        if (check === false) return res.status(400).send({ message: 'Datos no recibidos' });
+        if (check === false) return res.status(400).send({ message: 'Datos no recibidos.' });
 
         const msg = validateData(params);
         if (!msg) {
@@ -55,21 +55,21 @@ exports.updateTypeMedicamentADMIN = async(req, res)=>{
             const existTypeMedicament =  await TypeMedicament.findOne({_id: typeMedicamentID});
 
             if(existTypeMedicament.name === 'DEFAULT')
-            return res.status(400).send({message: 'El Tipo de Laboratorio -DEFAULT- no se puede Actualizar.'}); 
+            return res.status(400).send({message: 'El Tipo de Medicamento -DEFAULT- no se puede actualizar.'}); 
             
             const typeMedicamentExist = await TypeMedicament.findOne({ _id: typeMedicamentID });
-            if (!typeMedicamentExist) return res.status.send({ message: 'Type Medicament no encontrada' });
+            if (!typeMedicamentExist) return res.status.send({ message: 'Tipo de Medicamento no encontrado.' });
 
             let alreadyName = await TypeMedicament.findOne({ name: params.name });
-            if (alreadyName && typeMedicamentExist.name != params.name) return res.status(400).send({ message: 'Type Medicament ya existe con este nombre' });
+            if (alreadyName && typeMedicamentExist.name != params.name) return res.status(400).send({ message: 'Tipo de Medicamento ya existe con este nombre.' });
 
             const updateTypeMedicament = await TypeMedicament.findOneAndUpdate({ _id: typeMedicamentID }, params, { new: true });
-            return res.send({ message: 'Type Medicament Actulizado Correctamente', updateTypeMedicament });
+            return res.send({ message: 'Tipo de Medicamento actulizado correctamente.', updateTypeMedicament });
 
-        } else return res.status(400).send({ message: 'Parámetros vacíos' })
+        } else return res.status(400).send({ message: 'Parámetros vacíos.' })
     }catch(err){
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Actualizar el Type Medicament.'});
+        return res.status(500).send({err, message: 'Error al actualizar el Tipo de Medicamento.'});
     }
 
 }
@@ -79,11 +79,11 @@ exports.deleteTypeMedicamentADMIN = async (req, res) => {
     try{
         const typeMedicamentID = req.params.id;
         const typeMedicamentExist = await TypeMedicament.findOne({ _id: typeMedicamentID });
-        if (!typeMedicamentExist) return res.status(400).send({ message: 'Type Medicament no encontrado o eliminado actualmente.' });
+        if (!typeMedicamentExist) return res.status(400).send({ message: 'Tipo de Medicamento no encontrado o eliminado actualmente.' });
 
         const existTypeMedicament = await TypeMedicament.findOne({_id: typeMedicamentID});
         if(existTypeMedicament.name === 'DEFAULT')
-            return res.status(400).send({message: 'El Tipo de Laboratorio -DEFAULT- no se puede Eliminar.'});
+            return res.status(400).send({message: 'El Tipo de Medicamento -DEFAULT- no se puede eliminar.'});
 
         const typeMedicamentDefault = await TypeMedicament.findOne({name:'DEFAULT'});
         
@@ -105,11 +105,11 @@ exports.deleteTypeMedicamentADMIN = async (req, res) => {
         }
 
         const typeMedicamentDeleted = await TypeMedicament.findOneAndDelete({ _id: typeMedicamentID });
-        return res.send({ message: 'Type Medicament eliminado exitosamente.', typeMedicamentDeleted });
+        return res.send({ message: 'Tipo de Medicamento eliminado exitosamente.', typeMedicamentDeleted });
 
     }catch (err){
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Eliminar el Type Medicament.'});
+        return res.status(500).send({err, message: 'Error al eliminar el Tipo de Medicamento.'});
     }
 }
 
@@ -118,11 +118,11 @@ exports.getTypeMedicamentsADMIN = async (req, res) =>{
     try{
         const typeMedicaments = await TypeMedicament.find();
         if(!typeMedicaments){
-            res.send({message: 'No se encontraron Type Medicaments'})
-        }else return res.send({ message: 'Type Medicaments:', typeMedicaments })
+            res.send({message: 'No se encontraron Tipos de Medicamentos'})
+        }else return res.send({ message: 'Tipos de Medicamentos:', typeMedicaments })
     }catch (err){
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Obtener los Type Medicaments.'});
+        return res.status(500).send({err, message: 'Error al obtener los Tipos de Medicamentos.'});
     }
 }
 
@@ -133,11 +133,11 @@ exports.getTypeMedicamentADMIN = async (req, res) => {
         const typeMedicamentID = req.params.id;
         const typeMedicament = await TypeMedicament.findOne({ _id: typeMedicamentID });
         if(typeMedicament){
-            return res.send({ message: 'Type Medicament encontrado:', typeMedicament })
-        }else return res.send({ message: 'Type Medicament no encontrado.' })
+            return res.send({ message: 'Tipo de Medicamento encontrado:', typeMedicament })
+        }else return res.send({ message: 'Tipo de Medicamento no encontrado.' })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Obtener el Type Medicament.'});
+        return res.status(500).send({err, message: 'Error al obtener el Tipo de Medicamento.'});
     }
 }
 
@@ -149,10 +149,10 @@ exports.getTypeMedicamentByName = async (req, res)=>{
             name: params.name
         }
         const typeMedicament = await TypeMedicament.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Type Medicament encontrados: ', typeMedicament});
+        return res.send({message:'Tipo de Medicamento encontrado: ', typeMedicament});
     }catch(err){
         console.log(err);
-        return res.status(500).send({message: 'Error encontrando Type Medicament.', err});
+        return res.status(500).send({message: 'Error encontrando el Tipo de Medicamento.', err});
     }
 }
 
@@ -160,7 +160,7 @@ exports.getTypeMedicamentByName = async (req, res)=>{
 exports.getTypeMedicamentAtoZ = async (req, res) => {
     try {
         const TypeMedicamentAtoZ = await TypeMedicament.find();
-        if (TypeMedicamentAtoZ.length === 0) return res.send({ message: 'Type Medicament no encontrados' })
+        if (TypeMedicamentAtoZ.length === 0) return res.send({ message: 'Tipos de Medicamentos no encontrados.' })
         TypeMedicamentAtoZ.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
@@ -170,10 +170,10 @@ exports.getTypeMedicamentAtoZ = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Type Medicament encontrados:', TypeMedicamentAtoZ })
+        return res.send({ message: 'Tipos de Medicamentos encontrados:', TypeMedicamentAtoZ })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Type Medicament.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Tipos de Medicamentos.' });
     }
 }
 
@@ -181,7 +181,7 @@ exports.getTypeMedicamentAtoZ = async (req, res) => {
 exports.getTypeMedicamentZtoA = async (req, res) => {
     try {
         const TypeMedicamentZtoA = await TypeMedicament.find();
-        if (TypeMedicamentZtoA.length === 0) return res.send({ message: 'Type Medicament no encontrados' })
+        if (TypeMedicamentZtoA.length === 0) return res.send({ message: 'Tipos de Medicamentos no encontrados.' })
         TypeMedicamentZtoA.sort((a, b) => {
             if (a.name > b.name) {
                 return -1;
@@ -191,9 +191,9 @@ exports.getTypeMedicamentZtoA = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Type Medicament encontrados: ', TypeMedicamentZtoA})
+        return res.send({ message: 'Tipos de Medicamentos encontrados: ', TypeMedicamentZtoA})
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Type Medicament.'});
+        return res.status(500).send({ err, message: 'Error al obtener los Tipos de Medicamentos.'});
     }
 }

@@ -65,7 +65,7 @@ exports.savePrescriptoionADMIN = async (req, res) => {
             const prescription = new Prescription(data);
             await prescription.save();
             console.log(pacientExist);
-            return res.send({ message: 'Receta Generada Exitosamente', prescription });
+            return res.send({ message: 'Receta generada exitosamente.', prescription });
 
         }else{
             //actualizar la receta//
@@ -110,7 +110,7 @@ exports.savePrescriptoionADMIN = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Generar la Receta.' });
+        return res.status(500).send({ err, message: 'Error al generar la Receta.' });
     }
 }
 
@@ -132,7 +132,7 @@ exports.updatePrescriptionADMIN = async(req, res) =>{
         
     }catch(err){
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Actualizar la Receta.' });
+        return res.status(500).send({ err, message: 'Error al actualizar la Receta.' });
     }
 
 }

@@ -200,35 +200,6 @@ exports.getMedicamentADMIN = async (req, res) => {
     }
 }
 
-
-//Función para agregar una Imagen a un Medicamento//
-exports.addImgMedicament = async (req, res) => {
-    try {
-        const medicamentID = req.params.id;
-
-        const permission = await checkPermission(medicamentID, req.user.sub);
-        if (permission === false) return res.status(401).send({ message: 'You dont have permission to update this user' });
-        if (!req.files.image || !req.files.image.type) return res.status(400).send({ message: 'Havent sent image' });
-
-        const filePath = req.files.image.path;
-
-        const fileSplit = filePath.split('\\');
-        const fileName = fileSplit[2];
-
-        const extension = fileName.split('\.');
-        const fileExt = extension[1];
-
-        const validExt = await validExtension(fileExt, filePath);
-        if (validExt === false) return res.status(400).send('Extensión invalida');
-        const updateMedicament = await Medicament.findOneAndUpdate({ _id: medicamentID }, { image: fileName });
-        if (!updateMedicament) return res.status(404).send({ message: 'Medicamento no encontrado' });
-        return res.send(updateMedicament);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send({ err, message: 'Error añadiendo una imagen al Medicamento.' });
-    }
-}
-
 //Obtener medicamento por el nombre
 exports.getMedicamentsByName = async (req, res)=>{
     try{
@@ -243,5 +214,57 @@ exports.getMedicamentsByName = async (req, res)=>{
     }catch(err){
         console.log(err);
         return res.status(500).send({message: 'Erro encontrando medicamento.', err});
+    }
+}
+
+
+//IMPLEMENTACIÓN DE IMÁGENES//
+exports.addImageMedicament = async(req,res)=>
+{
+    try
+    {
+        const medicamentID = req.params.id;
+        const alreadyImage = await User.findOne({_id: req.user.sub});
+        let pathFile = './uploads/medicaments/';
+        if(alreadyImage.image) fs.unlinkSync(pathFile+alreadyImage.image);
+        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen'});
+        
+        const filePath = req.files.image.path; 
+       
+        const fileSplit = filePath.split('\\'); 
+        const fileName = fileSplit[2]; 
+
+        const extension = fileName.split('\.'); 
+        const fileExt = extension[1]; 
+
+        const validExt = await validExtension(fileExt, filePath);
+        if(validExt === false) return res.status(400).send('Tipo de Archivo no válido');
+        const updateUser = await User.findOneAndUpdate({_id: req.user.sub}, {image: fileName}, {new: true}).lean();        if(!updateUser) return res.status(404).send({message: 'User not found'});
+        if(!updateUser) return res.status(404).send({message: 'Usuario no existente'});
+        delete updateUser.password;
+        return res.send(updateUser);
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).send({err, message: 'Error al Asignarle una imagen al usuario'});
+    }
+}
+
+exports.getImageUser = async(req, res)=>
+{
+    try
+    {
+        const fileName = req.params.fileName;
+        const pathFile = './uploads/medicaments/' + fileName;
+
+        const image = fs.existsSync(pathFile);
+        if(!image) return res.status(404).send({message: 'Imagen no existente'});
+        return res.sendFile(path.resolve(pathFile));
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).send({err, message: 'Error al Obtener la Imagen del Usuario'});
     }
 }

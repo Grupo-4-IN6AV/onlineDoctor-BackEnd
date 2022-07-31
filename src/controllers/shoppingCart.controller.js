@@ -7,7 +7,7 @@ const Medicament = require('../models/medicament.model');
 //Importación del Modelo -Categories-
 const ShoppingCart = require('../models/shoppingCart.model');
 
-const {validateData, detailsShoppingCart} = require('../utils/validate');
+const { validateData, detailsShoppingCart } = require('../utils/validate');
 
 
 exports.testShoppingCart = (req, res) => {
@@ -67,14 +67,14 @@ exports.createShoppingCart = async (req, res) => {
         if (params.quantity > productExist.stock)
             return res.send({ message: 'No hay suficiente stock para este producto.' });
 
-        const setProduct ={
+        const setProduct = {
             medicament: params.products,
             quantity: params.quantity,
             price: productExist.price,
             subTotalProduct: parseFloat(params.quantity) * parseFloat(productExist.price)
         }
 
-        const data ={
+        const data = {
             user: req.user.sub,
             products: setProduct
         }
@@ -95,5 +95,19 @@ exports.createShoppingCart = async (req, res) => {
         console.log(err);
         return res.status(500).send({ err, message: 'Error al crear el Shopping Cart.' });
     }
+}
 
+exports.getShoppingCart = async (req, res) => {
+    try {
+        const user = req.user.sub;
+
+        const cart = await ShoppingCart.findOne({ user: user }).populate('user')
+        if (!cart) {
+            return res.status(404).send({ message: 'No se encontro nada' });
+        } else return res.send({ message: 'Este es tu carrito de compras. ', cart });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al Obtener el Shopping Cart.' });
+    }
 }

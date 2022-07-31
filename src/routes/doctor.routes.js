@@ -5,6 +5,10 @@ const doctorController = require('../controllers/doctor.controller');
 const api = express.Router();
 const mdAuth = require('../middlewares/authenticated');
 
+//Implementación de Imágenes//
+const connectMultiparty = require('connect-multiparty');
+const upload = connectMultiparty({uploadDir:'./uploads/doctors'});
+
 //Rutas Públicas//
 api.get('/testDoctor', doctorController.doctorTest);
 
@@ -24,5 +28,10 @@ api.get('/getDoctors', [mdAuth.ensureAuth], doctorController.getDoctors);
 api.post('/getDoctorByName', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctorByName);
 api.get('/getDoctorAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctorAtoZ);
 api.get('/getDoctorZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], doctorController.getDoctorZtoA);
+
+//Rutas de Imágenes//
+api.post('/uploadImageDoctor/:id', [mdAuth.ensureAuth, upload], doctorController.addImageDoctor);
+api.get('/getImageDoctor/:fileName',  upload, doctorController.getImageDoctor);
+
 
 module.exports = api;

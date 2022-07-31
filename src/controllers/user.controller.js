@@ -527,7 +527,6 @@ exports.getUsuariosZtoA = async (req, res) => {
     }
 }
 
-
 //IMPLEMENTACIÓN DE IMÁGENES//
 exports.addImageUser=async(req,res)=>
 {

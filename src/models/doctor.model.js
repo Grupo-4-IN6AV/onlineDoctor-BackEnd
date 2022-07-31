@@ -20,7 +20,8 @@ const doctorSchema = mongoose.Schema({
                 appointment: { type: mongoose.Schema.ObjectId, ref: 'Appointment' },
                 done: Boolean
             }
-        ]
+        ],
+    image: String,
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);

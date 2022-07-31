@@ -5,6 +5,11 @@ const medicamentController = require('../controllers/medicament.controller');
 const api = express.Router();
 const mdAuth = require('../middlewares/authenticated');
 
+//Implementación de Imágenes//
+const connectMultiparty = require('connect-multiparty');
+const upload = connectMultiparty({uploadDir:'./uploads/medicaments'});
+
+
 //Rutas Públicas//
 api.get('/testMedicament', medicamentController.medicamentTest);
 
@@ -18,6 +23,10 @@ api.post('/getMedicamentByName', medicamentController.getMedicamentsByName);
 
 api.get('/getMedicamentAtoZ', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentsAtoZ);
 api.get('/getMedicamentZtoA', [mdAuth.ensureAuth, mdAuth.isAdmin], medicamentController.getMedicamentsZtoA);
+
+//Rutas de Imágenes//
+api.post('/uploadImageMedicament/:id', [mdAuth.ensureAuth, upload], medicamentController.addImageMedicament);
+api.get('/getImageMedicament/:fileName',  upload, medicamentController.getImageMedicament);
 
 
 module.exports = api;

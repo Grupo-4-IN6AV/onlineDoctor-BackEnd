@@ -5,8 +5,13 @@ const Doctor = require('../models/doctor.model')
 const Appointment = require('../models/appointment.model');
 const Prescription = require('../models/prescription.model');
 
-const { checkUpdate, checkUpdateAdmin, validateData, encrypt, checkPassword, checkPermission } = require('../utils/validate');
+const { checkUpdate, checkUpdateAdmin, validateData, encrypt, 
+    checkPassword, checkPermission,  validExtension} = require('../utils/validate');
 const jwt = require('../services/jwt');
+
+//Connect Multiparty Upload Image//
+const fs = require('fs');
+const path = require('path');
 
 ////////////////////////////////// FUNCIONES PUBLICAS /////////////////////////////////////////
 
@@ -519,5 +524,60 @@ exports.getUsuariosZtoA = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).send({ err, message: 'Error al Obtener las Usuarios.' });
+    }
+}
+
+
+//IMPLEMENTACIÓN DE IMÁGENES//
+exports.addImageUser=async(req,res)=>
+{
+    try
+    {
+        const userID = req.params.id;
+
+        const permission = await checkPermission(userID, req.user.sub);
+        if(permission === false) return res.status(401).send({message: 'No posees los permisos necesarios'});
+        const alreadyImage = await User.findOne({_id: req.user.sub});
+        let pathFile = './uploads/users/';
+        if(alreadyImage.image) fs.unlinkSync(pathFile+alreadyImage.image);
+        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen'});
+        
+        const filePath = req.files.image.path; 
+       
+        const fileSplit = filePath.split('\\'); 
+        const fileName = fileSplit[2]; 
+
+        const extension = fileName.split('\.'); 
+        const fileExt = extension[1]; 
+
+        const validExt = await validExtension(fileExt, filePath);
+        if(validExt === false) return res.status(400).send('Tipo de Archivo no válido');
+        const updateUser = await User.findOneAndUpdate({_id: req.user.sub}, {image: fileName}, {new: true}).lean();        if(!updateUser) return res.status(404).send({message: 'User not found'});
+        if(!updateUser) return res.status(404).send({message: 'Usuario no existente'});
+        delete updateUser.password;
+        return res.send(updateUser);
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).send({err, message: 'Error al Asignarle una imagen al usuario'});
+    }
+}
+
+exports.getImageUser = async(req, res)=>
+{
+    try
+    {
+        const fileName = req.params.fileName;
+        const pathFile = './uploads/users/' + fileName;
+
+        const image = fs.existsSync(pathFile);
+        if(!image) return res.status(404).send({message: 'Imagen no existente'});
+        return res.sendFile(path.resolve(pathFile));
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).send({err, message: 'Error al Obtener la Imagen del Usuario'});
     }
 }

@@ -7,7 +7,7 @@ const cors = require('cors');
 const port = 3200 || process.env.PORT;
 
 //Importación de Encriptado//
-const {encrypt} = require('../src/utils/validate');
+const { encrypt } = require('../src/utils/validate');
 
 //Importación del Modelo de Usuario//
 const User = require('../src/models/user.model');
@@ -26,10 +26,16 @@ const shoppingCartRoutes = require('../src/routes/shoppingCart.routes');
 const billRoutes = require('../src/routes/bill.routes');
 const app = express();
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet({}));
 app.use(cors());
+
+
+/*Connect MultiParty*/
+const fs = require('fs')
+const path = require('path')
+
 
 app.use('/typeLaboratory', typeLaboratoryRoutes);
 app.use('/typeMedicament', typeMedicamentRoutes);
@@ -44,10 +50,9 @@ app.use('/bill', billRoutes);
 app.use('/shoppingCart', shoppingCartRoutes);
 
 
-exports.initServer = ()=> app.listen(port, async ()=>
-{
+exports.initServer = () => app.listen(port, async () => {
     console.log(`Listening on port ${port}.`)
-    const automaticUser = 
+    const automaticUser =
     {
         username: 'SuperAdmin',
         name: 'SuperAdmin',
@@ -58,11 +63,19 @@ exports.initServer = ()=> app.listen(port, async ()=>
         role: 'ADMIN'
     }
 
-    const searchUserAdmin = await User.findOne({username:automaticUser.username});
-    if(!searchUserAdmin)
-    {
+    const searchUserAdmin = await User.findOne({ username: automaticUser.username });
+    if (!searchUserAdmin) {
         let userAdmin = new User(automaticUser);
         await userAdmin.save();
         console.log('Administrador creado Exitosamente.')
     }
+
+    //CREACION DE LA CARPETA POR ÚNICA VEZ//
+    fs.mkdir(path.join(__dirname, '../uploads/users'),
+        { recursive: true }, (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            console.log('Directory created successfully!');
+        });
 });

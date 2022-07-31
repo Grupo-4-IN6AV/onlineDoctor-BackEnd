@@ -3,8 +3,12 @@
 const Medicament = require('../models/medicament.model');
 const TypeMedicament = require('../models/medicament.model');
 
-const { validateData, checkPermission } = require('../utils/validate');
+const { validateData, checkPermission, validExtension } = require('../utils/validate');
 const jwt = require('../services/jwt');
+
+//Connect Multiparty Upload Image//
+const fs = require('fs');
+const path = require('path');
 
 //Función de Testeo//
 exports.medicamentTest = async (req, res) => {
@@ -224,7 +228,7 @@ exports.addImageMedicament = async(req,res)=>
     try
     {
         const medicamentID = req.params.id;
-        const alreadyImage = await User.findOne({_id: req.user.sub});
+        const alreadyImage = await Medicament.findOne({_id: medicamentID});
         let pathFile = './uploads/medicaments/';
         if(alreadyImage.image) fs.unlinkSync(pathFile+alreadyImage.image);
         if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen'});
@@ -239,10 +243,9 @@ exports.addImageMedicament = async(req,res)=>
 
         const validExt = await validExtension(fileExt, filePath);
         if(validExt === false) return res.status(400).send('Tipo de Archivo no válido');
-        const updateUser = await User.findOneAndUpdate({_id: req.user.sub}, {image: fileName}, {new: true}).lean();        if(!updateUser) return res.status(404).send({message: 'User not found'});
-        if(!updateUser) return res.status(404).send({message: 'Usuario no existente'});
-        delete updateUser.password;
-        return res.send(updateUser);
+        const updateMedicament = await Medicament.findOneAndUpdate({_id: medicamentID}, {image: fileName}, {new: true}).lean();
+        if(!updateMedicament) return res.status(404).send({message: 'Medicamento no existente'})
+        return res.send(updateMedicament);
     }
     catch(err)
     {
@@ -251,7 +254,7 @@ exports.addImageMedicament = async(req,res)=>
     }
 }
 
-exports.getImageUser = async(req, res)=>
+exports.getImageMedicament = async(req, res)=>
 {
     try
     {

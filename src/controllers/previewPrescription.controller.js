@@ -9,6 +9,7 @@ const User = require('../models/user.model');
 const Doctor = require('../models/doctor.model');
 
 const { validateData } = require('../utils/validate');
+const { savePDF } = require('./prescriptionControllerPDF')
 
 //Función de Testeo//
 exports.previewPrescriptionTest = async (req, res) => {
@@ -20,7 +21,9 @@ exports.savePrescriptoionADMIN = async (req, res) => {
     try {
         const params = req.body;
 
-        let data = {
+        let data = 
+        {
+            date: new Date(),
             pacient: params.pacient,
             doctor: params.doctor
         }
@@ -287,29 +290,48 @@ exports.getPrescriptionsADMIN = async (req, res) => {
     }
 }
 
-exports.getprescriptionADMIN = async (req, res) => {
+exports.getPrescription = async (req, res) => {
     try {
         const prescriptionID = req.params.id;
         const prescription = await PreviewPrescription.findOne({ _id: prescriptionID }).populate('doctor pacient medicaments laboratorys');
         if (!prescription) return res.status(400).send({ message: 'Receta no encontrada' });
 
         let laboratories = [];
+        let medicaments = [];
         for(let type of prescription.laboratorys){
             const typeLaboratory = await Laboratory.findOne({_id: type._id }).populate('typeLaboratory');
             laboratories.push(typeLaboratory.typeLaboratory);
         }
-
-        return res.send({ message: 'Receta encontrada: ', prescription, laboratories });
+        for(let medicament of prescription.medicaments){
+            const medicamentsPush = await Medicament.findOne({_id: medicament._id }).populate('typeMedicament');
+            medicaments.push(medicamentsPush);
+        }
+        return res.send({ message: 'Receta encontrada: ', prescription, laboratories, medicaments });
     } catch (err) {
         console.log(err);
         return res.status(500).send({ err, message: 'Error al obtener Receta.' });
     }
 }
 
-exports.getPrescriptionsUSER = async (req, res) => {
+exports.getPrescriptionPDF = async (req, res) => {
+    try 
+    {
+        const prescriptionID = req.params.id;
+        const prescription = await PreviewPrescription.findOne({ _id: prescriptionID }).populate('doctor pacient medicaments laboratorys');
+        const pdf = await savePDF(prescription);
+        return res.send({message:'exito'})
+    } 
+    catch (err) 
+    {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener Receta.' });
+    }
+}
+
+exports.getPrescriptionsDOCTOR = async (req, res) => {
     try {
         const pacientID = req.params.id;
-        const prescriptions = await PreviewPrescription.find({ pacient: pacientID }).populate('doctor pacient medicaments laboratorys');
+        const prescriptions = await PreviewPrescription.find({$and:[{pacient: pacientID},{doctor:req.user.sub}]}).populate('doctor pacient medicaments laboratorys');
         if (prescriptions.length === 0) return res.status(400).send({ message: 'Recetas no encontradas' });
         return res.send({ message: 'Recetas encontradas: ', prescriptions });
     } catch (err) {
@@ -318,6 +340,16 @@ exports.getPrescriptionsUSER = async (req, res) => {
     }
 }
 
+exports.getPrescriptionsUSER = async (req, res) => {
+    try {
+        const prescriptions = await PreviewPrescription.find({pacient: req.user.sub}).populate('doctor pacient medicaments laboratorys');
+        if (prescriptions.length === 0) return res.status(400).send({ message: 'Recetas no encontradas' });
+        return res.send({ message: 'Recetas encontradas: ', prescriptions });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener Recetas.' });
+    }
+}
 //Función para Obtener todos los Medicamentos//
 exports.getMedicamentsOutPrescription = async (req, res) => {
     try {

@@ -18,9 +18,11 @@ api.post('/deleteMedicament/:id', [mdAuth.ensureAuth], previewPrescriptionContro
 api.post('/deleteLaboratory/:id', [mdAuth.ensureAuth], previewPrescriptionController.deleteLaboratory);
 api.put('/updatePreviewPrescription/:id', [mdAuth.ensureAuth], previewPrescriptionController.updatePrescription);
 api.delete('/deletePreviewPrescription/:id/:idUser', [mdAuth.ensureAuth], previewPrescriptionController.deletePrescriptionADMIN);
-api.get('/getPreviewPrescriptionsDoctor/:id', [mdAuth.ensureAuth], previewPrescriptionController.getPrescriptionsUSER);
-api.get('/getPreviewPrescription/:id', [mdAuth.ensureAuth], previewPrescriptionController.getprescriptionADMIN);
+api.get('/getPreviewPrescriptionsDoctor/:id', [mdAuth.ensureAuth], previewPrescriptionController.getPrescriptionsDOCTOR);
+api.get('/getPreviewPrescriptionsUser', [mdAuth.ensureAuth], previewPrescriptionController.getPrescriptionsUSER);
+api.get('/getPreviewPrescription/:id', [mdAuth.ensureAuth], previewPrescriptionController.getPrescription);
 api.get('/getMedicamentsOutPrescription/:idPrescription', previewPrescriptionController.getMedicamentsOutPrescription);
 api.get('/getLaboratorysOutPrescription/:idPrescription', previewPrescriptionController.getLaboratorysOutPrescription);
+api.get('/createPrescriptionPDF/:id', previewPrescriptionController.getPrescriptionPDF);
 
 module.exports = api;

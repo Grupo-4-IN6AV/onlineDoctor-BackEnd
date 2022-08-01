@@ -154,8 +154,8 @@ exports.getTypeLaboratoryByName = async (req, res)=>{
         const data ={
             name: params.name
         }
-        const typeLaboratory = await TypeLaboratory.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Type Laboratory encontrados: ', typeLaboratory});
+        const typeLaboratories = await TypeLaboratory.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Type Laboratory encontrados: ', typeLaboratories});
     }catch(err){
         console.log(err);
         return res.status(500).send({message: 'Error encontrando Type Laboratory.', err});

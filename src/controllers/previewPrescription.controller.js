@@ -27,6 +27,14 @@ exports.savePrescriptoionADMIN = async (req, res) => {
             pacient: params.pacient,
             doctor: params.doctor
         }
+        const newDate = data.date.toLocaleDateString();
+        const newDate2 = newDate.split('/');
+        if(newDate2[1] < 10){
+            newDate2[1] = '0'+ newDate2[1]  
+        }
+        const setDate = newDate2[2]+'-'+ newDate2[1]+'-'+newDate2[0]+'T00:00:00.000Z'
+        const setDataPreview = new Date(setDate);
+        data.date = setDataPreview;
 
         const msg = validateData(data);
         if (msg) return res.status(400).send(msg);

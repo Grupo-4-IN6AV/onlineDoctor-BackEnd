@@ -6,8 +6,9 @@ const laboratorySchema = mongoose.Schema({
     typeLaboratory: {type: mongoose.Schema.ObjectId, ref : 'TypeLaboratory'},
     date: Date,
     specifications: String,
-    resultado: String
-    
+    doctor: {type: mongoose.Schema.ObjectId, ref : 'User'},
+    resultado: String,
+    diagnosis: String,
 });
 
 module.exports = mongoose.model('Laboratory', laboratorySchema);

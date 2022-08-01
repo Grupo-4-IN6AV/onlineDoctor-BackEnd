@@ -109,8 +109,9 @@ exports.getSpecialityByName = async (req, res)=>{
         const data ={
             name: params.name
         }
-        const doctors = await Speciality.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Especialidad encontrada: ', doctors});
+        const specialities = await Speciality.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Speciality encontrada: ', specialities});
+		
     }catch(err){
         console.log(err);
         return res.status(500).send({message: 'Error encontrando la Especialidad.', err});

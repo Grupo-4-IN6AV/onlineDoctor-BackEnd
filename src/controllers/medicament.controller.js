@@ -90,7 +90,7 @@ exports.updateMedicamentADMIN = async (req, res) => {
             if (!updateMedicament) {
                 return res.status(400).send({ message: 'Medicamento no actualizado.' });
             }
-            return res.send({ message: 'Medicamento actulizado correctamente', updateMedicament });
+            return res.send({ message: 'Medicamento Actualizado Correctamente', updateMedicament });
 
         } else return res.status(400).send({ message: 'Parámetros vacíos.' })
 

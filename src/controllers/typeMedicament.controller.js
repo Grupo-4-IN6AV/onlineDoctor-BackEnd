@@ -148,8 +148,8 @@ exports.getTypeMedicamentByName = async (req, res)=>{
         const data ={
             name: params.name
         }
-        const typeMedicament = await TypeMedicament.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Tipo de Medicamento encontrado: ', typeMedicament});
+        const typeMedicaments = await TypeMedicament.find({name: {$regex: params.name, $options:'i'}});
+        return res.send({message:'Tipos de Medicamentos encontrados: ', typeMedicaments});
     }catch(err){
         console.log(err);
         return res.status(500).send({message: 'Error encontrando el Tipo de Medicamento.', err});

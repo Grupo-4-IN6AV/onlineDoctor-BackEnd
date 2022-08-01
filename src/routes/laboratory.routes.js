@@ -28,6 +28,7 @@ api.get('/getLaboratoriesPaciente', [mdAuth.ensureAuth], laboratoryController.ge
 api.put('/saveResultLaboratories/:id', laboratoryController.saveResultLaboratory);
 
 
+api.get('/getLaboratoryPacient/:id', [mdAuth.ensureAuth], laboratoryController.getLaboratoryADMIN);
 
 
 module.exports = api;

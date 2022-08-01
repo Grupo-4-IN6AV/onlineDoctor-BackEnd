@@ -488,7 +488,7 @@ exports.getUsuariosByName = async (req, res)=>{
 // Obtener Usuarios ordenado de A a Z
 exports.getUsuariosAtoZ = async (req, res) => {
     try {
-        const UsuariosAtoZ = await User.find({name:{$ne: 'SuperAdmin'}});
+        const UsuariosAtoZ = await User.find({name:{$ne:'SuperAdmin'}});
         if (UsuariosAtoZ.length === 0) return res.send({ message: 'Usuarios no encontrados.' })
         UsuariosAtoZ.sort((a, b) => {
             if (a.name < b.name) {
@@ -502,14 +502,15 @@ exports.getUsuariosAtoZ = async (req, res) => {
         return res.send({ message: 'Usuarios encontrados:', UsuariosAtoZ })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener las Usuarios.' });
+        return res.status(500).send({ err, message: 'Error al Obtener los Doctores.' });
     }
 }
+
 
 // Obtener Usuarios ordenado de Z a A
 exports.getUsuariosZtoA = async (req, res) => {
     try {
-        const UsuariosZtoA = await User.find({name:{$ne: 'SuperAdmin'}});
+        const UsuariosZtoA = await User.find({name:{$ne:'SuperAdmin'}});
         if (UsuariosZtoA.length === 0) return res.send({ message: 'Usuarios no encontrados.' })
         UsuariosZtoA.sort((a, b) => {
             if (a.name > b.name) {
@@ -520,10 +521,10 @@ exports.getUsuariosZtoA = async (req, res) => {
                 return 0;
             }
         })
-        return res.send({ message: 'Usuarios encontrados: ', UsuariosZtoA })
+        return res.send({ message: 'Usuarios encontrados:', UsuariosZtoA })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener las Usuarios.' });
+        return res.status(500).send({ err, message: 'Error al Obtener los Doctores.' });
     }
 }
 
@@ -578,5 +579,22 @@ exports.getImageUser = async(req, res)=>
     {
         console.log(err);
         return res.status(500).send({err, message: 'Error al obtener la imagen del Usuario.'});
+    }
+}
+
+exports.getUsersAndDoctors = async (req, res) => {
+    try {
+        const users = await User.find({role:'PACIENTE'});
+        const doctors = await Doctor.find();
+
+        let array = [
+            {name:'PACIENTE', value:users.length},
+            {name:'DOCTOR', value:doctors.length},
+        ]
+
+        return res.send({array})
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send({ message: 'Error obteniendo Pacientes.', err });
     }
 }

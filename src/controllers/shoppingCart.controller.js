@@ -141,14 +141,8 @@ exports.getShoppingCart = async (req, res) => {
     try 
     {
         const user = req.user.sub;
-
         const shoppingCart = await ShoppingCart.findOne({ user: user }).populate('user medicaments.medicament')
-        if (!shoppingCart)
-        {
-            return res.status(404).send({ message: 'No se encontro nada.' });
-        } 
-        else return res.send({ message: 'Este es tu carrito de compras. ', shoppingCart });
-
+        return res.send({ message: 'Este es tu carrito de compras. ', shoppingCart });
     } 
     catch (err) 
     {

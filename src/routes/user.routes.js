@@ -40,4 +40,8 @@ api.get('/getUserDoctor/:id', [mdAuth.ensureAuth], userController.getUser);
 api.post('/uploadImageUser/:id', [mdAuth.ensureAuth, upload], userController.addImageUser);
 api.get('/getImageUser/:fileName',  upload, userController.getImageUser);
 
+//TOTAL DE USUARIOS//
+api.get('/getUsersAndDoctors', [mdAuth.ensureAuth], userController.getUsersAndDoctors);
+
+
 module.exports = api;

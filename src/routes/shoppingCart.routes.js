@@ -19,5 +19,7 @@ api.get('/testShoppingCart', shoppingCartController.testShoppingCart);
 //P R I V A D A S//
 //Usuarios//
 api.post('/createShoppingCart', mdAuth.ensureAuth, shoppingCartController.createShoppingCart);
+api.get('/getShoppingCart', mdAuth.ensureAuth, shoppingCartController.getShoppingCart);
+
 
 module.exports = api;

@@ -24,21 +24,59 @@ exports.savePDF = async(prescription,res)=>
         contenidoHtml = fs.readFileSync(ubicacionPlantilla, 'utf8');
 
         //Split de la Fecha//
-        let date = prescription.date.split('T');
-        let setDate = date[0];
+        let date = prescription.date.toLocaleString().split(' ')
+        let dateDos = date[0].split('/')
+        if(dateDos[1] < 10)
+        {
+            dateDos[1] = '0'+dateDos[1]
+        }
 
         //numero de Receta//
-        let number = await (await PreviewPrescription.find({})).count()
+        let number = await  PreviewPrescription.count()
         let numberPreview = number+1000
-       
-        // Remplazar el valor {{tablaProductos}} por el verdadero valor
+        let setDate = dateDos[0]+'-'+dateDos[1]+'-'+dateDos[2]
+
+
+        //DATA DE LA RECETA
+        contenidoHtml = contenidoHtml.replace("{{prescriptionDate}}", `${setDate}`);
+        contenidoHtml = contenidoHtml.replace("{{numberPrescription}}", `${numberPreview}`);
 
         // Y también los otros valores
-        contenidoHtml = contenidoHtml.replace("{{namePacient}}", `${prescription.pacient.name}`);
-        contenidoHtml = contenidoHtml.replace("{{nameDoctor}}", `${prescription.doctor.name}`);
-        contenidoHtml = contenidoHtml.replace("{{prescriptionDate}}", `${setDate}`);
-        contenidoHtml = contenidoHtml.replace("{{numberPrescription}}", `${setDate}`);
-        contenidoHtml = contenidoHtml.replace("{{numberPrescription}}", `${numberPreview}`);
+        //DATOS DEL PACIENTE//
+        contenidoHtml = contenidoHtml.replace("{{namePacient}}", `${prescription.pacient.name} ${prescription.pacient.surname}`);
+        var generoPaciente 
+        if(prescription.pacient.gender === 'MALE')
+        {
+            generoPaciente = 'MASCULINO'
+        }
+
+        else if(prescription.pacient.gender === 'FEMALE')
+        {
+            generoPaciente = 'FEMENINO'
+        }
+
+        contenidoHtml = contenidoHtml.replace("{{namePacient}}", `${prescription.pacient.name} ${prescription.pacient.surname}`);
+        var generoPaciente 
+        if(prescription.pacient.gender === 'MALE')
+        {
+            generoPaciente = 'MASCULINO'
+        }
+
+        else if(prescription.pacient.gender === 'FEMALE')
+        {
+            generoPaciente = 'FEMENINO'
+        }
+
+        contenidoHtml = contenidoHtml.replace("{{phonePacient}}", `${prescription.pacient.phone}`);
+        contenidoHtml = contenidoHtml.replace("{{emailPacient}}", `${prescription.pacient.email}`);
+        contenidoHtml = contenidoHtml.replace("{{agePacient}}", `${prescription.pacient.age}`);
+        contenidoHtml = contenidoHtml.replace("{{genderPacient}}", `${generoPaciente}`);
+
+        //DATOS DEL DOCTOR//
+        contenidoHtml = contenidoHtml.replace("{{nameDoctor}}", `${prescription.doctor.name} ${prescription.doctor.surname}`);
+        contenidoHtml = contenidoHtml.replace("{{numberCollegiate}}", `${prescription.doctor.collegiateNumber}`);
+        contenidoHtml = contenidoHtml.replace("{{emailDoctor}}", `${prescription.doctor.email} ${prescription.doctor.surname}`);
+        contenidoHtml = contenidoHtml.replace("{{phoneDoctor}}", `${prescription.doctor.phone} ${prescription.doctor.surname}`);
 
         //localhost:3000/Factura{{numberBill}}
     
@@ -50,11 +88,12 @@ exports.savePDF = async(prescription,res)=>
             // Page options
             "border": "0",             // default is 0, units: mm, cm, in, px
         }
+
           
 
         let get = app.get(`/Bill${prescription._id}/`,(req,res)=>
         {
-            pdf.create(contenidoHtml,config).toStream((error, stream) => {
+            pdf.create(contenidoHtml).toStream((error, stream) => {
             if (error) {
                 res.end("Error creando PDF: " + error)
             } else {

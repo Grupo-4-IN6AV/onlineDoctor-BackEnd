@@ -29,10 +29,10 @@ exports.saveLaboratoryADMIN = async (req, res) => {
         if (!msg) {
 
             const typeLaboratoryExist = await TypeLaboratory.findOne({ _id: data.typeLaboratory });
-            if (!typeLaboratoryExist) return res.status(400).send({ message: 'Tipo de Laboratorio no encontrado' });
+            if (!typeLaboratoryExist) return res.status(400).send({ message: 'Tipo de Laboratorio no encontrado.' });
 
             const pacientExist = await User.findOne({ _id: params.pacient });
-            if (!pacientExist) return res.send({ message: 'Paciente no existe' });
+            if (!pacientExist) return res.send({ message: 'Paciente no existe.' });
 
             const dateAlready = await Laboratory.findOne({
                 $and: [
@@ -49,17 +49,17 @@ exports.saveLaboratoryADMIN = async (req, res) => {
             if (laboratory) {
 
                 const registerLaboratoryUser = await User.findOneAndUpdate({ _id: pacientExist._id }, { $push: { laboratory: { laboratory: laboratory._id, done: false, description: data.specifications } } }, { new: true });
-                if (!registerLaboratoryUser) return res.status(400).send({ message: 'Laboratorio no creado' });
+                if (!registerLaboratoryUser) return res.status(400).send({ message: 'Laboratorio no creado.' });
 
-            } else return res.status(400).send({ message: 'Laboratorio no creado' });
+            } else return res.status(400).send({ message: 'Laboratorio no creado.' });
 
-            return res.send({ message: 'Laboratorio registrado Exitosamente.', laboratory });
+            return res.send({ message: 'Laboratorio registrado exitosamente.', laboratory });
 
         } else return res.status(400).send(msg);
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Guardar Laboratorio.' });
+        return res.status(500).send({ err, message: 'Error al guardar Laboratorio.' });
     }
 }
 
@@ -74,10 +74,10 @@ exports.updateLaboratoryADMIN = async (req, res) => {
         if (!msg) {
 
             const typeLaboratoryExist = await TypeLaboratory.findOne({ _id: params.typeLaboratory });
-            if (!typeLaboratoryExist) return res.status(400).send({ message: 'Tipo de Laboratorio no encontrado' });
+            if (!typeLaboratoryExist) return res.status(400).send({ message: 'Tipo de Laboratorio no encontrado.' });
 
             const pacientExist = await User.findOne({ _id: params.pacient });
-            if (!pacientExist) return res.send({ message: 'Paciente no existe' });
+            if (!pacientExist) return res.send({ message: 'Paciente no existe.' });
 
             const dateAlready = await Laboratory.findOne({
                 $and: [
@@ -89,20 +89,20 @@ exports.updateLaboratoryADMIN = async (req, res) => {
             if (dateAlready) return res.status(400).send({ message: 'Laboratorio ya creado en esta fecha.' });
 
             const updateLaboratory = await Laboratory.findOneAndUpdate({ _id: laboratoryID }, params, { new: true }).populate('typeLaboratory pacient')
-            if (!updateLaboratory) return res.status(400).send({ message: 'Laboratorio no encontrado' });
+            if (!updateLaboratory) return res.status(400).send({ message: 'Laboratorio no encontrado.' });
 
             const updateUser = await User.findOneAndUpdate(
                 { $and: [{ _id: params.pacient }, { "laboratory.laboratory": laboratoryID }] },
                 { "laboratory.$.description": (params.specifications), "laboratory.$.done": (params.done) },
                 { new: true });
 
-            return res.send({ message: 'Laboratorio actualizado Correctamente', updateLaboratory });
+            return res.send({ message: 'Laboratorio actualizado correctamente.', updateLaboratory });
 
-        } else return res.status(400).send({ message: 'Parámetros vacíos' })
+        } else return res.status(400).send({ message: 'Parámetros vacíos.' })
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al actualizar Laboratorio.' });
+        return res.status(500).send({ err, message: 'Error al actualizar el Laboratorio.' });
     }
 }
 
@@ -119,24 +119,24 @@ exports.deleteLaboratoryADMIN = async (req, res) => {
 
         const registerLaboratoryUser = await User.findOneAndUpdate({ _id: userID }, { $pull: { 'laboratory': { 'laboratory': laboratoryID } } }, { new: true });
         console.log(registerLaboratoryUser);
-        if (!registerLaboratoryUser) return res.status(400).send({ message: 'Laboratorio no eliminado del usuario' });
+        if (!registerLaboratoryUser) return res.status(400).send({ message: 'Laboratorio no eliminado del usuario.' });
 
         return res.send({ message: 'Laboratorio eliminado exitosamente.', laboratoryDeleted });
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al eliminar Laboratorio.' });
+        return res.status(500).send({ err, message: 'Error al eliminar el Laboratorio.' });
     }
 }
 
 exports.getLaboratoriesADMIN = async (req, res) => {
     try {
         const laboratories = await Laboratory.find().populate('typeLaboratory pacient')
-        if (!laboratories) return res.status(400).send({ message: 'Laboratorios no encontrados' });
+        if (!laboratories) return res.status(400).send({ message: 'Laboratorios no encontrados.' });
         return res.send({ message: 'Laboratorios encontrados: ', laboratories });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener Laboratorios.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Laboratorios.' });
     }
 }
 
@@ -144,11 +144,11 @@ exports.getLaboratoryADMIN = async (req, res) => {
     try {
         const laboratoryID = req.params.id;
         const laboratory = await Laboratory.findOne({ _id: laboratoryID }).populate('typeLaboratory pacient')
-        if (!laboratory) return res.status(400).send({ message: 'Laboratorio no encontrados' });
+        if (!laboratory) return res.status(400).send({ message: 'Laboratorio no encontrado.' });
         return res.send({ message: 'Laboratorio encontrado: ', laboratory });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener Laboratorio.' });
+        return res.status(500).send({ err, message: 'Error al obtener el Laboratorio.' });
     }
 }
 
@@ -156,11 +156,11 @@ exports.getLaboratoriesUSER = async (req, res) => {
     try {
         const pacientID = req.params.id;
         const laboratories = await Laboratory.find({ pacient: pacientID }).populate('typeLaboratory pacient')
-        if (laboratories.length === 0) return res.status(400).send({ message: 'Laboratorios no encontrados' });
+        if (laboratories.length === 0) return res.status(400).send({ message: 'Laboratorios no encontrados.' });
         return res.send({ message: 'Laboratorios encontrados: ', laboratories });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener Laboratorio.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Laboratorio.' });
     }
 }
 
@@ -170,12 +170,12 @@ exports.getLaboratorysPacient = async (req, res) => {
 
         let laboratoryExist = await Laboratory.find({pacient:identity}).populate('typeLaboratory pacient')
 
-        if (laboratoryExist.length === 0) return res.status(400).send({ message: 'No tiene Laboratorios' });
+        if (laboratoryExist.length === 0) return res.status(400).send({ message: 'No tiene Laboratorios.' });
 
         return res.send({message:'Laboratorios Encotrados: ', laboratoryExist});
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener citas.' });
+        return res.status(500).send({ err, message: 'Error al obtener los laboratorios.' });
     }
 }

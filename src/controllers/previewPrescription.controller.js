@@ -45,12 +45,12 @@ exports.savePrescriptoionADMIN = async (req, res) => {
         await previewPrescriptionNew.save();
         
         if(!previewPrescriptionNew){
-            return res.status(400).send({ message: 'Receta No Generada'});
+            return res.status(400).send({ message: 'Receta no generada.'});
         }
-        return res.send({ message: 'Receta Generada Exitosamente', previewPrescriptionNew });
+        return res.send({ message: 'Receta generada exitosamente', previewPrescriptionNew });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Generar la Receta.' });
+        return res.status(500).send({ err, message: 'Error al generar la Receta.' });
     }
 }
 
@@ -75,7 +75,7 @@ exports.addMedicamento = async (req,res) => {
 
         //Verificar que exista el Medicamento en la Prescripción.//
         const medicamentExistPrescription = await PreviewPrescription.findOne({ $and: [{ _id: prescriptionID }, { medicaments: params.medicaments }] });
-        if (medicamentExistPrescription) return res.status(400).send({ message: 'Medicamento ya existe en la Receta' });
+        if (medicamentExistPrescription) return res.status(400).send({ message: 'Medicamento ya existe en la Receta.' });
 
         const prescriptionExist = await PreviewPrescription.findOne({ $and: [{ _id: prescriptionID }, { doctor: doctor}] });
         //Verificar que Exista la Prescrición. //
@@ -88,7 +88,7 @@ exports.addMedicamento = async (req,res) => {
             },
             { new: true });
             
-        return res.send({ message: 'Se Agregó un nuevo medicamento a la Receta.', newPrescription })
+        return res.send({ message: 'Se agregó un nuevo medicamento a la Receta.', newPrescription })
     }catch(err){
         console.log(err);
         return res.status(400).send({message: 'Error agregando medicamento a la Receta. '})
@@ -131,10 +131,10 @@ exports.addLaboratory = async (req,res) => {
             },
             { new: true });
             
-        return res.send({ message: 'Se Agregó un nuevo laboratorio a la Receta.', newPrescription })
+        return res.send({ message: 'Se agregó un nuevo laboratorio a la Receta.', newPrescription })
     }catch(err){
         console.log(err);
-        return res.status(400).send({message: 'Error agregando laboratorio a la Receta '})
+        return res.status(400).send({message: 'Error agregando laboratorio a la Receta.'})
     }
 }
 
@@ -209,7 +209,7 @@ exports.deleteLaboratory = async (req, res) => {
                     { _id: prescriptionID },
                     { $pull: { laboratorys: data.laboratoryID }  }, { new: true }).lean();
                 //Eliminar el  Laboratorio a la Prescripción //
-                return res.send({ message: 'Laboratorio eliminado satisfactoriamente ', deleteLaboratoryPrescription });
+                return res.send({ message: 'Laboratorio eliminado satisfactoriamente.', deleteLaboratoryPrescription });
 
             }
         }
@@ -237,11 +237,11 @@ exports.updatePrescription = async (req, res) => {
         if(msg) return res.status(400).send(msg);
 
         const prescriptionExist = await PreviewPrescription.findOne({$and: [{_id: prescriptionID},{ doctor: req.user.sub}]});
-            if(!prescriptionExist) return res.send({message: 'Receta no encontrada'});
+            if(!prescriptionExist) return res.send({message: 'Receta no encontrada.'});
 
      
         const pacientExist = await User.findOne({_id: data.pacient});
-            if(!pacientExist) return res.send({message: 'Paciente no encontrado'});
+            if(!pacientExist) return res.send({message: 'Paciente no encontrado.'});
 
         const prescriptionUpdate = await PreviewPrescription.findOneAndUpdate({_id: prescriptionID}, data, {new: true})
             .populate('pacient doctor medicaments laboratorys').lean();
@@ -252,7 +252,7 @@ exports.updatePrescription = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Actualizar la Receta.' });
+        return res.status(500).send({ err, message: 'Error al actualizar la Receta.' });
     }
 
 }
@@ -266,7 +266,7 @@ exports.deletePrescriptionADMIN = async (req, res) => {
         if (!prescriptionExist) return res.status(400).send({ message: 'Receta no encontrada o eliminada actualmente.' });
 
         const prescriptionDeleted = await PreviewPrescription.findOneAndDelete({ _id: prescriptionID });
-        if (!prescriptionDeleted) return res.status(400).send({ message: 'Receta no eliminada. ' })
+        if (!prescriptionDeleted) return res.status(400).send({ message: 'Receta no eliminada.' })
 
         const registerPrescriptionUser = await User.findOneAndUpdate({ _id: userID }, { $pull: { 'prescription':  prescriptionID } }, { new: true });
         if (!registerPrescriptionUser) return res.status(400).send({ message: 'Receta no eliminada del usuario' });
@@ -275,18 +275,18 @@ exports.deletePrescriptionADMIN = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al eliminar Receta.' });
+        return res.status(500).send({ err, message: 'Error al eliminar la Receta.' });
     }
 }
 
 exports.getPrescriptionsADMIN = async (req, res) => {
     try {
         const prescription = await PreviewPrescription.find().populate('doctor pacient medicaments laboratorys');
-        if (prescription.length === 0) return res.status(400).send({ message: 'Recetas no encontradas' });
+        if (prescription.length === 0) return res.status(400).send({ message: 'Recetas no encontradas.' });
         return res.send({ message: 'Recetas encontradas: ', prescription });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener Recetas.' });
+        return res.status(500).send({ err, message: 'Error al obtener las Recetas.' });
     }
 }
 
@@ -294,7 +294,7 @@ exports.getPrescription = async (req, res) => {
     try {
         const prescriptionID = req.params.id;
         const prescription = await PreviewPrescription.findOne({ _id: prescriptionID }).populate('doctor pacient medicaments laboratorys');
-        if (!prescription) return res.status(400).send({ message: 'Receta no encontrada' });
+        if (!prescription) return res.status(400).send({ message: 'Receta no encontrada.' });
 
         let laboratories = [];
         let medicaments = [];
@@ -309,7 +309,7 @@ exports.getPrescription = async (req, res) => {
         return res.send({ message: 'Receta encontrada: ', prescription, laboratories, medicaments });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener Receta.' });
+        return res.status(500).send({ err, message: 'Error al obtener la Receta.' });
     }
 }
 
@@ -336,7 +336,7 @@ exports.getPrescriptionsDOCTOR = async (req, res) => {
         return res.send({ message: 'Recetas encontradas: ', prescriptions });
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener Recetas.' });
+        return res.status(500).send({ err, message: 'Error al obtener las Recetas.' });
     }
 }
 
@@ -356,10 +356,10 @@ exports.getMedicamentsOutPrescription = async (req, res) => {
         const prescriptionId = req.params.idPrescription;
 
         const medicaments = await Medicament.find().populate('typeMedicament');
-        if(medicaments.length === 0) return res.status(400).send({message: 'No Existen Medicamentos'})
+        if(medicaments.length === 0) return res.status(400).send({message: 'No existen Medicamentos.'})
 
         const previewPrescription = await PreviewPrescription.findOne({_id: prescriptionId}).populate('medicaments');
-        if(!previewPrescription) return res.send({message: 'No existe la Preview Prescription'});
+        if(!previewPrescription) return res.send({message: 'No existe la vista previa de receta.'});
 
         const PrescriptionMedicaments = previewPrescription.medicaments;
         const medicamentsInPrescription = previewPrescription.medicaments;
@@ -385,10 +385,10 @@ exports.getLaboratorysOutPrescription = async (req, res) => {
         const prescriptionId = req.params.idPrescription;
 
         const laboratorys = await Laboratory.find().populate('typeLaboratory');
-        if(laboratorys.length === 0) return res.status(400).send({message: 'No Existen Laboratorios'})
+        if(laboratorys.length === 0) return res.status(400).send({message: 'No existen Laboratorios.'})
 
         const previewPrescription = await PreviewPrescription.findOne({_id: prescriptionId}).populate('laboratorys');
-        if(!previewPrescription) return res.send({message: 'No existe la Preview Prescription'});
+        if(!previewPrescription) return res.send({message: 'No existe la vista previa de receta.'});
 
         const prescriptionLaboratorys = previewPrescription.laboratorys;
         const laboratorysInPrescription = previewPrescription.laboratorys;
@@ -404,6 +404,6 @@ exports.getLaboratorysOutPrescription = async (req, res) => {
         return res.send({ message: 'Laboratorios encontrados:', laboratorysOutPrescription, laboratorysInPrescription})
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los laboratorios.' });
+        return res.status(500).send({ err, message: 'Error al obtener los laboratorios.' });
     }
 };

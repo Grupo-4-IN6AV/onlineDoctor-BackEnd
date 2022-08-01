@@ -84,7 +84,7 @@ exports.saveAppointmentADMIN = async (req, res) => {
             } else if (correctionModality === 'PRESENCIAL') {
                 params.modality = 'PRESENCIAL';
             } else {
-                return res.status(400).send({ message: 'Modality Invalida' });
+                return res.status(400).send({ message: 'Modalidad Inválida.' });
             }
 
             const appointment = new Appointment(data);
@@ -92,12 +92,12 @@ exports.saveAppointmentADMIN = async (req, res) => {
 
             if (appointment) {
                 const registerAppointmentUser = await User.findOneAndUpdate({ _id: user._id }, { $push: { appointment: { appointment: appointment._id, done: false } } }, { new: true });
-                if (!registerAppointmentUser) return res.status(400).send({ message: 'Cita no creada' });
+                if (!registerAppointmentUser) return res.status(400).send({ message: 'Cita no creada.' });
 
                 const registerAppointmentDoctor = await Doctor.findOneAndUpdate({ _id: doctor._id }, { $push: { appointment: { appointment: appointment._id, done: false } } }, { new: true });
-                if (!registerAppointmentDoctor) return res.status(400).send({ message: 'Cita no creada' });
+                if (!registerAppointmentDoctor) return res.status(400).send({ message: 'Cita no creada.' });
 
-            } else return res.status(400).send({ message: 'Cita no creada' });
+            } else return res.status(400).send({ message: 'Cita no creada.' });
 
             return res.send({ message: 'Cita Guardada Exitosamente.', appointment });
         } else return res.status(400).send(msg);
@@ -115,7 +115,7 @@ exports.updateAppointmentADMIN = async (req, res) => {
 
 
         const doctorExist = await Doctor.findOne({ _id: params.doctor });
-        if (!doctorExist) return res.send({ message: 'Doctor no existe' });
+        if (!doctorExist) return res.send({ message: 'Doctor no existe.' });
 
         //Valida si ya tiene una cita con el mismo doctor
         const apposUser = await Appointment.find({  pacient: params.pacient });
@@ -123,13 +123,13 @@ exports.updateAppointmentADMIN = async (req, res) => {
         for (let appo of apposUser) {
             if (appo.doctor == params.doctor) {
                 if (appo._id != appoId) {
-                    return res.status(400).send({ message: 'Cita ya creada con este Doctor' })
+                    return res.status(400).send({ message: 'Cita ya creada con este Doctor.' })
                 }
             }
         }
 
         const pacientExist = await User.findOne({ _id: params.pacient });
-        if (!pacientExist) return res.send({ message: 'Paciente no existe' });
+        if (!pacientExist) return res.send({ message: 'Paciente no existe.' });
 
         //Valida si ya tiene una cita con el mismo doctor
         const apposDoctor = await Appointment.find({ doctor: params.doctor });
@@ -137,7 +137,7 @@ exports.updateAppointmentADMIN = async (req, res) => {
         for (let appo of apposDoctor) {
             if (appo.pacient == params.pacient._id) {
                 if (appo._id != appoId) {
-                    return res.status(400).send({ message: 'Cita ya creada con este paciente' })
+                    return res.status(400).send({ message: 'Cita ya creada con este paciente.' })
                 }
             }else{
 
@@ -160,7 +160,7 @@ exports.updateAppointmentADMIN = async (req, res) => {
             } else if (correctionModality === 'PRESENCIAL') {
                 params.modality = 'PRESENCIAL';
             } else {
-                return res.status(400).send({ message: 'Modalidad Invalida' });
+                return res.status(400).send({ message: 'Modalidad Invalida.' });
             }
         }
 
@@ -169,11 +169,11 @@ exports.updateAppointmentADMIN = async (req, res) => {
         if (updateAppointment) {
 
             const appointmenstsUpdate = await deleteSensitiveData(updateAppointment);
-            return res.send({ appointmenstsUpdate, message: 'Cita actualizada' });
+            return res.send({ appointmenstsUpdate, message: 'Cita actualizada.' });
 
         } else {
 
-            return res.send({ message: 'Cita no encontrada' });
+            return res.send({ message: 'Cita no encontrada.' });
         }
 
     } catch (err) {
@@ -193,10 +193,10 @@ exports.deleteAppointmentADMIN = async (req, res) => {
         if (!appointmentDeleted) return res.status(400).send({ message: 'Cita no eliminada. ' })
 
         const registerAppointmentUser = await User.findOneAndUpdate({ _id: appointmentExist.pacient }, { $pull: { 'appointment': { 'appointment': appointmentId } } }, { new: true });
-        if (!registerAppointmentUser) return res.status(400).send({ message: 'Cita no eliminada' });
+        if (!registerAppointmentUser) return res.status(400).send({ message: 'Cita no eliminada.' });
 
         const registerAppointmentDoctor = await Doctor.findOneAndUpdate({ _id: appointmentExist.doctor }, { $pull: { 'appointment': { 'appointment': appointmentId } } }, { new: true });
-        if (!registerAppointmentDoctor) return res.status(400).send({ message: 'Cita no eliminada' });
+        if (!registerAppointmentDoctor) return res.status(400).send({ message: 'Cita no eliminada.' });
 
         return res.send({ message: 'Cita eliminada exitosamente.', appointmentDeleted });
 
@@ -211,18 +211,18 @@ exports.getAppointmentsADMIN = async (req, res) => {
         let appointmentsExist = await Appointment.find()
             .populate('pacient doctor')
 
-        if (appointmentsExist.length === 0) return res.send({ message: 'Appointments no econtradas' });
+        if (appointmentsExist.length === 0) return res.send({ message: 'Citas no econtradas.' });
 
         appointmentsExist.map( async (apo)=> {
             await deleteSensitiveData(apo);
         })
 
-        return res.send({message:'Appointmen Encotrada: ', appointmentsExist});
+        return res.send({message:'Citas Encotradas: ', appointmentsExist});
 
         
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener citas.' });
+        return res.status(500).send({ err, message: 'Error al obtener las citas.' });
     }
 }
 
@@ -232,14 +232,14 @@ exports.getAppointmentADMIN = async (req, res) => {
         const appointment = await Appointment.findOne({ _id: appointmentId })
             .populate('pacient doctor')
 
-        if (!appointment) return res.send({ message: 'Appointment no encontrada' });
+        if (!appointment) return res.send({ message: 'Cita no encontrada' });
         {
             await deleteSensitiveData(appointment);
-            return res.send({message: 'Appointemte:' ,appointment});
+            return res.send({message: 'Cita:' ,appointment});
         }
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener cita.' });
+        return res.status(500).send({ err, message: 'Error al obtener la cita.' });
     }
 }
 
@@ -250,17 +250,17 @@ exports.getAppointmentsUser = async (req, res) => {
         let appointmentsExist = await Appointment.find({doctor:identity})
             .populate('pacient doctor')
 
-        if (appointmentsExist.length === 0) return res.status(400).send({ message: 'Appointments no econtradas' });
+        if (appointmentsExist.length === 0) return res.status(400).send({ message: 'Citas no econtradas.' });
 
         appointmentsExist.map( async (apo) => {
             await deleteSensitiveData(apo);
         });
 
-        return res.send({message:'Appointmen Encotrada: ', appointmentsExist});
+        return res.send({message:'Citas Encotradas: ', appointmentsExist});
         
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener citas.' });
+        return res.status(500).send({ err, message: 'Error al obtener las citas.' });
     }
 }
 
@@ -271,16 +271,16 @@ exports.getAppointmentsPaciente = async (req, res) => {
         let appointmentsExist = await Appointment.find({pacient:identity})
             .populate('pacient doctor')
 
-        if (appointmentsExist.length === 0) return res.status(400).send({ message: 'Appointments no econtradas' });
+        if (appointmentsExist.length === 0) return res.status(400).send({ message: 'Citas no econtradas.' });
 
         appointmentsExist.map( async (apo) => {
             await deleteSensitiveData(apo);
         })
 
-        return res.send({message:'Appointmen Encotrada: ', appointmentsExist});
+        return res.send({message:'Citas Encotradas: ', appointmentsExist});
         
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al obtener citas.' });
+        return res.status(500).send({ err, message: 'Error al obtener las citas.' });
     }
 }

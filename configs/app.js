@@ -76,7 +76,7 @@ exports.initServer = () => app.listen(port, async () => {
             if (err) {
                 return console.error(err);
             }
-            console.log('Directory created successfully!');
+            console.log('¡Directorio creado con éxito!');
         });
     
     fs.mkdir(path.join(__dirname, '../uploads/doctors'),
@@ -84,7 +84,7 @@ exports.initServer = () => app.listen(port, async () => {
             if (err) {
                 return console.error(err);
             }
-            console.log('Directory created successfully!');
+            console.log('¡Directorio creado con éxito!');
         });
     
     
@@ -93,6 +93,6 @@ exports.initServer = () => app.listen(port, async () => {
             if (err) {
                 return console.error(err);
             }
-            console.log('Directory created successfully!');
+            console.log('¡Directorio creado con éxito!');
         });
 });

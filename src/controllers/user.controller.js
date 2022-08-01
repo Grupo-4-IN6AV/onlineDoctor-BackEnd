@@ -17,7 +17,7 @@ const path = require('path');
 
 //Función de Testeo//
 exports.userTest = async (req, res) => {
-    return res.send({ message: 'Función de testeo -USUARIO- funciona correctamente' });
+    return res.send({ message: 'Función de testeo -Usuario- funciona correctamente.' });
 }
 
 
@@ -39,10 +39,10 @@ exports.register = async (req, res) => {
         if (msg) return res.status(400).send(msg);
 
         let alreadyUsername = await User.findOne({ username: data.username });
-        if (alreadyUsername) return res.status(400).send({ message: 'El nombre de Usuario ya tiene una cuenta' });
+        if (alreadyUsername) return res.status(400).send({ message: 'El nombre de Usuario ya tiene una cuenta.' });
 
         let alreadyEmail = await User.findOne({ email: data.email });
-        if (alreadyEmail) return res.status(400).send({ message: 'El correo electronico ya tiene una cuenta' });
+        if (alreadyEmail) return res.status(400).send({ message: 'El correo electrónico ya tiene una cuenta.' });
 
         if (params.NIT == '' || params.NIT == undefined || params.NIT == null) {
             data.NIT = 'C/F'
@@ -57,7 +57,7 @@ exports.register = async (req, res) => {
         } else if (correctionGender === 'FEMALE') {
             data.gender = 'FEMALE'
         } else {
-            return res.status(400).send({ message: 'Genero Invalido' })
+            return res.status(400).send({ message: 'Género inválido.' })
         }
 
         data.DPI = params.DPI;
@@ -68,11 +68,11 @@ exports.register = async (req, res) => {
         let user = new User(data);
         await user.save();
         let userExist = await User.findOne({ _id: user._id })
-        return res.send({ message: 'Usuario registrado Exitosamente', userExist });
+        return res.send({ message: 'Usuario registrado exitosamente.', userExist });
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Registrar al Usuario' });
+        return res.status(500).send({ err, message: 'Error al registrar al Usuario.' });
     }
 }
 
@@ -114,12 +114,12 @@ exports.login = async (req, res) => {
             let token = await jwt.createToken(userExist);
             delete userExist.password
 
-            return res.send({ message: 'Sesión Iniciada', userExist, token });
-        } else return res.status(401).send({ message: 'Credenciales Incorrectas' });
+            return res.send({ message: 'Sesión iniciada.', userExist, token });
+        } else return res.status(401).send({ message: 'Credenciales incorrectas.' });
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Iniciar Sesión' });
+        return res.status(500).send({ err, message: 'Error al Iniciar Sesión.' });
     }
 }
 
@@ -140,7 +140,7 @@ exports.deleteAccount = async (req, res) => {
         if (msg) return res.status(400).send(msg);
 
         const persmission = await checkPermission(userID, req.user.sub);
-        if (persmission === false) return res.status(403).send({ message: 'No posees los permisos para eliminar la Cuenta' });
+        if (persmission === false) return res.status(403).send({ message: 'No posees los permisos para eliminar la Cuenta.' });
 
         const userExist = await User.findOne({ _id: userID });
 
@@ -156,16 +156,16 @@ exports.deleteAccount = async (req, res) => {
             }
 
             const userDeleted = await User.findOneAndDelete({ _id: userID })
-            if (userDeleted) return res.send({ message: 'Su cuenta ha sido Eliminada Exitosamente', userDeleted });
-            return res.send({ message: 'Usuario no Encontrado o ya Elimnado' });
+            if (userDeleted) return res.send({ message: 'Su cuenta ha sido eliminada exitosamente.', userDeleted });
+            return res.send({ message: 'Usuario no encontrado o ya esta elimnado.' });
         }
 
-        return res.status(400).send({ message: 'La contraseña es incorrecta' });
+        return res.status(400).send({ message: 'La contraseña es incorrecta.' });
 
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Eliminar la Cuenta' });
+        return res.status(500).send({ err, message: 'Error al eliminar la Cuenta.' });
     }
 }
 
@@ -177,25 +177,25 @@ exports.updateAccount = async (req, res) => {
         const params = req.body;
 
         const permission = await checkPermission(userID, req.user.sub);
-        if (permission === false) return res.status(401).send({ message: 'No posees los permisos para actualizar la Cuenta' });
+        if (permission === false) return res.status(401).send({ message: 'No posees los permisos para actualizar la Cuenta.' });
 
         const userExist = await User.findOne({ _id: userID });
-        if (!userExist) return res.send({ message: 'Usuario no Encontrado' });
+        if (!userExist) return res.send({ message: 'Usuario no Encontrado.' });
 
         const validateUpdate = await checkUpdate(params);
-        if (validateUpdate === false) return res.status(400).send({ message: 'No puedes actualizar con estos datos' });
+        if (validateUpdate === false) return res.status(400).send({ message: 'No puedes actualizar con estos datos.' });
 
         let alreadyUsername = await User.findOne({ username: params.username });
         if (alreadyUsername && userExist.username != params.username)
-            return res.status(400).send({ message: 'El nombre de Usuario ya está en uso' });
+            return res.status(400).send({ message: 'El nombre de Usuario ya está en uso.' });
 
         let alreadyEmail = await User.findOne({ email: params.email });
         if (alreadyEmail && userExist.email != params.email)
-            return res.status(400).send({ message: 'El email ya está en uso' });
+            return res.status(400).send({ message: 'El email ya está en uso.' });
 
         let alreadyDPI = await User.findOne({ DPI: params.DPI });
         if (alreadyDPI && userExist.DPI != params.DPI && params.DPI != null)
-            return res.status(400).send({ message: 'El DPI ya está en uso' });
+            return res.status(400).send({ message: 'El DPI ya está en uso.' });
 
         if (params.NIT == '' || params.NIT == undefined || params.NIT == null) {
             params.NIT = 'C/F'
@@ -211,19 +211,19 @@ exports.updateAccount = async (req, res) => {
             } else if (correctionGender === 'FEMALE') {
                 params.gender = 'FEMALE'
             } else {
-                return res.status(400).send({ message: 'Genero Invalido' })
+                return res.status(400).send({ message: 'Género inválido.' })
             }
         }
 
         const userUpdate = await User.findOneAndUpdate({ _id: userID }, params, { new: true });
         if (userUpdate)
-            return res.send({ message: 'Cuenta Actualizada Exitosamente', userUpdate });
-        return res.send({ message: 'Cuenta no Actualizada' });
+            return res.send({ message: 'Cuenta actualizada exitosamente.', userUpdate });
+        return res.send({ message: 'Cuenta no actualizada.' });
 
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Actualizar la Cuenta.' });
+        return res.status(500).send({ err, message: 'Error al actualizar la Cuenta.' });
     }
 }
 
@@ -240,33 +240,33 @@ exports.getUser = async (req, res) => {
         if (role && role.role === 'PACIENTE') {
             const user = await User.findOne({ _id: idLoggued });
             if (!user)
-                return res.status(400).send({ message: 'Usuario no Encontrado' })
-            return res.send({ message: 'Usuario Encontrado:', user });
+                return res.status(400).send({ message: 'Usuario no encontrado.' })
+            return res.send({ message: 'Usuario encontrado:', user });
         }
         if (roleUser && doctorRole && doctorRole.role === 'DOCTOR') {
             const user = await User.findOne({ _id: userID });
             if (!user)
-                return res.status(400).send({ message: 'Usuario no Encontrado' })
-            return res.send({ message: 'Usuario Encontrado:', user });
+                return res.status(400).send({ message: 'Usuario no encontrado.' })
+            return res.send({ message: 'Usuario encontrado:', user });
         }
         if (doctorRole && doctorRole.role === 'DOCTOR') {
             const user = await Doctor.findOne({ _id: idLoggued });
             if (!user)
-                return res.status(400).send({ message: 'Doctor no Encontrado' })
-            return res.send({ message: 'Doctor Encontrado:', user });
+                return res.status(400).send({ message: 'Doctor no encontrado.' })
+            return res.send({ message: 'Doctor encontrado:', user });
         }
         if (role && role.role === 'ADMIN') {
             const user = await User.findOne({ _id: userID });
             if (!user)
-                return res.status(400).send({ message: 'Usuario no Encontrado' })
-            return res.send({ message: 'Usuario Encontrado:', user });
+                return res.status(400).send({ message: 'Usuario no encontrado.' })
+            return res.send({ message: 'Usuario encontrado:', user });
         } else {
-            return res.status(400).send({ message: 'Usuario no Encontrado' })
+            return res.status(400).send({ message: 'Usuario no encontrado.' })
         }
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener al Usuario.' });
+        return res.status(500).send({ err, message: 'Error al obtener al Usuario.' });
     }
 }
 
@@ -293,13 +293,13 @@ exports.saveUser = async (req, res) => {
         if (msg) return res.status(400).send(msg);
 
         let alreadyUsername = await User.findOne({ username: data.username });
-        if (alreadyUsername) return res.status(400).send({ message: 'El nombre de Usuario ya tiene una cuenta' });
+        if (alreadyUsername) return res.status(400).send({ message: 'El nombre de Paciente ya tiene una cuenta.' });
 
         let alreadyEmail = await User.findOne({ email: data.email });
-        if (alreadyEmail) return res.status(400).send({ message: 'El correo electronico ya tiene una cuenta' });
+        if (alreadyEmail) return res.status(400).send({ message: 'El correo electrónico ya tiene una cuenta.' });
 
         let alreadyDPI = await User.findOne({ DPI: data.DPI });
-        if (alreadyDPI) return res.status(400).send({ message: 'El DPI ya fué registrado' });
+        if (alreadyDPI) return res.status(400).send({ message: 'El DPI ya fué registrado.' });
 
         if (params.NIT == '' || params.NIT == undefined || params.NIT == null) {
             data.NIT = 'C/F'
@@ -314,7 +314,7 @@ exports.saveUser = async (req, res) => {
         } else if (correctionGender === 'FEMALE') {
             data.gender = 'FEMALE'
         } else {
-            return res.status(400).send({ message: 'Genero Invalido' })
+            return res.status(400).send({ message: 'Género inválido.' })
         }
 
         data.surname = params.surname;
@@ -323,11 +323,11 @@ exports.saveUser = async (req, res) => {
         let user = new User(data);
         await user.save();
         let userExist = await User.findOne({ _id: user._id })
-        return res.send({ message: 'Usuario registrado Exitosamente', userExist });
+        return res.send({ message: 'Paciente registrado exitosamente.', userExist });
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Registrar al Usuario' });
+        return res.status(500).send({ err, message: 'Error al registrar al Paciente.' });
     }
 }
 
@@ -341,22 +341,22 @@ exports.updateUser = async (req, res) => {
         if (!userExist) return res.status(400).send({ message: 'Usuario no Encontrado' });
 
         const emptyParams = await checkUpdateAdmin(params);
-        if (emptyParams === false) return res.status(400).send({ message: 'Parametros vacios o no se pueden utilizar' });
+        if (emptyParams === false) return res.status(400).send({ message: 'Parametros vacios o no se pueden utilizar.' });
 
         if (userExist.role === 'ADMIN')
-            return res.send({ message: 'No se puede Actualizar al Administrador.' });
+            return res.send({ message: 'No se puede actualizar al Administrador.' });
 
         let alreadyUsername = await User.findOne({ username: params.username });
         if (alreadyUsername && userExist.username != params.username)
-            return res.status(400).send({ message: 'El nombre de Usuario ya está en uso' });
+            return res.status(400).send({ message: 'El nombre de Usuario ya está en uso.' });
 
         let alreadyEmail = await User.findOne({ email: params.email });
         if (alreadyEmail && userExist.email != params.email)
-            return res.status(400).send({ message: 'El email ya está en uso' });
+            return res.status(400).send({ message: 'El email ya está en uso.' });
 
         let alreadyDPI = await User.findOne({ DPI: params.DPI });
         if (alreadyDPI && userExist.DPI != params.DPI && params.DPI != null)
-            return res.status(400).send({ message: 'El DPI ya está en uso' });
+            return res.status(400).send({ message: 'El DPI ya está en uso.' });
 
         if (params.NIT == '' || params.NIT == undefined || params.NIT == null) {
             params.NIT = 'C/F'
@@ -372,18 +372,18 @@ exports.updateUser = async (req, res) => {
             } else if (correctionGender === 'FEMALE') {
                 params.gender = 'FEMALE'
             } else {
-                return res.status(400).send({ message: 'Genero invalido' })
+                return res.status(400).send({ message: 'Género inválido.' })
             }
         }
 
         const userUpdate = await User.findOneAndUpdate({ _id: userID }, params, { new: true });
         if (userUpdate)
-            return res.send({ message: 'Usuario Actualizado Exitosamente', userUpdate });
-        return res.status(400).send({ message: 'Usuario no Actualizado' });
+            return res.send({ message: 'Usuario actualizado exitosamente.', userUpdate });
+        return res.status(400).send({ message: 'Usuario no actualizado.' });
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Actualizar al Usuario' });
+        return res.status(500).send({ err, message: 'Error al actualizar al Usuario.' });
     }
 }
 
@@ -403,14 +403,14 @@ exports.deleteUser = async (req, res) => {
         if (msg) return res.status(400).send(msg);
 
         const userExist = await User.findOne({ _id: userID });
-        if (!userExist) return res.status(400).send({ message: 'Usuario no Encontrado o ya Eliminado' })
+        if (!userExist) return res.status(400).send({ message: 'Usuario no encontrado o ya esta eliminado.' })
 
         const admin = await User.findOne({ _id: adminId });
 
         if (userExist && await checkPassword(data.password, admin.password)) {
 
             if (userExist.role == 'ADMIN')
-                return res.send({ message: 'No se puede Eliminar al Administrador' });
+                return res.send({ message: 'No se puede eliminar al Administrador.' });
 
             const appointmentsExist = await Appointment.find({ pacient: userID });
 
@@ -424,15 +424,15 @@ exports.deleteUser = async (req, res) => {
             }
 
             const userDeleted = await User.findOneAndDelete({ _id: userID })
-            if (userDeleted) return res.send({ message: 'Usuario Eliminado Exitosamente', userDeleted });
-            return res.send({ message: 'Usuario no Encontrado o ya Eliminado' });
+            if (userDeleted) return res.send({ message: 'Usuario eliminado exitosamente.', userDeleted });
+            return res.send({ message: 'Usuario no encontrado o ya esta Eliminado.' });
         }
-        return res.status(400).send({ message: 'Contraseña Incorrecta' });
+        return res.status(400).send({ message: 'Contraseña incorrecta.' });
 
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Eliminar la Cuenta' });
+        return res.status(500).send({ err, message: 'Error al eliminar la Cuenta.' });
     }
 }
 
@@ -454,7 +454,7 @@ exports.searchUser = async (req, res) => {
         } else return res.status(400).send(msg);
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ message: 'Error buscando usuario', err });
+        return res.status(500).send({ message: 'Error buscando al Usuario', err });
     }
 }
 
@@ -462,11 +462,11 @@ exports.searchUser = async (req, res) => {
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find({ role: 'PACIENTE' });
-        if (!users) return res.status(400).send({ message: 'No existen usuarios' })
-        return res.send({ message: 'Usuarios: ', users });
+        if (!users) return res.status(400).send({ message: 'No existen Pacientes.' })
+        return res.send({ message: 'Pacientes: ', users });
     } catch (err) {
         console.log(err)
-        return res.status(500).send({ message: 'Error obteniendo usuarios', err });
+        return res.status(500).send({ message: 'Error obteniendo Pacientes.', err });
     }
 }
 
@@ -489,7 +489,7 @@ exports.getUsuariosByName = async (req, res)=>{
 exports.getUsuariosAtoZ = async (req, res) => {
     try {
         const UsuariosAtoZ = await User.find({name:{$ne: 'SuperAdmin'}});
-        if (UsuariosAtoZ.length === 0) return res.send({ message: 'Usuarios no encontrados' })
+        if (UsuariosAtoZ.length === 0) return res.send({ message: 'Usuarios no encontrados.' })
         UsuariosAtoZ.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
@@ -502,7 +502,7 @@ exports.getUsuariosAtoZ = async (req, res) => {
         return res.send({ message: 'Usuarios encontrados:', UsuariosAtoZ })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener las Usuarios.' });
+        return res.status(500).send({ err, message: 'Error al obtener las Usuarios.' });
     }
 }
 
@@ -510,7 +510,7 @@ exports.getUsuariosAtoZ = async (req, res) => {
 exports.getUsuariosZtoA = async (req, res) => {
     try {
         const UsuariosZtoA = await User.find({name:{$ne: 'SuperAdmin'}});
-        if (UsuariosZtoA.length === 0) return res.send({ message: 'Usuarios no encontrados' })
+        if (UsuariosZtoA.length === 0) return res.send({ message: 'Usuarios no encontrados.' })
         UsuariosZtoA.sort((a, b) => {
             if (a.name > b.name) {
                 return -1;
@@ -523,7 +523,7 @@ exports.getUsuariosZtoA = async (req, res) => {
         return res.send({ message: 'Usuarios encontrados: ', UsuariosZtoA })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener las Usuarios.' });
+        return res.status(500).send({ err, message: 'Error al obtener las Usuarios.' });
     }
 }
 
@@ -535,11 +535,11 @@ exports.addImageUser=async(req,res)=>
         const userID = req.params.id;
 
         const permission = await checkPermission(userID, req.user.sub);
-        if(permission === false) return res.status(401).send({message: 'No posees los permisos necesarios'});
+        if(permission === false) return res.status(401).send({message: 'No posees los permisos necesarios.'});
         const alreadyImage = await User.findOne({_id: req.user.sub});
         let pathFile = './uploads/users/';
         if(alreadyImage.image) fs.unlinkSync(pathFile+alreadyImage.image);
-        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen'});
+        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen.'});
         
         const filePath = req.files.image.path; 
        
@@ -550,16 +550,16 @@ exports.addImageUser=async(req,res)=>
         const fileExt = extension[1]; 
 
         const validExt = await validExtension(fileExt, filePath);
-        if(validExt === false) return res.status(400).send('Tipo de Archivo no válido');
-        const updateUser = await User.findOneAndUpdate({_id: req.user.sub}, {image: fileName}, {new: true}).lean();        if(!updateUser) return res.status(404).send({message: 'User not found'});
-        if(!updateUser) return res.status(404).send({message: 'Usuario no existente'});
+        if(validExt === false) return res.status(400).send('Tipo de archivo no válido.');
+        const updateUser = await User.findOneAndUpdate({_id: req.user.sub}, {image: fileName}, {new: true}).lean();        if(!updateUser) return res.status(404).send({message: 'Usuario no encontrado.'});
+        if(!updateUser) return res.status(404).send({message: 'Usuario no existente.'});
         delete updateUser.password;
         return res.send(updateUser);
     }
     catch(err)
     {
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Asignarle una imagen al usuario'});
+        return res.status(500).send({err, message: 'Error al asignarle una imagen al Usuario.'});
     }
 }
 
@@ -571,12 +571,12 @@ exports.getImageUser = async(req, res)=>
         const pathFile = './uploads/users/' + fileName;
 
         const image = fs.existsSync(pathFile);
-        if(!image) return res.status(404).send({message: 'Imagen no existente'});
+        if(!image) return res.status(404).send({message: 'Imagen no existente.'});
         return res.sendFile(path.resolve(pathFile));
     }
     catch(err)
     {
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Obtener la Imagen del Usuario'});
+        return res.status(500).send({err, message: 'Error al obtener la imagen del Usuario.'});
     }
 }

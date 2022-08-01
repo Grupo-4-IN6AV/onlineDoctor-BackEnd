@@ -11,7 +11,7 @@ const { validateData, detailsShoppingCart } = require('../utils/validate');
 
 
 exports.testShoppingCart = (req, res) => {
-    return res.send({ message: 'La función Test Shopping Cart esta corriendo.' });
+    return res.send({ message: 'La función -Test Shopping Cart- esta corriendo.' });
 }
 
 
@@ -32,7 +32,7 @@ exports.createShoppingCart = async (req, res) => {
         const shoppingCartExist = await ShoppingCart.findOne({ user: user });
         const productExist = await Medicament.findOne({ _id: params.products }).lean();
         if (!productExist)
-            return res.send({ message: 'Medicament no encontrado.' });
+            return res.send({ message: 'Medicamento no encontrado.' });
 
         if (shoppingCartExist) {
             if (params.quantity > productExist.stock)
@@ -103,11 +103,11 @@ exports.getShoppingCart = async (req, res) => {
 
         const cart = await ShoppingCart.findOne({ user: user }).populate('user')
         if (!cart) {
-            return res.status(404).send({ message: 'No se encontro nada' });
+            return res.status(404).send({ message: 'No se encontro nada.' });
         } else return res.send({ message: 'Este es tu carrito de compras. ', cart });
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener el Shopping Cart.' });
+        return res.status(500).send({ err, message: 'Error al obtener el Shopping Cart.' });
     }
 }

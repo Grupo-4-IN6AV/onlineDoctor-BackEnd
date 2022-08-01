@@ -12,7 +12,7 @@ const path = require('path');
 
 //Función de Testeo//
 exports.medicamentTest = async (req, res) => {
-    return res.send({ message: 'Función de testeo -MEDICAMENT- funciona correctamente' });
+    return res.send({ message: 'Función de testeo -MEDICAMENT- funciona correctamente.' });
 }
 
 
@@ -35,10 +35,10 @@ exports.saveMedicamentADMIN = async (req, res) => {
             let medicamentExist = await Medicament.find({ name: params.name });
             if (medicamentExist.length === 0) {
                 if (data.price < 0)
-                    return res.status(400).send({ message: 'El precio no puede ser inferior a 0' })
+                    return res.status(400).send({ message: 'El precio no puede ser inferior a 0.' })
 
                 if (data.stock < 0)
-                    return res.status(400).send({ message: 'El stock no puede ser inferior a 0' })
+                    return res.status(400).send({ message: 'El stock no puede ser inferior a 0.' })
 
                 if (data.stock > 0)
                     data.availibility = true;
@@ -47,14 +47,14 @@ exports.saveMedicamentADMIN = async (req, res) => {
 
                 let saveMedicament = new Medicament(data);
                 await saveMedicament.save();
-                if (!saveMedicament) return res.status(400).send({ message: 'Medicamento no guardado' });
-                return res.send({ message: 'Medicamento Guardado Exitosamente', saveMedicament });
+                if (!saveMedicament) return res.status(400).send({ message: 'Medicamento no guardado.' });
+                return res.send({ message: 'Medicamento guardado exitosamente.', saveMedicament });
             } else return res.status(400).send({ message: 'Este medicamento ya existe con este nombre.' });
         } else return res.status(400).send(msg);
     }
     catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Guardar un Medicamento.' });
+        return res.status(500).send({ err, message: 'Error al guardar un Medicamento.' });
     }
 }
 
@@ -70,16 +70,16 @@ exports.updateMedicamentADMIN = async (req, res) => {
         if (!msg) {
             const medicamentExist = await Medicament.findOne({ _id: medicamentID });
 
-            if (!medicamentExist) return res.status.send({ message: 'Medicamento no encontrada' });
+            if (!medicamentExist) return res.status.send({ message: 'Medicamento no encontrado.' });
 
             let alreadyName = await Medicament.findOne({ name: params.name });
-            if (alreadyName && medicamentExist.name !== params.name) return res.status(400).send({ message: 'Medicamento ya existe con este nombre' });
+            if (alreadyName && medicamentExist.name !== params.name) return res.status(400).send({ message: 'Medicamento ya existe con este nombre.' });
 
             if (params.price < 0)
-                return res.status(400).send({ message: 'El precio no puede ser inferior a 0' })
+                return res.status(400).send({ message: 'El precio no puede ser inferior a 0.' })
 
             if (params.stock < 0)
-                return res.status(400).send({ message: 'El stock no puede ser inferior a 0' })
+                return res.status(400).send({ message: 'El stock no puede ser inferior a 0.' })
 
             if (params.stock > 0)
                 params.availibility = true;
@@ -88,15 +88,15 @@ exports.updateMedicamentADMIN = async (req, res) => {
 
             const updateMedicament = await Medicament.findOneAndUpdate({ _id: medicamentID }, params, { new: true });
             if (!updateMedicament) {
-                return res.status(400).send({ message: 'Medicament No Actualizado' });
+                return res.status(400).send({ message: 'Medicamento no actualizado.' });
             }
             return res.send({ message: 'Medicamento Actualizado Correctamente', updateMedicament });
 
-        } else return res.status(400).send({ message: 'Parámetros vacíos' })
+        } else return res.status(400).send({ message: 'Parámetros vacíos.' })
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Actualizar un Medicamento.' });
+        return res.status(500).send({ err, message: 'Error al actualizar un Medicamento.' });
     }
 }
 
@@ -109,11 +109,11 @@ exports.deleteMedicamentADMIN = async (req, res) => {
         if (!medicamentExist) return res.status(400).send({ message: 'Medicamento no encontrado o eliminado actualmente.' });
 
         const medicamentDeleted = await Medicament.findOneAndDelete({ _id: medicamentID });
-        return res.send({ message: 'Medicamento Eliminado Exitosamente.', medicamentDeleted });
+        return res.send({ message: 'Medicamento eliminado exitosamente.', medicamentDeleted });
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Eliminar un Medicamento.' });
+        return res.status(500).send({ err, message: 'Error al eliminar un Medicamento.' });
     }
 }
 
@@ -121,11 +121,11 @@ exports.deleteMedicamentADMIN = async (req, res) => {
 exports.getMedicaments = async (req, res) => {
     try {
         const medicaments = await Medicament.find().populate('typeMedicament');
-        if (!medicaments) return res.send({ message: 'Medicamentos no encontrados' })
+        if (!medicaments) return res.send({ message: 'Medicamentos no encontrados.' })
         return res.send({ message: 'Medicamentos encontrados:', medicaments })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Medicamentos.' });
     }
 }
 
@@ -134,7 +134,7 @@ exports.getMedicaments = async (req, res) => {
 exports.getMedicamentsAtoZ = async (req, res) => {
     try {
         const medicamentsAtoZ = await Medicament.find().populate('typeMedicament');
-        if (medicamentsAtoZ.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
+        if (medicamentsAtoZ.length === 0) return res.send({ message: 'Medicamentos no encontrados.' })
         medicamentsAtoZ.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
@@ -147,7 +147,7 @@ exports.getMedicamentsAtoZ = async (req, res) => {
         return res.send({ message: 'Medicamentos encontrados:', medicamentsAtoZ })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Medicamentos.' });
     }
 }
 
@@ -155,7 +155,7 @@ exports.getMedicamentsAtoZ = async (req, res) => {
 exports.getMedicamentsZtoA = async (req, res) => {
     try {
         const medicamentsZtoA = await Medicament.find().populate('typeMedicament');
-        if (medicamentsZtoA.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
+        if (medicamentsZtoA.length === 0) return res.send({ message: 'Medicamentos no encontrados.' })
         medicamentsZtoA.sort((a, b) => {
             if (a.name > b.name) {
                 return -1;
@@ -168,7 +168,7 @@ exports.getMedicamentsZtoA = async (req, res) => {
         return res.send({ message: 'Medicamentos encontrados:', medicamentsZtoA })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Medicamentos.' });
     }
 }
 
@@ -182,11 +182,11 @@ exports.getMedicamentsByTypeMedicament = async (req, res) => {
         const msg = validateData(data)
         if (msg) return res.status(400).send(msg)
         const getMedicamentsByTypeMedicament = await Medicament.find({ typeMedicament: params.typeMedicament }).populate('typeMedicament');
-        if (getMedicamentsByTypeMedicament.length === 0) return res.send({ message: 'Medicamentos no encontrados' })
+        if (getMedicamentsByTypeMedicament.length === 0) return res.send({ message: 'Medicamentos no encontrados.' })
         return res.send({ message: 'Medicamentos encontrados:', getMedicamentsByTypeMedicament })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener los Medicamentos.' });
+        return res.status(500).send({ err, message: 'Error al obtener los Medicamentos.' });
     }
 }
 
@@ -196,11 +196,11 @@ exports.getMedicamentADMIN = async (req, res) => {
     try {
         const medicamentID = req.params.id
         const medicament = await Medicament.findOne({ _id: medicamentID }).populate('typeMedicament');
-        if (!medicament) return res.send({ message: 'Medicamento no encontrado' })
+        if (!medicament) return res.send({ message: 'Medicamento no encontrado.' })
         return res.send({ message: 'Medicamento encontrado:', medicament })
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ err, message: 'Error al Obtener el Medicamento.' });
+        return res.status(500).send({ err, message: 'Error al obtener el Medicamento.' });
     }
 }
 
@@ -213,11 +213,11 @@ exports.getMedicamentsByName = async (req, res)=>{
         }
 
         const medicaments = await Medicament.find({name: {$regex: params.name, $options:'i'}});
-        return res.send({message:'Medicaments Founds', medicaments});
+        return res.send({message:'Medicamentos encontrados.', medicaments});
 
     }catch(err){
         console.log(err);
-        return res.status(500).send({message: 'Erro encontrando medicamento.', err});
+        return res.status(500).send({message: 'Error encontrando Medicamentos.', err});
     }
 }
 
@@ -231,7 +231,7 @@ exports.addImageMedicament = async(req,res)=>
         const alreadyImage = await Medicament.findOne({_id: medicamentID});
         let pathFile = './uploads/medicaments/';
         if(alreadyImage.image) fs.unlinkSync(pathFile+alreadyImage.image);
-        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen'});
+        if(!req.files.image || !req.files.image.type) return res.status(400).send({message: 'No se pudo agregar la imagen.'});
         
         const filePath = req.files.image.path; 
        
@@ -242,15 +242,15 @@ exports.addImageMedicament = async(req,res)=>
         const fileExt = extension[1]; 
 
         const validExt = await validExtension(fileExt, filePath);
-        if(validExt === false) return res.status(400).send('Tipo de Archivo no válido');
+        if(validExt === false) return res.status(400).send('Tipo de archivo no válido.');
         const updateMedicament = await Medicament.findOneAndUpdate({_id: medicamentID}, {image: fileName}, {new: true}).lean();
-        if(!updateMedicament) return res.status(404).send({message: 'Medicamento no existente'})
+        if(!updateMedicament) return res.status(404).send({message: 'Medicamento no existente.'})
         return res.send(updateMedicament);
     }
     catch(err)
     {
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Asignarle una imagen al usuario'});
+        return res.status(500).send({err, message: 'Error al asignarle una imagen al Medicamento.'});
     }
 }
 
@@ -262,12 +262,12 @@ exports.getImageMedicament = async(req, res)=>
         const pathFile = './uploads/medicaments/' + fileName;
 
         const image = fs.existsSync(pathFile);
-        if(!image) return res.status(404).send({message: 'Imagen no existente'});
+        if(!image) return res.status(404).send({message: 'Imagen no existente.'});
         return res.sendFile(path.resolve(pathFile));
     }
     catch(err)
     {
         console.log(err);
-        return res.status(500).send({err, message: 'Error al Obtener la Imagen del Usuario'});
+        return res.status(500).send({err, message: 'Error al obtener la imagen del Medicamento.'});
     }
 }

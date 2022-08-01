@@ -24,8 +24,7 @@
                         <p><b class="cs-primary_color">Receta
                                 No:</b> #{{numberPrescription}}</p>
                         <p class="cs-invoice_date cs-primary_color cs-m0">
-                            <b class="cs-primary_color">Fecha:
-                            </b>{{prescriptionDate}}
+
                         </p>
                     </div>
                     <div>
@@ -65,37 +64,13 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Item</th>
-                                        <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg">Description
-                                        </th>
-                                        <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg">Qty</th>
-                                        <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">Price</th>
-                                        <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right">
-                                            Total</th>
+                                        <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">#</th>
+                                        <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg">Medicamento</th>
+                                        <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg">Tipo de Medicamento</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="cs-width_3">App Development</td>
-                                        <td class="cs-width_4">Mobile & Ios Application Development</td>
-                                        <td class="cs-width_2">2</td>
-                                        <td class="cs-width_1">$460</td>
-                                        <td class="cs-width_2 cs-text_right">$920</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cs-width_3">Ui/UX Design</td>
-                                        <td class="cs-width_4">Mobile & Ios Mobile App Design, Product Design</td>
-                                        <td class="cs-width_2">1</td>
-                                        <td class="cs-width_1">$220</td>
-                                        <td class="cs-width_2 cs-text_right">$220</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cs-width_3">Web Design</td>
-                                        <td class="cs-width_4">Web Design & Development</td>
-                                        <td class="cs-width_2">2</td>
-                                        <td class="cs-width_1">$120</td>
-                                        <td class="cs-width_2 cs-text_right">#240</td>
-                                    </tr>
+                                    {{tableMedicaments}}
                                 </tbody>
                             </table>
                         </div>

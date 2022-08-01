@@ -23,22 +23,30 @@ exports.savePDF = async(prescription,res)=>
         let contenidoHtml = '';
         contenidoHtml = fs.readFileSync(ubicacionPlantilla, 'utf8');
 
-        //Split de la Fecha//
-        let date = prescription.date.toLocaleString().split(' ')
-        let dateDos = date[0].split('/')
-        if(dateDos[1] < 10)
+        var tabla = "";
+
+        console.log(prescription.medicaments.length)
+
+        //Medicamentos de la Receta//
+        for(let medicament of prescription.medicaments)
         {
-            dateDos[1] = '0'+dateDos[1]
+            var setMedicament = medicament.name;
+            var index = prescription.medicaments.indexOf(medicament) 
+
+            tabla += 
+            `<tr>
+                <td>${index}</td>
+                
+                <td>${setMedicament}</td>
+            </tr>`
         }
 
         //numero de Receta//
         let number = await  PreviewPrescription.count()
         let numberPreview = number+1000
-        let setDate = dateDos[0]+'-'+dateDos[1]+'-'+dateDos[2]
 
 
         //DATA DE LA RECETA
-        contenidoHtml = contenidoHtml.replace("{{prescriptionDate}}", `${setDate}`);
         contenidoHtml = contenidoHtml.replace("{{numberPrescription}}", `${numberPreview}`);
 
         // Y también los otros valores
@@ -77,6 +85,8 @@ exports.savePDF = async(prescription,res)=>
         contenidoHtml = contenidoHtml.replace("{{numberCollegiate}}", `${prescription.doctor.collegiateNumber}`);
         contenidoHtml = contenidoHtml.replace("{{emailDoctor}}", `${prescription.doctor.email} ${prescription.doctor.surname}`);
         contenidoHtml = contenidoHtml.replace("{{phoneDoctor}}", `${prescription.doctor.phone} ${prescription.doctor.surname}`);
+
+        contenidoHtml = contenidoHtml.replace("{{tableMedicaments}}", `${tabla}`);
 
         //localhost:3000/Factura{{numberBill}}
     

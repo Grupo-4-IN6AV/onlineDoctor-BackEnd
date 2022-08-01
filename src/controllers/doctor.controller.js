@@ -35,7 +35,6 @@ exports.saveDoctor = async (req, res) => {
             age: params.age,
             gender: params.gender,
             role: 'DOCTOR',
-            speciality: params.speciality,
             collegiateNumber: params.collegiateNumber,
         }
         const msg = validateData(data);
@@ -52,12 +51,11 @@ exports.saveDoctor = async (req, res) => {
 
         const existDoctorCollegiateNumber = await Doctor.findOne({ collegiateNumber: params.collegiateNumber });
         if (existDoctorCollegiateNumber) return res.status(400).send({ message: 'El número de colegiado ya esta registrado.' });
-
+        
         if (params.speciality) {
             const specialityExist = await Speciality.findOne({ _id: params.speciality });
             if (!specialityExist) return res.status(400).send({ message: 'Especialidad no encontrada.' });
         }
-
         const correctionGender = params.gender.toUpperCase();
         if (correctionGender === 'MALE') {
             data.gender = 'MALE'
@@ -66,8 +64,9 @@ exports.saveDoctor = async (req, res) => {
         } else {
             return res.status(400).send({ message: 'Género inválido.' })
         }
-
+        
         data.password = await encrypt(params.password);
+        data.speciality = params.speciality;
 
         let doctor = new Doctor(data);
         await doctor.save();
@@ -175,7 +174,7 @@ exports.searchDoctor = async (req, res) => {
         }
         const msg = validateData(data);
         if (!msg) {
-            const doctores = await Doctor.find({ username: { $regex: params.username, $options: 'i' } });
+            const doctores = await Doctor.find({ username: { $regex: params.username, $options: 'i' } }).populate('speciality');
             return res.send({ message: 'Doctores: ', doctores });
         } else return res.status(400).send(msg);
     } catch (err) {
@@ -187,7 +186,7 @@ exports.searchDoctor = async (req, res) => {
 //Función Obtener Doctores por el ADMIN//
 exports.getDoctors = async (req, res) => {
     try {
-        const doctors = await Doctor.find({ role: 'DOCTOR' });
+        const doctors = await Doctor.find({ role: 'DOCTOR' }).populate('speciality');
         if (!doctors) return res.status(400).send({ message: 'No existen doctores.' })
         return res.send({ message: 'Doctores: ', doctors });
     } catch (err) {
@@ -287,7 +286,7 @@ exports.deleteDoctor = async (req, res) => {
 exports.getDoctor = async (req, res) => {
     try {
         const doctorId = req.params.id;
-        const doctor = await Doctor.findOne({ _id: doctorId });
+        const doctor = await Doctor.findOne({ _id: doctorId }).populate('speciality');
         if (doctor) return res.send({ message: 'Doctor encontrado:', doctor });
         else res.status(400).send({ message: 'Doctor no encontrado.' })
 
@@ -304,7 +303,7 @@ exports.getDoctorByName = async (req, res) => {
         const data = {
             name: params.name
         }
-        const doctors = await Doctor.find({ name: { $regex: params.name, $options: 'i' } });
+        const doctors = await Doctor.find({ name: { $regex: params.name, $options: 'i' } }).populate('speciality');
         return res.send({ message: 'Doctores encontrados: ', doctors });
     } catch (err) {
         console.log(err);
@@ -315,7 +314,7 @@ exports.getDoctorByName = async (req, res) => {
 // Obtener Doctor ordenado de A a Z
 exports.getDoctorAtoZ = async (req, res) => {
     try {
-        const doctorAtoZ = await Doctor.find();
+        const doctorAtoZ = await Doctor.find().populate('speciality');
         if (doctorAtoZ.length === 0) return res.send({ message: 'Doctores no encontrados.' })
         doctorAtoZ.sort((a, b) => {
             if (a.name < b.name) {
@@ -336,7 +335,7 @@ exports.getDoctorAtoZ = async (req, res) => {
 // Obtener doctor ordenado de Z a A
 exports.getDoctorZtoA = async (req, res) => {
     try {
-        const doctorZtoA = await Doctor.find();
+        const doctorZtoA = await Doctor.find().populate('speciality');
         if (doctorZtoA.length === 0) return res.send({ message: 'Doctores no encontrados.' })
         doctorZtoA.sort((a, b) => {
             if (a.name > b.name) {

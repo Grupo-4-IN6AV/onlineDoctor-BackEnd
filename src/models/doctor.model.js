@@ -13,7 +13,7 @@ const doctorSchema = mongoose.Schema({
     gender: String,
     role: String,
     collegiateNumber: String,
-    specialty: { type: mongoose.Schema.ObjectId, ref: 'Speciality' },
+    speciality: { type: mongoose.Schema.ObjectId, ref: 'Speciality' },
     appointment:
         [
             {

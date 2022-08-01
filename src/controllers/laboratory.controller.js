@@ -21,7 +21,6 @@ exports.saveLaboratoryADMIN = async (req, res) => {
         let data = {
             typeLaboratory: params.typeLaboratory,
             date: params.date,
-            specifications: params.specifications,
             pacient: params.pacient,
         }
 
@@ -173,6 +172,29 @@ exports.getLaboratorysPacient = async (req, res) => {
         if (laboratoryExist.length === 0) return res.status(400).send({ message: 'No tiene Laboratorios.' });
 
         return res.send({message:'Laboratorios Encotrados: ', laboratoryExist});
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener los laboratorios.' });
+    }
+}
+
+exports.saveResultLaboratory = async (req, res) => {
+    try {
+        const identity = req.params.id;
+        const params = req.body;
+        const data = {
+            resultado: params.result,
+            diagnosis: params.diagnosis
+        }
+
+        let laboratoryExist = await Laboratory.findOne({_id:identity}).populate('typeLaboratory pacient')
+        if(!laboratoryExist) return res.status(400).send({message: 'No existe el laboratorio'});
+
+        const updateLaboratory = await Laboratory.findOneAndUpdate({_id: identity}, data , {new:true});
+
+        if(!updateLaboratory) return res.status(400).send({message: 'Resultado de Laboratorio No Guardado'});
+        return res.send({message: 'Resultado de Laboratorio Guardado Exitosamente', updateLaboratory})
 
     } catch (err) {
         console.log(err);

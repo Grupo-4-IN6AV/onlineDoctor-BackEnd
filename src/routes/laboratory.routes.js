@@ -24,6 +24,10 @@ api.delete('/deleteLaboratoryDoctor/:id/:idUser', [mdAuth.ensureAuth], laborator
 
 api.get('/getLaboratoriesUser', [mdAuth.ensureAuth], laboratoryController.getLaboratoriesADMIN);
 api.get('/getLaboratoriesPaciente', [mdAuth.ensureAuth], laboratoryController.getLaboratorysPacient);
+
+api.put('/saveResultLaboratories/:id', laboratoryController.saveResultLaboratory);
+
+
 api.get('/getLaboratoryPacient/:id', [mdAuth.ensureAuth], laboratoryController.getLaboratoryADMIN);
 
 

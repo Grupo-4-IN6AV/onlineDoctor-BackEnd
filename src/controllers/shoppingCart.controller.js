@@ -1,6 +1,7 @@
 'use strict';
 
 
+const { findOneAndDelete } = require('../models/medicament.model');
 const Medicament = require('../models/medicament.model');
 const ShoppingCart = require('../models/shoppingCart.model');
 const User = require('../models/user.model');
@@ -26,6 +27,8 @@ exports.createShoppingCart = async (req, res) =>
             quantity: params.quantity,
         }
 
+        console.log(dataPrincipal)
+
         const msg = validateData(dataPrincipal);
         if (msg)
             return res.status(400).send(msg);
@@ -35,10 +38,13 @@ exports.createShoppingCart = async (req, res) =>
         if (!medicamentExist)
             return res.send({message: 'Medicamento no encontrado.'});
 
+        if(dataPrincipal.quantity <= 0)    
+            return res.status(400).send({message:'No se agregó cantidad a comprar'})
+
         if (shoppingCartExist) 
         {
-            if (params.quantity > medicamentExist.stock)
-                return res.send({ message: 'No hay suficiente stock para este medicamento.' });
+            if (dataPrincipal.quantity > medicamentExist.stock)
+                return res.status(400).send({ message: 'No hay suficiente stock para este medicamento.' });
             for (var key = 0; key < shoppingCartExist.medicaments.length; key++) 
             {
                 const idUpdateMedicament = shoppingCartExist.medicaments[key].medicament;
@@ -47,7 +53,9 @@ exports.createShoppingCart = async (req, res) =>
                 const setMedicament = 
                 {
                     medicament: params.medicaments,
+                    name: medicamentExist.name,
                     quantity: params.quantity,
+                    image: medicamentExist.image,
                     price: medicamentExist.price,
                     subTotalMedicament: parseFloat(params.quantity) * parseFloat(medicamentExist.price)
                 }
@@ -72,13 +80,15 @@ exports.createShoppingCart = async (req, res) =>
                         },
                     },
                     { new: true }).lean();
-                return res.send({ message: 'Cantidad del Producto Actualizada', addNewMedicament });
+                return res.send(addNewMedicament);
             }
             const setMedicament = 
             {
                 medicament: params.medicaments,
-                quantity: params.quantity,
+                quantity: dataPrincipal.quantity,
                 price: medicamentExist.price,
+                name: medicamentExist.name,
+                image: medicamentExist.image,
                 subTotalMedicament: parseFloat(params.quantity) * parseFloat(medicamentExist.price)
             }
             const subTotal = shoppingCartExist.medicaments.map(item =>
@@ -94,15 +104,17 @@ exports.createShoppingCart = async (req, res) =>
                     total: total
                 },
                 { new: true });
-            return res.send({ message: 'Medicamento añadido.', newShoppingCart })
+            return res.send(newShoppingCart)
         }
 
-       if (params.quantity > medicamentExist.stock)
+       if (dataPrincipal.quantity > medicamentExist.stock)
             return res.send({ message: 'No hay suficiente stock para este medicamento.' });
 
         const setMedicament = 
         {
             medicament: params.medicaments,
+            name: medicamentExist.name,
+            image: medicamentExist.image,
             quantity: params.quantity,
             price: medicamentExist.price,
             subTotalMedicament: parseFloat(params.quantity) * parseFloat(medicamentExist.price)
@@ -128,7 +140,7 @@ exports.createShoppingCart = async (req, res) =>
 
         const addShoppingCart = new ShoppingCart(data);
         await addShoppingCart.save();
-        return res.send({ message: 'Medicamento añadido.', addShoppingCart });
+        return res.send(addShoppingCart);
     } 
     catch (err) 
     {
@@ -143,6 +155,32 @@ exports.getShoppingCart = async (req, res) => {
         const user = req.user.sub;
         const shoppingCart = await ShoppingCart.findOne({ user: user }).populate('user medicaments.medicament')
         return res.send({ message: 'Este es tu carrito de compras. ', shoppingCart });
+    } 
+    catch (err) 
+    {
+        console.log(err);
+        return res.status(500).send({ err, message: 'Error al obtener el Shopping Cart.' });
+    }
+}
+
+
+exports.payShoppingCart = async (req, res) => {
+    try 
+    {
+        const user = req.user.sub;
+        const shoppingCart = await ShoppingCart.findOne({ user: user }).populate('user medicaments.medicament')
+        const medicaments = shoppingCart.medicaments;
+
+        for(let medicament of medicaments)
+        {
+            const searchMedicament = await Medicament.findOneAndUpdate({_id:medicament._id},
+                {
+                    $inc:{sales: medicament.quantity, stock:-medicament.quantity}
+                })
+        }
+        const deleteShoppingCart = await ShoppingCart.findOneAndDelete({user:user});
+
+        return res.send({ message: 'Su compra se proceso exitosamente'});
     } 
     catch (err) 
     {

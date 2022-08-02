@@ -20,6 +20,6 @@ api.get('/testShoppingCart', shoppingCartController.testShoppingCart);
 //Usuarios//
 api.post('/createShoppingCart', mdAuth.ensureAuth, shoppingCartController.createShoppingCart);
 api.get('/getShoppingCart', mdAuth.ensureAuth, shoppingCartController.getShoppingCart);
-
+api.get('/payShoppingCart', mdAuth.ensureAuth, shoppingCartController.payShoppingCart);
 
 module.exports = api;

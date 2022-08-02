@@ -27,7 +27,7 @@ exports.savePrescriptoionADMIN = async (req, res) => {
             pacient: params.pacient,
             doctor: params.doctor
         }
-        
+
         const msg = validateData(data);
         if (msg) return res.status(400).send(msg);
 
@@ -319,7 +319,6 @@ exports.getPrescriptionPDF = async (req, res) => {
         const prescriptionID = req.params.id;
         const prescription = await PreviewPrescription.findOne({ _id: prescriptionID }).populate('doctor pacient medicaments laboratorys');
         const pdf = await savePDF(prescription);
-        return res.send({message:'exito'})
     } 
     catch (err) 
     {
@@ -343,7 +342,6 @@ exports.getPrescriptionsDOCTOR = async (req, res) => {
 exports.getPrescriptionsUSER = async (req, res) => {
     try {
         const prescriptions = await PreviewPrescription.find({pacient: req.user.sub}).populate('doctor pacient medicaments laboratorys');
-        if (prescriptions.length === 0) return res.status(400).send({ message: 'Recetas no encontradas' });
         return res.send({ message: 'Recetas encontradas: ', prescriptions });
     } catch (err) {
         console.log(err);

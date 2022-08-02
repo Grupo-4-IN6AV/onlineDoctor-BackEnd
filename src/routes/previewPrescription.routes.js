@@ -4,6 +4,7 @@ const express = require('express');
 const previewPrescriptionController = require('../controllers/previewPrescription.controller');
 const api = express.Router();
 const mdAuth = require('../middlewares/authenticated');
+const pdfController = require('../controllers/prescriptionControllerPDF');
 
 //Rutas Públicas//
 api.get('/test',previewPrescriptionController.previewPrescriptionTest);
@@ -23,6 +24,6 @@ api.get('/getPreviewPrescriptionsUser', [mdAuth.ensureAuth], previewPrescription
 api.get('/getPreviewPrescription/:id', [mdAuth.ensureAuth], previewPrescriptionController.getPrescription);
 api.get('/getMedicamentsOutPrescription/:idPrescription', previewPrescriptionController.getMedicamentsOutPrescription);
 api.get('/getLaboratorysOutPrescription/:idPrescription', previewPrescriptionController.getLaboratorysOutPrescription);
-api.get('/createPrescriptionPDF/:id', previewPrescriptionController.getPrescriptionPDF);
+api.get('/createPrescriptionPDF/:id', pdfController.savePDF);
 
 module.exports = api;

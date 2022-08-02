@@ -13,6 +13,8 @@ const shoppingCartSchema = mongoose.Schema(
                 { 
                     type: mongoose.Schema.ObjectId, ref: 'Medicament' 
                 },
+                image:String,
+                name: String,
                 quantity: Number,
                 price: Number,
                 subTotalMedicament: Number
